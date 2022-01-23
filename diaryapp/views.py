@@ -10,3 +10,12 @@ def main(request):
         'diaryapp/index.html',
         {"my_id" : my_id}
     )
+
+def test(request):
+    my_id = User.objects.all()
+    print(my_id)
+    return render(
+        request,
+        'diaryapp/ratataca.html',
+        {"my_id" : my_id}
+    )

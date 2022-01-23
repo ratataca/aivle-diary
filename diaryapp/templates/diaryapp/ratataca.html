@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <!-- Axion CDN 추가 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    
+
     <h1> - api 테스트를 위한 페이지 </h1>
     <p>
 
@@ -24,6 +25,43 @@
             </tr>
         </tbody>
     </table>
+
+    <button id="news">뉴스 데이터 조회</button>
+    <script>
+        const button = document.querySelector('#news')
+        button.addEventListener('click', function(event){
+            //API로 요청을 보냄
+            axios.get('/api/news/read')
+            
+            .then(function(response){
+                //handle sucess
+                console.log(response);
+            })
+            .catch(function(error){
+                //handle error
+                console.log(error);
+            })
+        })
+    </script>
+
+    
+    <button id="recuit">채용 데이터 조회</button>
+    <script>
+        const button = document.querySelector('#recuit')
+        button.addEventListener('click', function(event){
+            //API로 요청을 보냄
+            axios.get('/api/recruit/read')
+            
+            .then(function(response){
+                //handle sucess
+                console.log(response);
+            })
+            .catch(function(error){
+                //handle error
+                console.log(error);
+            })
+        })
+    </script>
 
 </body>
 </html>
