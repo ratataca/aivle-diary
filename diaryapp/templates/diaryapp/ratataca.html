@@ -25,20 +25,25 @@
             </tr>
         </tbody>
     </table>
+    
+    <form>
+
+    </<form>
+
 
     <button id="news">뉴스 데이터 조회</button>
     <script>
         const button = document.querySelector('#news')
         button.addEventListener('click', function(event){
-            //API로 요청을 보냄
-            axios.get('/api/news/read')
+            {% comment %} //API로 요청을 보냄 {% endcomment %}
+            axios.get('http://127.0.0.1:8000/diaryapp/api/news/readAll')
+            
             
             .then(function(response){
-                //handle sucess
-                console.log(response);
+                console.log(response.data)``
             })
             .catch(function(error){
-                //handle error
+                {% comment %} //handle error {% endcomment %}
                 console.log(error);
             })
         })
@@ -50,7 +55,7 @@
         const button = document.querySelector('#recuit')
         button.addEventListener('click', function(event){
             //API로 요청을 보냄
-            axios.get('/api/recruit/read')
+            axios.get('/api/recruit/readAll')
             
             .then(function(response){
                 //handle sucess
