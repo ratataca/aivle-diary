@@ -1,5 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import User
 
 def main(request):
-    return HttpResponse('<u>Hello</u>')
+    my_id = User.objects.all()
+    print(my_id)
+    return render(
+        request,
+        'diaryapp/index.html',
+        {"my_id" : my_id}
+    )
