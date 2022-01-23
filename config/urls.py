@@ -20,5 +20,4 @@ from diaryapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('diaryapp/', include('diaryapp.urls')),
-
 ]
