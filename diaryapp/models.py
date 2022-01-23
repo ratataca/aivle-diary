@@ -7,16 +7,15 @@ class User(models.Model):
     user_pw = models.CharField(max_length=20)
     user_name = models.CharField(max_length=10)
 
-
 class News(models.Model):
     pass
 
-class recruit(models.Model):
+class Recruit(models.Model):
     pass
 
-class professor(models.Model):
+class Professor(models.Model):
     pass
 
-class lecture(models.Model):
+class Lecture(models.Model):
     pass
 
