@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en" class="h-100">
 
@@ -7,12 +8,12 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Cover Template · Bootstrap v5.1</title>
+    <title></title>
 
-    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- main css -->
 
     <style>
@@ -55,7 +56,7 @@
         <main class="px-3e">
             <h1 class="h3 mb-3 fw-normal">Please Login</h1>
             <!-- 로그인 폼 -->
-            <form action="index.html" method="post">
+            <form action="/diaryapp/main" method="get">
                 <div class="mx-auto" style="width: 350px;">
                     <div class="form-floating mb-5">
                         <!-- 요기 아이디 -->
@@ -81,14 +82,13 @@
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <!-- 회원가입 폼 모달-->
-                        <form action="index.html" method="post">
+                        <form action="/diaryapp/main" method="get">
                             <div>
                                 <div class="modal-content rounded-5 shadow">
                                     <div class="modal-header p-5 pb-4 border-bottom-0">
                                         <!-- <h5 class="modal-title">Modal title</h5> -->
                                         <h2 class="fw-bold mb-0 text-dark">에이블러 가입하기</h2>
-                                        <button type="button" class="btn-close" id="btn-close"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body p-5 pt-0">
                                         <form class="">
