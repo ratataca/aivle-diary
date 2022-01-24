@@ -10,7 +10,7 @@ def login(request):
 # html 경로 코드
 def main(request):
     my_id = User.objects.all()
-    print(my_id)
+    #print(my_id)
     return render(
         request,
         'diaryapp/index.html',
@@ -36,7 +36,7 @@ def hire(request):
 
 def test(request):
     my_id = User.objects.all()
-    print(my_id)
+    #print(my_id)
 
     return render(
         request,
