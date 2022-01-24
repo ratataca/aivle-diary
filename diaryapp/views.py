@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import User
+from .models import News, User
 
 
 def login(request):
@@ -27,7 +27,8 @@ def lecture(request):
 
 
 def news(request):
-    return render(request, 'diaryapp/news.html')
+    new = News.objects.all()
+    return render(request, 'diaryapp/news.html', {'date' : new})
 
 
 def hire(request):
