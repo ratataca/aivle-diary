@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+<<<<<<< HEAD
 from .models import User
 from django.utils import timezone
+=======
+from .models import News, Recruit, User,Lecture
+
+>>>>>>> origin/server2
 
 
 def login(request):
@@ -98,3 +103,33 @@ def read_all_recruit(request):
 #     else:
 #         return render(request, 'member/login_custom.html')
 
+# 1. lecture 관련
+
+#패키지 설치: djangorestframework, django-filter
+from rest_framework.views import APIView
+from .serializers import LectureSerializer,NewsSerializer,RecruitSerializer
+
+
+class read_all_lecture(APIView):
+    def get(self, request):
+        queryset = Lecture.objects.all()
+        print(queryset)
+        serializer = LectureSerializer(queryset, many=True)
+        return JsonResponse(serializer.data,safe=False)
+
+# 2. news관련 
+
+# class read_all_news(APIView):
+#     def get(self, request):
+#         queryset = News.objects.all()
+#         print(queryset)
+#         serializer = NewsSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data,safe=False)
+
+# # 3. recruit 관련
+# class read_all_recruit(APIView):
+#     def get(self, request):
+#         queryset = Recruit.objects.all()
+#         print(queryset)
+#         serializer = RecruitSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data,safe=False)
