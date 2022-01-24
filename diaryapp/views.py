@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import User
@@ -51,13 +53,16 @@ def hire(request):
 
 
 # 2. 2. 회원가입
+
 def signup_user(request):
     if request.method == 'POST':
         print("Hello")
-        user_id = request.POST.get('user_id')
-        user_pw = request.POST.get('user_pw')
-        user_name = request.POST.get('user_name')
+        req = json.loads(request.body.decode('utf-8'))
+        user_id = req["user_id"]#request.POST.get('user_id')
+        user_pw = req["user_id"]#request.POST.get('user_pw')
+        user_name = req["user_name"]#request.POST.get('user_name')
         
+        print(user_id, user_pw, user_name)
         # print("=================" * 3)
         # print(">> ", user_id, user_pw, user_name)
 
@@ -70,14 +75,16 @@ def signup_user(request):
             )
             m.date = timezone.now()
             m.save()
-        except :
+        except Exception as e:
+            print("Error : ", e)
             pass
     
         data = {
                 "isLogined": True,
                 "user_name" : user_name
                 }
-        return render(request, 'diaryapp/login.html', data)
+        # return render(request, 'diaryapp/login.html', data)
+        return JsonResponse(data=data)
     else:
         return render(request, 'diaryapp/login.html')
 

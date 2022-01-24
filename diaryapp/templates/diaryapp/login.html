@@ -95,6 +95,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        axios.defaults.xsrfCookieName = 'csrftoken';
+        axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+    </script>
 
 </head>
 
@@ -135,7 +140,7 @@
 
             <!-- 회원가입 모달-->
             <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="register-model">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <!-- 회원가입 폼 모달-->
@@ -161,26 +166,47 @@
                                         <div class="register-input-div"}>
                                             <!-- 요기 회원가입 아이디-->
                                             <label for="inputName" class="label-text">아이디</label>
-                                            <input type="text" id="inputName" name = user_name >
+                                            <input type="text" id="inputName" name = user_id >
                                         </div>
     
                                         <div class="register-input-div"}>
                                             <!-- 요기 회원가입 비밀번호-->
                                             <label for="inputName" class="label-text">비밀번호</label>
-                                            <input type="text" id="inputName" name = user_name >
+                                            <input type="text" id="inputName" name = user_pw >
                                         </div>
     
                                         <div class="btn-div">
-                                            <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">가입완료</button>
-                                        </div>
-                                            
+                                            <button id="register-submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="test();">가입완료</button>
                                             <script>
-                                                var isReigstered = {{ isLogined|yesno:"true,false" }};
-                                                
-                                                if(isReigstered === true){
-                                                    alert("회원가입이 완료되었습니다!");
+                                                function test(){
+                                                    const user_name = document.getElementsByName("user_name")[0].value;
+                                                    const user_id = document.getElementsByName("user_id")[0].value;
+                                                    const user_pw = document.getElementsByName("user_pw")[0].value;
+                                                    
+                                                    console.log(user_name, user_id, user_pw);
+                                                    const data = axios.post('/diaryapp/api/user/signup', {
+                                                        'user_id': user_id, 
+                                                        'user_pw': user_pw,
+                                                        'user_name': user_name
+                                                    }).then(function (result) {
+                                                        const data = result.data;
+                                                        console.log(data);
+                                                        if(data.isLogined){
+                                                            {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
+                                                            $('#register-model').modal('hide');
+                                                            
+                                                            document.getElementById("login_id").value = user_id;
+                                                            document.getElementById("login_pwd").value = user_pw;
+                                                        }
+                                                        else{
+                                                            alert("Failed to register user");
+                                                        }
+                                                    });
                                                 }
                                             </script>
+                                        </div>
+                                            
+                                        
                                     </div>
 
 
