@@ -1,8 +1,6 @@
 from django.urls import path
 from . import views
-from .views import read_all_lecture,read_all_news,read_all_recruit
 
-app_name = 'diaryapp'
 
 app_name = 'diaryapp'
 
