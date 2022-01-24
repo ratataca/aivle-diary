@@ -9,8 +9,6 @@ from .models import News, User
 def login(request):
     return render(request, 'diaryapp/login.html')
 
-
-# html 경로 코드
 def main(request):
     my_id = User.objects.all()
     
@@ -27,11 +25,6 @@ def dairy(request):
 
 def lecture(request):
     return render(request, 'diaryapp/lecture.html')
-
-
-def news(request):
-    new = News.objects.all()
-    return render(request, 'diaryapp/news.html', {'date' : new})
 
 
 def hire(request):
