@@ -107,7 +107,7 @@ def read_all_recruit(request):
 
 #패키지 설치: djangorestframework, django-filter
 from rest_framework.views import APIView
-from .serializers import LectureSerializer,NewsSerializer,RecruitSerializer
+from .serializers import LectureSerializer, NewsSerializer, RecruitSerializer
 
 
 class read_all_lecture(APIView):
