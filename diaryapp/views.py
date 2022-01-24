@@ -10,13 +10,13 @@ from .models import News, User
 ###########
 # 1. HTML 파일 경로 지정 및 초기 세팅
 def login(request):
-    return render(request, 'diaryapp/login.html')
+    return render(request, 'diaryapp/login.html', {"isLogined": False})
 
 def main(request):
     my_id = User.objects.all()
 
     # 메인 페이지 초기 데이터 보내기..
-    
+
     return render(
         request,
         'diaryapp/index.html',
@@ -47,16 +47,45 @@ def hire(request):
 # 2. 이벤트 
 
 # 2. 1. 로그인
-# path('api/user/login', views.login_user, name='login_user'),
+
 
 
 # 2. 2. 회원가입
-# path('api/user/signup', views.signup_user, name='signup_user'),
+def signup_user(request):
+    if request.method == 'POST':
+        print("Hello")
+        user_id = request.POST.get('user_id')
+        user_pw = request.POST.get('user_pw')
+        user_name = request.POST.get('user_name')
+        
+        # print("=================" * 3)
+        # print(">> ", user_id, user_pw, user_name)
+
+        # 기존 사용자 동일한 id 있는지?
+        try:
+            m = User(
+                user_id = user_id,
+                user_pw = user_pw, 
+                user_name = user_name
+            )
+            m.date = timezone.now()
+            m.save()
+        except :
+            pass
+    
+        data = {
+                "isLogined": True,
+                "user_name" : user_name
+                }
+        return render(request, 'diaryapp/login.html', data)
+    else:
+        return render(request, 'diaryapp/login.html')
+
 
 # 2. 3. 로그아웃
 
 # 2. 4. 뉴스 
-# 2. 4. 1. 뉴스 모든 데이터 조회
+#    1) 뉴스 모든 데이터 조회
 def read_all_news(request):
     news_data = News.objects.all()
     return render(request, 'diaryapp/news.html', {'date' : news_data})

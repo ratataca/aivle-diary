@@ -24,14 +24,13 @@ urlpatterns = [
     ###########
     # 2. 이벤트 
 
-    
 
     # 2. 1. 로그인
     # path('api/user/login', views.login_user, name='login_user'),
     
 
     # 2. 2. 회원가입
-    # path('api/user/signup', views.signup_user, name='signup_user'),
+    path('api/user/signup', views.signup_user, name='signup_user'),
 
     # 2. 3. 로그아웃
 

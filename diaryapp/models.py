@@ -4,6 +4,7 @@ class User(models.Model):
     user_id = models.CharField(primary_key=True, max_length=50)
     user_pw = models.CharField(max_length=20)
     user_name = models.CharField(max_length=10)
+    date = models.DateTimeField()
 
     class Meta:
         managed = False
