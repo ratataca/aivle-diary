@@ -119,17 +119,17 @@ class read_all_lecture(APIView):
 
 # 2. news관련 
 
-# class read_all_news(APIView):
-#     def get(self, request):
-#         queryset = News.objects.all()
-#         print(queryset)
-#         serializer = NewsSerializer(queryset, many=True)
-#         return JsonResponse(serializer.data,safe=False)
+class read_all_news(APIView):
+    def get(self, request):
+        queryset = News.objects.all()
+        print(queryset)
+        serializer = NewsSerializer(queryset, many=True)
+        return JsonResponse(serializer.data,safe=False)
 
-# # 3. recruit 관련
-# class read_all_recruit(APIView):
-#     def get(self, request):
-#         queryset = Recruit.objects.all()
-#         print(queryset)
-#         serializer = RecruitSerializer(queryset, many=True)
-#         return JsonResponse(serializer.data,safe=False)
+# 3. recruit 관련
+class read_all_recruit(APIView):
+    def get(self, request):
+        queryset = Recruit.objects.all()
+        print(queryset)
+        serializer = RecruitSerializer(queryset, many=True)
+        return JsonResponse(serializer.data,safe=False)
