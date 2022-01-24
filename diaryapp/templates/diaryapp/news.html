@@ -17,32 +17,27 @@
 							<table class="table">
 								<thead class="thead-light">
 									<tr>
-										<th scope="col">#</th>
-										<th scope="col">First</th>
-										<th scope="col">Last</th>
-										<th scope="col">Handle</th>
+										<th scope="col">index</th>
+										<th scope="col">data</th>
+										<th scope="col">title</th>
+										<th scope="col">content</th>
+										<th scope="col">company</th>
+										<th scope="col">link</th>
 									</tr>
 								</thead>
+								{% for i in date %}
 								<tbody>
 									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
+										<td>{{i.index}}</td>
+										<td>{{i.data}}</td>
+										<td>{{i.title}}</td>
+										<td>{{i.content}}</td>
+										<td>{{i.company}}</td>
+										<td>{{i.link}}</td>
 									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
+									
 								</tbody>
+								{% endfor%}
 							</table>
 						</div>
 					</div>
