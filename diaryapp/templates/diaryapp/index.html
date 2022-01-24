@@ -1,31 +1,21 @@
 {% extends 'diaryapp/layout.html' %}
 {% block content %}
 <!--================Home Gallery Area =================-->
-<section class="home_gallery_area" style="padding-top: 180px;">
-	<div class="container-md row">
-		<div class="main_title">
-			<!-- 이름 넣는 태그 -->
-			<h2 id="name" class="">{{ my_id.user_id }} 에이블러님</h2>
-		</div>
-			<a href="/diaryapp/login" class="container col-1 btn btn-secondary float-right text-light"
-			style="min-width:min-content; height:min-content" >logout</a>
-			
 
-	</div>
+<section class="feature_area blog_right_sidebar" style="padding-bottom: 100px;">
 	<div class="container">
-		<div class="gallery_f_inner row imageGallery1 ">
+		<div class="gallery_f_inner row imageGallery1 ">		
+			<!--- 강의 start -->
 			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul design print">
 				<div class="h_gallery_item">
 					<div class="g_item_text">
-						<h4>오늘의 강의</h4>
+						<h4 aria-placeholder="강의를 넣어주세요!">어제의 강의</h4>
 					</div>
 					<div class="">
 						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
 							<!-- 강의 제목 넣는 태그-->
-							<h2 id="lecture_title" class="text-center">django 강의</h2>
-							<p id="lecture_content">Swap the background-color utility and add a `.text-*` color
-								utility to mix up the jumbotron look. Then, mix and match with additional component
-								themes and more.</p>
+							<h2 id="lecture_title" class="text-center" >{ 강의를 넣어주세요! }</h2>
+							<p id="lecture_content">{ 강의 내용을 넣어주세요! }</p>
 
 							<a href="/diaryapp/lecture" class="btn btn-outline-light text-light">더보기</a>
 
@@ -37,15 +27,13 @@
 			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul creative">
 				<div class="h_gallery_item">
 					<div class="g_item_text">
-						<h4>오늘의 IT 뉴스</h4>
+						<h4>오늘의 강의</h4>
 					</div>
 					<div class="">
 						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
 							<!-- 뉴스 제목 넣는 태그-->
-							<h2 id="news_title" class="text-center">오늘의 뉘우스</h2>
-							<p id="news_content">Swap the background-color utility and add a `.text-*` color utility
-								to mix up the jumbotron look. Then, mix and match with additional component themes
-								and more.</p>
+							<h2 id="news_title" class="text-center">{ 강의를 넣어주세요! }</h2>
+							<p id="news_content">{ 강의 내용을 넣어주세요! }</p>
 
 							<a href="/diaryapp/news" class="btn btn-outline-light text-light">더보기</a>
 
@@ -57,15 +45,13 @@
 			<div class="col-lg-4 col-md-4 col-sm-6 manipul creative design print">
 				<div class="h_gallery_item">
 					<div class="g_item_text">
-						<h4>진행중인 채용</h4>
+						<h4>내일의 강의</h4>
 					</div>
 					<div class="">
 						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
 							<!-- 채용 제목 넣는 태그-->
-							<h2 id="hire_title" class="text-center">지원하면 채용</h2>
-							<p id="hire_content">Swap the background-color utility and add a `.text-*` color utility
-								to mix up the jumbotron look. Then, mix and match with additional component themes
-								and more.</p>
+							<h2 id="hire_title" class="text-center">{ 내일의 강의를 넣어주세요!}</h2>
+							<p id="hire_content">{ 강의 내용을 넣어주세요! }</p>
 
 							<a href="/diaryapp/hire" class="btn btn-outline-light text-light">더보기</a>
 
@@ -73,6 +59,138 @@
 					</div>
 				</div>
 			</div>
+			<!--- 강의 end -->
 		</div>
+	</div>	
 </section>
+
+<section class="feature_area blog_right_sidebar " style="background-color: #d3fdfd; padding-bottom: 100px;">
+	<div class="container">
+		<div class="gallery_f_inner row imageGallery1 ">		
+			<!-- 뉴스 start -->
+			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul design print">
+				<div class="h_gallery_item">
+					<div class="g_item_text">
+						<h4>오늘의 뉴스 TOP1</h4>
+					</div>
+					<div class="">
+						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
+							<!-- 강의 제목 넣는 태그-->
+							<h2 id="lecture_title" class="text-center">{ 뉴스1을 넣어주세요! }</h2>
+							<p id="lecture_content">{ 뉴스 내용을 넣어주세요! }</p>
+
+							<a href="/diaryapp/lecture" class="btn btn-outline-light text-light">더보기</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul creative">
+				<div class="h_gallery_item">
+					<div class="g_item_text">
+						<h4>오늘의 뉴스 TOP2</h4>
+					</div>
+					<div class="">
+						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
+							<!-- 뉴스 제목 넣는 태그-->
+							<h2 id="news_title" class="text-center">{ 뉴스 2를 넣어주세요! }</h2>
+							<p id="news_content">{ 뉴스 내용을 넣어주세요! }</p>
+
+							<a href="/diaryapp/news" class="btn btn-outline-light text-light">더보기</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6 manipul creative design print">
+				<div class="h_gallery_item">
+					<div class="g_item_text">
+						<h4>오늘의 뉴스 TOP3</h4>
+					</div>
+					<div class="">
+						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
+							<!-- 채용 제목 넣는 태그-->
+							<h2 id="hire_title" class="text-center">{ 뉴스3을 넣어주세요! }</h2>
+							<p id="hire_content">{ 뉴스 내용을 넣어주세요! }</p>
+
+							<a href="/diaryapp/hire" class="btn btn-outline-light text-light">더보기</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 뉴스 end -->
+		</div>
+	</div>	
+</section>
+
+<br class="my-2"/>
+
+
+
+<section class="feature_area blog_right_sidebar" style="padding-bottom: 100px;">
+	<div class="container">
+		<div class="gallery_f_inner row imageGallery1 ">		
+			<!-- 채용 start -->
+			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul design print">
+				<div class="h_gallery_item">
+					<div class="g_item_text">
+						<h4>오늘의 채용 HOT1</h4>
+					</div>
+					<div class="">
+						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
+							<!-- 강의 제목 넣는 태그-->
+							<h2 id="lecture_title" class="text-center">{ 채용1을 넣어주세요! }</h2>
+							<p id="lecture_content">{ 채용 내용을 넣어주세요! }</p>
+
+							<a href="/diaryapp/lecture" class="btn btn-outline-light text-light">더보기</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul creative">
+				<div class="h_gallery_item">
+					<div class="g_item_text">
+						<h4>오늘의 채용 HOT2</h4>
+					</div>
+					<div class="">
+						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
+							<!-- 뉴스 제목 넣는 태그-->
+							<h2 id="news_title" class="text-center">{ 채용2를 넣어주세요! }</h2>
+							<p id="news_content">{ 채용 내용을 넣어주세요! }</p>
+
+							<a href="/diaryapp/news" class="btn btn-outline-light text-light">더보기</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6 manipul creative design print">
+				<div class="h_gallery_item">
+					<div class="g_item_text">
+						<h4>오늘의 채용 HOT3</h4>
+					</div>
+					<div class="">
+						<div class="h-100 p-5 text-white bg-dark" style="border-radius: 20px;">
+							<!-- 채용 제목 넣는 태그-->
+							<h2 id="hire_title" class="text-center">{ 채용3을 넣어주세요! }</h2>
+							<p id="hire_content">{ 채용 내용을 넣어주세요! }</p>
+
+							<a href="/diaryapp/hire" class="btn btn-outline-light text-light">더보기</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 채용 end -->
+		</div>
+	</div>	
+</section>
+
+
 {% endblock %}
