@@ -24,6 +24,8 @@ urlpatterns = [
     ###########
     # 2. 이벤트 
 
+    
+
     # 2. 1. 로그인
     # path('api/user/login', views.login_user, name='login_user'),
     
@@ -33,20 +35,19 @@ urlpatterns = [
 
     # 2. 3. 로그아웃
 
-    # 2. 4. 뉴스 
+
+    # 2. 4. 메인페이지
+
+    # 2. 5. 뉴스 
     path('api/news/readAll', views.read_all_news, name='news_read_all'),
 
-    # 2. 5. 채용정보 
+    # 2. 6. 채용정보 
     path('api/recruit/readAll', views.read_all_recruit, name='recruit_read_all'),
 
-    # 2. 6. 강의
+    # 2. 7. 강의
     path('api/lecture/readAll', views.read_all_lecture, name='lecture_read_all'),
 
-    # 2. 7. TIL관련
+    # 2. 8. TIL관련
 
-    # # 회원가입 등록 요청
-    
-
-    # # 로그인 확인 요청
     
 ]

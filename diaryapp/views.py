@@ -8,12 +8,14 @@ from .models import News, User
 ###########
 # Front   #
 ###########
-# 1. HTML 파일 경로 지정
+# 1. HTML 파일 경로 지정 및 초기 세팅
 def login(request):
     return render(request, 'diaryapp/login.html')
 
 def main(request):
     my_id = User.objects.all()
+
+    # 메인 페이지 초기 데이터 보내기..
     
     return render(
         request,
@@ -29,20 +31,13 @@ def dairy(request):
 def lecture(request):
     return render(request, 'diaryapp/lecture.html')
 
+def news(request):
+    news_data = News.objects.all()
+    return render(request, 'diaryapp/news.html', {'date' : news_data})
+
 
 def hire(request):
     return render(request, 'diaryapp/hire.html')
-
-
-def test(request):
-    my_id = User.objects.all()
-    print(my_id)
-
-    return render(
-        request,
-        'diaryapp/ratataca.html',
-        {"my_id" : my_id}
-    )
 
 
 ###########
@@ -61,32 +56,16 @@ def test(request):
 # 2. 3. 로그아웃
 
 # 2. 4. 뉴스 
-def news(request):
-    new = News.objects.all()
-    return render(request, 'diaryapp/news.html', {'date' : new})
+# 2. 4. 1. 뉴스 모든 데이터 조회
+def read_all_news(request):
+    news_data = News.objects.all()
+    return render(request, 'diaryapp/news.html', {'date' : news_data})
 
 # 2. 5. 채용정보 
 
 # 2. 6. 강의
 
 # 2. 7. TIL관련
-
-# # 회원가입 등록 요청
-
-
-# # 로그인 확인 요청
-
-
-
-def read_all_news(request):
-    data =  {   'index' : 1,
-                'data' : '2022-01-23',
-                'title' : '오늘의 IT 뉴스', 
-                'content' : '안녕하세요 오늘 급하게 전달해야할...', 
-                'link' : "naver.com"
-            }
-
-    return JsonResponse(data)
 
 
 # 2. recruit 관련
@@ -98,3 +77,7 @@ def read_all_recruit(request):
 def read_all_lecture(request):
     data = {}
     return JsonResponse(data)
+
+
+def test(request):
+    pass
