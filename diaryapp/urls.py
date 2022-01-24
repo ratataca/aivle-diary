@@ -1,23 +1,52 @@
 from django.urls import path
 from . import views
 
+
+app_name = 'diaryapp'
+
 urlpatterns = [
-    # client -> server
-    # 1. html 파일줘
-    path('main/', views.main),
+    ## only debugs
+    path('main/test', views.test, name='test'),
 
-    # ratataca.html로 가는 경로
-    path('login/', views.login),
-    path('main/', views.main),
-    path('diary/', views.dairy),
-    path('lecture/', views.lecture),
-    path('news/', views.news),
-    path('hire/', views.hire),
+    ###########
+    # Front   #
+    ###########
+    # 1. HTML 파일 경로 지정
+    path('login/', views.login, name='login'),
+    path('main/', views.main, name='main'),
+    path('diary/', views.dairy, name='diary'),
+    path('lecture/', views.lecture, name='lecture'),
+    path('news/', views.news, name='news'),
+    path('hire/', views.hire, name='recruit'),
     
-    path('main/test', views.test),
+    ###########
+    # Back   #
+    ###########
+    # 2. 이벤트 
 
-    # 2. 이벤트 -> 디비 줘봐( 조회 )
-    #    이벤트 -> 업데이트(수정), 삭제, 입력(create)
-    path('api/news/readAll', views.read_all_news),
-    path('api/recruit/readAll', views.read_all_recruit),
+
+    # 2. 1. 로그인
+    # path('api/user/login', views.login_user, name='login_user'),
+    
+
+    # 2. 2. 회원가입
+    path('api/user/signup', views.signup_user, name='signup_user'),
+
+    # 2. 3. 로그아웃
+
+
+    # 2. 4. 메인페이지
+
+    # 2. 5. 뉴스 
+    path('api/news/readAll', views.read_all_news, name='news_read_all'),
+
+    # 2. 6. 채용정보 
+    path('api/recruit/readAll', views.read_all_recruit, name='recruit_read_all'),
+
+    # 2. 7. 강의
+    path('api/lecture/readAll', views.read_all_lecture, name='lecture_read_all'),
+
+    # 2. 8. TIL관련
+
+    
 ]
