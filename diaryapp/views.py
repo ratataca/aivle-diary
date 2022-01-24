@@ -93,7 +93,8 @@ def read_all_news(request):
 # 2. 5. 채용정보 
 
 # 2. 6. 강의
-
+def read_all_lecture(request):
+    pass
 # 2. 7. TIL관련
 
 
@@ -101,5 +102,8 @@ def read_all_news(request):
 def read_all_recruit(request):
     data = {}
     return JsonResponse(data)
+
+def test(request):
+    pass
 
 #프로그램 업로드/다운로드 추가 예정 --
