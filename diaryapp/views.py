@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import User
+from .models import News, Recruit, User,Lecture
+
 
 
 def login(request):
@@ -46,19 +47,34 @@ def test(request):
 
 
 # API 코드
-# 1. news 관련
-def read_all_news(request):
-    data =  {   'index' : 1,
-                'data' : '2022-01-23',
-                'title' : '오늘의 IT 뉴스', 
-                'content' : '안녕하세요 오늘 급하게 전달해야할...', 
-                'link' : "naver.com"
-            }
+# 1. lecture 관련
 
-    return JsonResponse(data)
+#패키지 설치: djangorestframework, django-filter
+
+from rest_framework.views import APIView
+from .serializers import LectureSerializer,NewsSerializer,RecruitSerializer
 
 
-# 2. recruit 관련
-def read_all_recruit(request):
-    data = {}
-    return JsonResponse(data)
+class read_all_lecture(APIView):
+    def get(self, request):
+        queryset = Lecture.objects.all()
+        print(queryset)
+        serializer = LectureSerializer(queryset, many=True)
+        return JsonResponse(serializer.data,safe=False)
+
+# 2. news관련 
+
+# class read_all_news(APIView):
+#     def get(self, request):
+#         queryset = News.objects.all()
+#         print(queryset)
+#         serializer = NewsSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data,safe=False)
+
+# # 3. recruit 관련
+# class read_all_recruit(APIView):
+#     def get(self, request):
+#         queryset = Recruit.objects.all()
+#         print(queryset)
+#         serializer = RecruitSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data,safe=False)
