@@ -2,11 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # client -> server
+    
     # 1. html 파일줘
     path('main/', views.main),
 
-    # ratataca.html로 가는 경로
     path('login/', views.login),
     path('main/', views.main),
     path('diary/', views.dairy),
