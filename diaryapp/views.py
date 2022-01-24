@@ -68,3 +68,6 @@ def read_all_recruit(request):
     return JsonResponse(data)
 
 
+def read_all_lecture(request):
+    data = {}
+    return JsonResponse(data)
