@@ -102,11 +102,4 @@ def read_all_recruit(request):
     data = {}
     return JsonResponse(data)
 
-
-def read_all_lecture(request):
-    data = {}
-    return JsonResponse(data)
-
-
-def test(request):
-    pass
+#프로그램 업로드/다운로드 추가 예정 --
