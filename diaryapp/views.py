@@ -5,7 +5,10 @@ from django.utils import timezone
 from .models import News, Recruit, User,Lecture
 from .models import News, User
 
-
+###########
+# Front   #
+###########
+# 1. HTML 파일 경로 지정
 def login(request):
     return render(request, 'diaryapp/login.html')
 
@@ -42,8 +45,39 @@ def test(request):
     )
 
 
+###########
+# Back   #
+###########
 # API 코드
-# 1. news 관련
+# 2. 이벤트 
+
+# 2. 1. 로그인
+# path('api/user/login', views.login_user, name='login_user'),
+
+
+# 2. 2. 회원가입
+# path('api/user/signup', views.signup_user, name='signup_user'),
+
+# 2. 3. 로그아웃
+
+# 2. 4. 뉴스 
+def news(request):
+    new = News.objects.all()
+    return render(request, 'diaryapp/news.html', {'date' : new})
+
+# 2. 5. 채용정보 
+
+# 2. 6. 강의
+
+# 2. 7. TIL관련
+
+# # 회원가입 등록 요청
+
+
+# # 로그인 확인 요청
+
+
+
 def read_all_news(request):
     data =  {   'index' : 1,
                 'data' : '2022-01-23',

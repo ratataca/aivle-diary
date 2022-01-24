@@ -5,8 +5,12 @@ from . import views
 app_name = 'diaryapp'
 
 urlpatterns = [
-    
+    ## only debugs
+    path('main/test', views.test, name='test'),
 
+    ###########
+    # Front   #
+    ###########
     # 1. HTML 파일 경로 지정
     path('login/', views.login, name='login'),
     path('main/', views.main, name='main'),
@@ -15,8 +19,9 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
     
-    path('main/test', views.test, name='test'),
-
+    ###########
+    # Back   #
+    ###########
     # 2. 이벤트 
 
     # 2. 1. 로그인
