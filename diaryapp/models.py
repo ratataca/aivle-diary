@@ -72,3 +72,6 @@ class Recruit(models.Model):
         managed = False
         db_table = 'recruit'
 
+#파일 업로드 모델
+class UploadFile(models.Model):
+    file = models.FileField(upload_to='%Y/%m/%d')
