@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from sympy import re
 from .models import User
