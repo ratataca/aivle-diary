@@ -20,4 +20,5 @@ urlpatterns = [
     #    이벤트 -> 업데이트(수정), 삭제, 입력(create)
     path('api/news/readAll', views.read_all_news),
     path('api/recruit/readAll', views.read_all_recruit),
+
 ]
