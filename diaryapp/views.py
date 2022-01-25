@@ -155,3 +155,7 @@ def upload(request):
         form = UploadFileForm()
     return render(
         request, 'diaryapp/upload.html', {'form': form})
+
+
+def test(request):
+    pass
