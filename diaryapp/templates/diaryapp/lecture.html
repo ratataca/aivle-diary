@@ -16,31 +16,25 @@
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">#</th>
-											<th scope="col">First</th>
-											<th scope="col">Last</th>
-											<th scope="col">Handle</th>
+											<th scope="col">Date</th>
+											<th scope="col">Topic</th>
+											<th scope="col">Dedtail</th>
+											<th scope="col">Professor_id</th>
+											<th scope="col">Professor_name</th>
 										</tr>
 									</thead>
+									{% for i in date %}
 									<tbody>
 										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
+											<td>{{i.index}}</td>
+											<td>{{i.date}}</td>
+											<td>{{i.topic}}</td>
+											<td>{{i.detail}}</td>
+											<td>{{i.professor_id}}</td>
+											<td>{{i.professor_name}}</td>
 										</tr>
 									</tbody>
+									{% endfor%}
 								</table>
 							</div>
 						</div>

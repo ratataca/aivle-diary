@@ -52,7 +52,8 @@ def dairy(request):
 
 
 def lecture(request):
-    return render(request, 'diaryapp/lecture.html')
+    lecture_data = Lecture.objects.all()
+    return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
 def news(request):
     news_data = News.objects.all()
