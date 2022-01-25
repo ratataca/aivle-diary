@@ -8,6 +8,7 @@ from django.utils import timezone
 from .models import News, Recruit, User,Lecture
 from .models import News, User
 from django.views.decorators.csrf import csrf_exempt
+from .forms import UploadFileForm
 
 ###########
 # Front   #
@@ -136,7 +137,21 @@ def read_all_recruit(request):
     data = {}
     return JsonResponse(data)
 
-def test(request):
-    pass
+# 3. 파일 업로드 -- 프론트엔드에서 가져갈 때 주석 해제하고 사용
 
-#프로그램 업로드/다운로드 추가 예정 --
+
+app_name = 'diaryapp'
+
+def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploadFile = form.save()
+            # uploadFile = form.save(commit=False)
+            name = uploadFile.file.name
+            size = uploadFile.file.size
+            return HttpResponse('%s<br>%s' % (name, size))
+    else:
+        form = UploadFileForm()
+    return render(
+        request, 'diaryapp/upload.html', {'form': form})
