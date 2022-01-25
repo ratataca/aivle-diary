@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from sympy import re
 from .models import User
@@ -22,29 +22,27 @@ def login(request):
         user_pw = request.POST.get("user_pw")
 
         try:
+            # 데이터 조회를 성공했을 때
             user = User.objects.get(user_id=user_id, user_pw=user_pw)
+
+            # 세션 만들기
+            request.session["user_id"] = user.user_id
+            request.session["user_name"] = user.user_name
         except Exception as e:
             print(e)
             # TODO : Error 처리
             raise NotImplementedError()
         
 
-        request.session["user_id"] = user.user_id
-        request.session["user_name"] = user.user_name
-
-        return redirect("diaryapp:main")
-        # return render_to_response('diaryapp/index.html')
+        return JsonResponse({'code': 200})
     else:
         return render(request, 'diaryapp/login.html')
+
 
 def main(request):
     # 메인 페이지 초기 데이터 보내기..
 
-    return render(
-        request,
-        'diaryapp/index.html',
-        
-    )
+    return render(request, 'diaryapp/index.html',)
     
 
 def dairy(request):
@@ -116,7 +114,7 @@ def logout(request):
     del request.session["user_id"]
     del request.session["user_name"]
 
-    return redirect("login")
+    return redirect("diaryapp:login")
 
 # 2. 4. 뉴스 
 #    1) 뉴스 모든 데이터 조회

@@ -166,8 +166,14 @@
                                 'user_id': user_id, 
                                 'user_pw': user_pw,
                                 "csrfmiddlewaretoken": csrftoken
+                            },
+                            success: function(res) {
+                                if(res.code == 200) {
+                                    location = '/diaryapp/main'
+                                }
                             }
                         });
+
 
                     }
                 </script>
