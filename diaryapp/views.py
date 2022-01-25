@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from sympy import re
 from .models import User
@@ -52,7 +52,8 @@ def dairy(request):
 
 
 def lecture(request):
-    return render(request, 'diaryapp/lecture.html')
+    lecture_data = Lecture.objects.all()
+    return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
 def news(request):
     news_data = News.objects.all()
