@@ -1,6 +1,7 @@
+import datetime
 import json
 
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from sympy import re
 from .models import User
@@ -9,7 +10,7 @@ from .models import News, Recruit, User,Lecture
 from .models import News, User
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
-
+from django.core.paginator import Paginator
 ###########
 # Front   #
 ###########
@@ -38,13 +39,24 @@ def login(request):
         return render(request, 'diaryapp/login.html')
 
 def main(request):
-    # 메인 페이지 초기 데이터 보내기..
+    # 메인 페이지 초기 데이터 보내기.
+    news=News.objects.order_by('-date')
+    p1=Paginator(news,4)
+    news_main=p1.page(1)
+    lecture_today=Lecture.objects.filter(date=datetime.datetime.today())
+    lecture_back=Lecture.objects.filter(date=datetime.datetime.today()-datetime.timedelta(1))
+    lecture_front=Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
 
-    return render(
-        request,
-        'diaryapp/index.html',
-        
-    )
+    recruit=Recruit.objects.order_by('-date')
+    p3=Paginator(recruit,1)
+    recruit=p3.page(1)
+    recruit_2=p3.page(2)
+    recruit_3=p3.page(3)
+
+    return render(request,
+    'diaryapp/index.html',{'recruit_2':recruit_2,'recruit':recruit,
+    'recruit_3':recruit_3,'lecture':lecture_today,
+    'lecture_f':lecture_front,'lecture_b':lecture_back,'news':news_main})
     
 
 def dairy(request):
