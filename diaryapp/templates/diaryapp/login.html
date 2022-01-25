@@ -32,11 +32,76 @@
                 font-size: 3.5rem;
             }
         }
+
+        .login-input-div{
+            width: 100%;
+            
+            display: flex;
+            flex-direction : column;
+            justify-content : center;
+            align-items : flex-start;
+            margin-bottom: 28px;
+        }
+
+        .login-input-name{
+            background-color: white;
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding-left: 40px;
+            padding: 0 1em; 
+            
+            height: 50px;
+            width: 100%;
+            border-radius: 5px;
+            color: #333;
+            font-size: 20px;
+            border: solid 2px #adb5bd;
+        }
+        .login-input-name:focus{
+            outline: none
+        }
+
+        .login-footer{
+            width: 100%;
+            height: 30px;
+            
+            display: flex;
+            flex-direction : row;
+            justify-content : space-between;
+            
+            
+        }
+
+        .register-name-area{
+            display: flex;
+            flex-direction: row;
+            align-items : center;
+            width: 80%;
+            
+        }
+
+        #register-name-btn{
+            cursor: pointer;
+            height: 50px;
+            margin-left: 10px;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1.3333;
+        }
+
+        #register-name-btn:hover{
+            background: #2e6da4;
+            color: white;
+        }
+
+        #aregister-name-btn:focus{
+            background-color:#2e6d84;
+            color: white;
+        }
+
         
         .register-input-div{
-            height: 70px;
             width: 80%;
-            {% comment %} background-color: orange; {% endcomment %}
             display: flex;
             flex-direction : column;
             justify-content : center;
@@ -48,6 +113,23 @@
             height: 40px;
             width: 10px;
             {% comment %} background-color:red; {% endcomment %}
+        }
+
+        .register-header{
+            width : 100%;
+            height: 100px;
+            
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 30px;
+            padding-bottom: 40px;
+        }
+
+        .register-header>span{
+            font-size: 42px;
+            font-weight: 800;
         }
 
         .register-body{
@@ -63,9 +145,10 @@
             color: #333;
             font-weight:600;
             font-size: 18px;
-            line-height: 20px;
-            
+            line-height: 20px; 
         }
+        
+
         #inputName{
             background-color: white;
             background-position: 10px 10px;
@@ -73,12 +156,13 @@
             padding-left: 40px;
             padding: 0 1em; 
             
-            height: 60px;
+            height: 50px;
             width: 100%;
             border-radius: 5px;
             color: #333;
-            font-size: 18px;
-            border: solid 2px #e9e9e9;
+            font-size: 20px;
+            border: solid 2px #adb5bd;
+            
         }
         #inputName:focus {
             outline: none
@@ -86,8 +170,57 @@
 
         .btn-div{
             width: 80%;
-            margin-top: 12px;
+            height: 136px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
         }
+
+        .btn-div-login{
+            width: 100%;
+            height: 50px;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        .modal { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            height: 100%; 
+            display: none; 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        .modal_content{
+            width:500px; 
+            height:770px;
+            transform: translateX(-50%) translateY(-50%); 
+            top: 50%;
+            left: 50%; 
+            background:#fff; 
+            border-radius:10px;
+            position:relative;
+            text-align:center;
+            box-sizing:border-box;
+            padding:74px 0;
+            line-height:23px; 
+            cursor:pointer;
+            color:#333;
+        }
+
+        .my-btn-color{
+            background-color:#adb5bd;
+            font-color: #fff;
+        }
+
 
     </style>
 
@@ -122,18 +255,30 @@
             <!-- 로그인 폼 -->
         
             <div class="mx-auto" style="width: 350px;">
-                <div class="form-floating mb-5">
+
+                <div class="login-input-div">
                     <!-- 요기 아이디 -->
-                    <input type="email" class="form-control rounded-4" id="login_id" placeholder="name@example.com">
-                    <label for="floatingInput" class="text-dark">Email address</label>
+                    <label for="inputName" class="login-label-text">아이디</label>
+                <input type="email" id="login_id" name = user_name class="login-input-name"> 
                 </div>
-                <div class="form-floating mb-5">
+
+                <div class="login-input-div">
                     <!-- 요기 비밀번호 -->
-                    <input type="password" class="form-control rounded-4" id="login_pwd" placeholder="Password">
-                    <label for="floatingPassword" class="text-dark">Password</label>
+                    <label for="inputName" class="login-label-text">비밀번호</label>
+                    <input type="password" id="login_pwd" name = user_name class="login-input-name"> 
                 </div>
+
+                <div class="btn-div-login">
+                    <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
+                        type="button" onclick="login();">로그인</button>
+                </div>
+
                 
-                <input class="w-50 btn btn-lg btn-primary" type="button" value="Login" onclick="login();" />
+                <div class="login-footer">
+                    <div class="btn-open-popup">회원가입</div> 
+                    <div>아이디 / 비밀번호 찾기</div> 
+                </div>
+
                 <script>
                     function getCookie(name) {
                         var cookieValue = null;
@@ -150,6 +295,8 @@
                         return cookieValue;
                     }
                 </script>
+
+            </div>
                     
                 <script>
                     function login(){
@@ -178,13 +325,122 @@
                     }
                 </script>
 
-            </div>
 
-            <button type="button" class="btn btn-secondary  mt-5" data-toggle="modal"
-                data-target=".bd-example-modal-xl">회원가입</button>
+                <!-- 회원가입 모달-->
+                <div class="modal">
+                    <div class="modal_content"  title="클릭하면 창이 닫힙니다.">
+                        <div class="register-header">
+                            <span>Aivle-Diary</span>
+                        </div>
 
-            <!-- 회원가입 모달-->
-            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                        <div class="register-body">
+                            <div class="register-input-div">
+                                <!-- 요기 회원가입 이름-->
+                                <label for="inputName" class="label-text">이름</label>
+                                <input type="text" id="inputName" name = user_name> 
+                            </div>
+                            
+                            <div class="register-name-area">
+                                <div class="register-input-div"}>
+                                    <!-- 요기 회원가입 아이디-->
+                                    <label for="inputName" class="label-text">아이디</label>
+                                    <input type="text" id="inputName" name = user_id >
+                                </div>
+                                <div>
+                                    {% comment %} <button class="register-name-btn">중복확인</button> {% endcomment %}
+                                    <button id="register-name-btn" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="isUnique();">중복확인</button>
+                                </div>
+                            </div>
+                
+
+                            <div class="register-input-div"}>
+                                <!-- 요기 회원가입 비밀번호-->
+                                <label for="inputName" class="label-text">비밀번호</label>
+                                <input type="password" id="inputName" name = user_pw >
+                            </div>
+
+                            <div class="btn-div">
+                                <div class="btn-div-register">
+                                    <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
+                                    type="button" onclick="register();">회원가입</button>
+                                </div>
+
+                                <div>
+                                    <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 my-btn-color" style={background-color:red;}
+                                    type="button" onclick="TODOTHIS();">취소</button>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                function register(){
+                                    const user_name = document.getElementsByName("user_name")[0].value;
+                                    const user_id = document.getElementsByName("user_id")[0].value;
+                                    const user_pw = document.getElementsByName("user_pw")[0].value;
+                                    
+                                    console.log(user_name, user_id, user_pw);
+                                    const data = axios.post('/diaryapp/api/user/signup', {
+                                        'user_id': user_id, 
+                                                    'user_id': user_id, 
+                                        'user_id': user_id, 
+                                        'user_pw': user_pw,
+                                        'user_name': user_name
+                                    }).then(function (result) {
+                                        const data = result.data;
+                                        console.log(data);
+                                        if(data.isLogined){
+                                            {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
+                                            $('#register-model').modal('hide');
+                                            
+                                            document.getElementById("login_id").value = user_id;
+                                            document.getElementById("login_pwd").value = user_pw;
+                                        }
+                                        else{
+                                            alert("Failed to register user");
+                                        }
+                                    });
+                                }
+                            </script>
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+                <script>
+                    
+                    const body = document.querySelector('body');
+                    const modal = document.querySelector('.modal');
+                    const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+                    btnOpenPopup.addEventListener('click', () => {
+                        modal.classList.toggle('show');
+
+                        if (modal.classList.contains('show')) {
+                            body.style.overflow = 'hidden';
+                        }
+                    });
+
+                    modal.addEventListener('click', (event) => {
+                        if (event.target === modal) {
+                        modal.classList.toggle('show');
+
+                        if (!modal.classList.contains('show')) {
+                            body.style.overflow = 'auto';
+                        }
+                    }
+                });
+                </script>
+
+                
+
+            
+
+            <!-- 회원가입 모달 22 -->
+            {% comment %} <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
                 aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="register-model">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
@@ -194,65 +450,14 @@
                                 
                                 <div class="modal-header p-5 pb-4 border-bottom-23">
                                     <h2 class="fw-bold mb-0 text-dark">에이블러 가입하기</h2>
-                                    <button type="button" class="btn-close" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" aria-label="modal"></button>
                                 </div>
 
                                 <div class="tmp"></div>
                                 
                                 <div class="modal-body p-5 pt-0">
 
-                                    <div class="register-body">
-                                        <div class="register-input-div">
-                                            <!-- 요기 회원가입 이름-->
-                                            <label for="inputName" class="label-text">이름</label>
-                                            <input type="text" id="inputName" name = user_name> 
-                                        </div>
-                                        
-                                        <div class="register-input-div"}>
-                                            <!-- 요기 회원가입 아이디-->
-                                            <label for="inputName" class="label-text">아이디</label>
-                                            <input type="text" id="inputName" name = user_id >
-                                        </div>
-    
-                                        <div class="register-input-div"}>
-                                            <!-- 요기 회원가입 비밀번호-->
-                                            <label for="inputName" class="label-text">비밀번호</label>
-                                            <input type="text" id="inputName" name = user_pw >
-                                        </div>
-    
-                                        <div class="btn-div">
-                                            <button id="register-submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="register();">회원가입</button>
-                                            <script>
-                                                function register(){
-                                                    const user_name = document.getElementsByName("user_name")[0].value;
-                                                    const user_id = document.getElementsByName("user_id")[0].value;
-                                                    const user_pw = document.getElementsByName("user_pw")[0].value;
-                                                    
-                                                    console.log(user_name, user_id, user_pw);
-                                                    const data = axios.post('/diaryapp/api/user/signup', {
-                                                        'user_id': user_id, 
-                                                        'user_pw': user_pw,
-                                                        'user_name': user_name
-                                                    }).then(function (result) {
-                                                        const data = result.data;
-                                                        console.log(data);
-                                                        if(data.isLogined){
-                                                            {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
-                                                            $('#register-model').modal('hide');
-                                                            
-                                                            document.getElementById("login_id").value = user_id;
-                                                            document.getElementById("login_pwd").value = user_pw;
-                                                        }
-                                                        else{
-                                                            alert("Failed to register user");
-                                                        }
-                                                    });
-                                                }
-                                            </script>
-                                        </div>
-                                            
-                                        
-                                    </div>
+                                    
 
 
                                     
@@ -262,7 +467,7 @@
                         
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
 
         </main>
 

@@ -25,9 +25,10 @@
 										<th scope="col">link</th>
 									</tr>
 								</thead>
-								{% for i in date %}
-								<tbody>
-									<tr>
+								
+								<tbody >
+									{% for i in date %}
+									<tr id="table-item-{{i.index}}" onclick="testt({{i.index}});">
 										<td>{{i.index}}</td>
 										<td>{{i.data}}</td>
 										<td>{{i.title}}</td>
@@ -35,9 +36,22 @@
 										<td>{{i.company}}</td>
 										<td>{{i.link}}</td>
 									</tr>
-									
+
+									<script>
+										function testt(idx){
+											const tr = document.getElementById("table-item-" + idx.toString());
+											// tr 문자열 데이터 중 https~~ 만 고르기!
+											// -- 힌트?  : python의 split() 같은 기능! 찾아서 분리
+											console.log(tr.innerText)
+											
+											//window.open(result_html);
+											
+										}
+									</script>
+
+									{% endfor%}	
 								</tbody>
-								{% endfor%}
+								
 							</table>
 						</div>
 					</div>
