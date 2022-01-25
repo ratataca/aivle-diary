@@ -3,8 +3,22 @@
 
 <section class="feature_area blog_right_sidebar" 
 style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color: white;">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        axios.defaults.xsrfCookieName = 'csrftoken';
+        axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+    </script>
+
 	<div class="container">
 		<div class="gallery_f_inner row imageGallery1 ">
+			<button id="register-submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="logout();">로그아웃</button>
+			<script>
+				function logout(){
+					console.log("logout");
+					const data = axios.get('/diaryapp/api/user/logout');
+				}
+			</script>
+			
 			<!--- 강의 start -->
 			<div class="col-lg-4 col-md-4 col-sm-6 brand manipul design print">
 				<div class="h_gallery_item">

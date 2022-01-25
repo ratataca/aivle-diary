@@ -19,6 +19,7 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
     
+    
     ###########
     # Back   #
     ###########
@@ -33,7 +34,7 @@ urlpatterns = [
     path('api/user/signup', views.signup_user, name='signup_user'),
 
     # 2. 3. 로그아웃
-
+    path('api/user/logout', views.logout, name='logout'),
 
     # 2. 4. 메인페이지
 
