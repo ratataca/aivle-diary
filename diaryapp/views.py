@@ -121,21 +121,33 @@ def logout(request):
 # 2. 4. 뉴스 
 #    1) 뉴스 모든 데이터 조회
 def read_all_news(request):
-    news_data = News.objects.all()
-    return render(request, 'diaryapp/news.html', {'date' : news_data})
+    data = News.objects.all()
+    data=list(data.values())
+    return JsonResponse(data,safe=False)
 
 # 2. 5. 채용정보 
+# 2. 5. 1. 채용 모든 데이터 조회
+def read_all_recruit(request):
+    data = Recruit.objects.all()
+    data=list(data.values())
+    return JsonResponse(data,safe=False)
+
 
 # 2. 6. 강의
+# 2. 6. 1. 강의 모든 데이터 조회
 def read_all_lecture(request):
-    pass
+    data = Lecture.objects.all()
+    data=list(data.values())
+    return JsonResponse(data,safe=False)
+
+
 # 2. 7. TIL관련
 
 
-# 2. recruit 관련
-def read_all_recruit(request):
-    data = {}
-    return JsonResponse(data)
+# # 2. recruit 관련
+# def read_all_recruit(request):
+#     data = {}
+#     return JsonResponse(data)
 
 # 3. 파일 업로드 -- 프론트엔드에서 가져갈 때 주석 해제하고 사용
 
