@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.shortcuts import render, redirect
@@ -9,7 +10,7 @@ from .models import News, Recruit, User,Lecture
 from .models import News, User
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
-
+from django.core.paginator import Paginator
 ###########
 # Front   #
 ###########
@@ -40,9 +41,24 @@ def login(request):
 
 
 def main(request):
-    # 메인 페이지 초기 데이터 보내기..
+    # 메인 페이지 초기 데이터 보내기.
+    news=News.objects.order_by('-date')
+    p1=Paginator(news,4)
+    news_main=p1.page(1)
+    lecture_today=Lecture.objects.filter(date=datetime.datetime.today())
+    lecture_back=Lecture.objects.filter(date=datetime.datetime.today()-datetime.timedelta(1))
+    lecture_front=Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
 
-    return render(request, 'diaryapp/index.html',)
+    recruit=Recruit.objects.order_by('-date')
+    p3=Paginator(recruit,1)
+    recruit=p3.page(1)
+    recruit_2=p3.page(2)
+    recruit_3=p3.page(3)
+
+    return render(request,
+    'diaryapp/index.html',{'recruit_2':recruit_2,'recruit':recruit,
+    'recruit_3':recruit_3,'lecture':lecture_today,
+    'lecture_f':lecture_front,'lecture_b':lecture_back,'news':news_main})
     
 
 def dairy(request):
@@ -119,21 +135,33 @@ def logout(request):
 # 2. 4. 뉴스 
 #    1) 뉴스 모든 데이터 조회
 def read_all_news(request):
-    news_data = News.objects.all()
-    return render(request, 'diaryapp/news.html', {'date' : news_data})
+    data = News.objects.all()
+    data=list(data.values())
+    return JsonResponse(data,safe=False)
 
 # 2. 5. 채용정보 
+# 2. 5. 1. 채용 모든 데이터 조회
+def read_all_recruit(request):
+    data = Recruit.objects.all()
+    data=list(data.values())
+    return JsonResponse(data,safe=False)
+
 
 # 2. 6. 강의
+# 2. 6. 1. 강의 모든 데이터 조회
 def read_all_lecture(request):
-    pass
+    data = Lecture.objects.all()
+    data=list(data.values())
+    return JsonResponse(data,safe=False)
+
+
 # 2. 7. TIL관련
 
 
-# 2. recruit 관련
-def read_all_recruit(request):
-    data = {}
-    return JsonResponse(data)
+# # 2. recruit 관련
+# def read_all_recruit(request):
+#     data = {}
+#     return JsonResponse(data)
 
 # 3. 파일 업로드 -- 프론트엔드에서 가져갈 때 주석 해제하고 사용
 
