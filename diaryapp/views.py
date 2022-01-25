@@ -64,6 +64,14 @@ def hire(request):
     return render(request, 'diaryapp/hire.html')
 
 
+def team(request):
+    return render(request, 'diaryapp/team.html')
+
+
+def temp(request):
+    return render(request, 'diaryapp/temp.html')
+
+
 ###########
 # Back   #
 ###########
