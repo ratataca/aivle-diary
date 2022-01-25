@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- main css -->
 
+    <script src='http://code.jquery.com/jquery-3.1.1.min.js'></script>
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -118,22 +120,59 @@
         <main class="px-3e">
             <h1 class="h3 mb-3 fw-normal">Please Login</h1>
             <!-- 로그인 폼 -->
-            <form action="/diaryapp/main" method="get">
-                <div class="mx-auto" style="width: 350px;">
-                    <div class="form-floating mb-5">
-                        <!-- 요기 아이디 -->
-                        <input type="email" class="form-control rounded-4" id="login_id" placeholder="name@example.com">
-                        <label for="floatingInput" class="text-dark">Email address</label>
-                    </div>
-                    <div class="form-floating mb-5">
-                        <!-- 요기 비밀번호 -->
-                        <input type="password" class="form-control rounded-4" id="login_pwd" placeholder="Password">
-                        <label for="floatingPassword" class="text-dark">Password</label>
-                    </div>
-                    <input class="w-50 btn btn-lg btn-primary" type="submit" value="Login" />
-
+        
+            <div class="mx-auto" style="width: 350px;">
+                <div class="form-floating mb-5">
+                    <!-- 요기 아이디 -->
+                    <input type="email" class="form-control rounded-4" id="login_id" placeholder="name@example.com">
+                    <label for="floatingInput" class="text-dark">Email address</label>
                 </div>
-            </form>
+                <div class="form-floating mb-5">
+                    <!-- 요기 비밀번호 -->
+                    <input type="password" class="form-control rounded-4" id="login_pwd" placeholder="Password">
+                    <label for="floatingPassword" class="text-dark">Password</label>
+                </div>
+                
+                <input class="w-50 btn btn-lg btn-primary" type="button" value="Login" onclick="login();" />
+                <script>
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = cookies[i].trim();
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                </script>
+                    
+                <script>
+                    function login(){
+                        console.log("Login !!");
+                        const csrftoken = getCookie("csrftoken");
+
+                        const user_id = document.getElementById("login_id").value;
+                        const user_pw = document.getElementById("login_pwd").value;
+
+                        $.ajax({
+                            url: "/diaryapp/login/",
+                            type: "post",
+                            data: {
+                                'user_id': user_id, 
+                                'user_pw': user_pw,
+                                "csrfmiddlewaretoken": csrftoken
+                            }
+                        });
+
+                    }
+                </script>
+
+            </div>
 
             <button type="button" class="btn btn-secondary  mt-5" data-toggle="modal"
                 data-target=".bd-example-modal-xl">회원가입</button>
@@ -176,9 +215,9 @@
                                         </div>
     
                                         <div class="btn-div">
-                                            <button id="register-submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="test();">가입완료</button>
+                                            <button id="register-submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="register();">회원가입</button>
                                             <script>
-                                                function test(){
+                                                function register(){
                                                     const user_name = document.getElementsByName("user_name")[0].value;
                                                     const user_id = document.getElementsByName("user_id")[0].value;
                                                     const user_pw = document.getElementsByName("user_pw")[0].value;

@@ -1,29 +1,49 @@
 import json
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse, JsonResponse
+from sympy import re
 from .models import User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
 from .models import News, User
 from .forms import UploadFileForm
+from django.views.decorators.csrf import csrf_exempt
 
 ###########
 # Front   #
 ###########
 # 1. HTML 파일 경로 지정 및 초기 세팅
+@csrf_exempt
 def login(request):
-    return render(request, 'diaryapp/login.html', {"isLogined": False})
+    if request.method == 'POST':
+        
+        user_id = request.POST.get("user_id")
+        user_pw = request.POST.get("user_pw")
+
+        try:
+            user = User.objects.get(user_id=user_id, user_pw=user_pw)
+        except Exception as e:
+            print(e)
+            # TODO : Error 처리
+            raise NotImplementedError()
+        
+
+        request.session["user_id"] = user.user_id
+        request.session["user_name"] = user.user_name
+
+        return redirect("diaryapp:main")
+        # return render_to_response('diaryapp/index.html')
+    else:
+        return render(request, 'diaryapp/login.html')
 
 def main(request):
-    my_id = User.objects.all()
-
     # 메인 페이지 초기 데이터 보내기..
 
     return render(
         request,
         'diaryapp/index.html',
-        {"my_id" : my_id}
+        
     )
     
 
@@ -54,20 +74,20 @@ def hire(request):
 
 
 # 2. 2. 회원가입
-
 def signup_user(request):
     if request.method == 'POST':
-        print("Hello")
+        
         req = json.loads(request.body.decode('utf-8'))
         user_id = req["user_id"]#request.POST.get('user_id')
-        user_pw = req["user_id"]#request.POST.get('user_pw')
+        user_pw = req["user_pw"]#request.POST.get('user_pw')
         user_name = req["user_name"]#request.POST.get('user_name')
         
         print(user_id, user_pw, user_name)
         # print("=================" * 3)
         # print(">> ", user_id, user_pw, user_name)
 
-        # 기존 사용자 동일한 id 있는지?
+        # TODO 기존 사용자 동일한 id 있는지?
+        # TODO 이메일 정규식 추가
         try:
             m = User(
                 user_id = user_id,
@@ -91,6 +111,12 @@ def signup_user(request):
 
 
 # 2. 3. 로그아웃
+def logout(request):
+    print("logout")
+    del request.session["user_id"]
+    del request.session["user_name"]
+
+    return redirect("login")
 
 # 2. 4. 뉴스 
 #    1) 뉴스 모든 데이터 조회
