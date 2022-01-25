@@ -19,3 +19,6 @@ class Professor(models.Model):
 class Lecture(models.Model):
     pass
 
+#파일 업로드 모델
+class UploadFile(models.Model):
+    file = models.FileField(upload_to='%Y/%m/%d')

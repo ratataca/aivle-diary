@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import User
-
+from .forms import UploadFileForm
 
 def login(request):
     return render(request, 'diaryapp/login.html')
@@ -64,7 +64,7 @@ def read_all_recruit(request):
     return JsonResponse(data)
 
 # 3. 파일 업로드 -- 프론트엔드에서 가져갈 때 주석 해제하고 사용
-from .forms import UploadFileForm
+
 
 app_name = 'diaryapp'
 
