@@ -32,6 +32,7 @@ urlpatterns = [
 
     # 2. 2. 회원가입
     path('api/user/signup', views.signup_user, name='signup_user'),
+    path('api/user/signup/isUnique', views.is_existed_user, name='user_isUnique'),
 
     # 2. 3. 로그아웃
     path('api/user/logout', views.logout, name='logout'),

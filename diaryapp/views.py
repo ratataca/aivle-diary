@@ -84,13 +84,12 @@ def hire(request):
 # 2. 이벤트 
 
 # 2. 1. 로그인
-
+#   위 Front쪽 추가 됨
 
 
 # 2. 2. 회원가입
 def signup_user(request):
     if request.method == 'POST':
-        
         req = json.loads(request.body.decode('utf-8'))
         user_id = req["user_id"]#request.POST.get('user_id')
         user_pw = req["user_pw"]#request.POST.get('user_pw')
@@ -123,6 +122,26 @@ def signup_user(request):
     else:
         return render(request, 'diaryapp/login.html')
 
+
+def is_existed_user(request):
+    if request.method == 'POST':
+        req = json.loads(request.body.decode('utf-8'))
+        user_id = req["user_id"]
+        
+        try:
+            data = User.objects.filter(user_id=user_id)
+            rep = list(data.values())
+            
+        except Exception as e:
+            print("Error : ", e)
+        
+        if len(rep) > 0:
+            data = {"result": True}
+            print("해당 아이디가 동일하게 있슴!!!")
+            return JsonResponse(data=data)
+        else:
+            data = {"result": False}
+            return JsonResponse(data=data)
 
 # 2. 3. 로그아웃
 def logout(request):

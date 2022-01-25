@@ -297,209 +297,192 @@
                     <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
                         type="button" onclick="login();">로그인</button>
                 </div>
-
                 
                 <div class="login-footer">
                     <div class="btn-open-popup">회원가입</div> 
                     <div>아이디 / 비밀번호 찾기</div> 
                 </div>
-
-                <script>
-                    function getCookie(name) {
-                        var cookieValue = null;
-                        if (document.cookie && document.cookie !== '') {
-                            var cookies = document.cookie.split(';');
-                            for (var i = 0; i < cookies.length; i++) {
-                                var cookie = cookies[i].trim();
-                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                    break;
-                                }
-                            }
-                        }
-                        return cookieValue;
-                    }
-                </script>
-
             </div>
-                    
-                <script>
-                    function login(){
-                        console.log("Login !!");
-                        const csrftoken = getCookie("csrftoken");
-
-                        const user_id = document.getElementById("login_id").value;
-                        const user_pw = document.getElementById("login_pwd").value;
-
-                        $.ajax({
-                            url: "/diaryapp/login/",
-                            type: "post",
-                            data: {
-                                'user_id': user_id, 
-                                'user_pw': user_pw,
-                                "csrfmiddlewaretoken": csrftoken
-                            },
-                            success: function(res) {
-                                if(res.code == 200) {
-                                    location = '/diaryapp/main'
-                                }
-                            }
-                        });
-
-
-                    }
-                </script>
-
-
+            
                 <!-- 회원가입 모달-->
-                <div class="modal">
-                    <div class="modal_content"  title="클릭하면 창이 닫힙니다.">
-                        <div class="register-header">
-                            <span>환영합니다</span>
-                            <p>실시간 채용 정보, IT 뉴스 및 TIL 기록 등 <br/>Aivler Diary에서 시작하세요.</p>
-                        </div>
-                        
-                        <div class="register-body">
-                            <div class="register-input-div">
-                                <!-- 요기 회원가입 이름-->
-                                <label for="inputName" class="label-text">이름</label>
-                                <input type="text" id="inputName" name = user_name> 
-                            </div>
-                            
-                            <div class="register-name-area">
-                                <div class="register-input-div"}>
-                                    <!-- 요기 회원가입 아이디-->
-                                    <label for="inputName" class="label-text">아이디</label>
-                                    <input type="text" id="inputName" name = user_id >
-                                </div>
-                                <div>
-                                    {% comment %} <button class="register-name-btn">중복확인</button> {% endcomment %}
-                                    <button id="register-name-btn" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="isUnique();">중복확인</button>
-                                </div>
-                            </div>
-                
-
-                            <div class="register-input-div register-password"}>
-                                <!-- 요기 회원가입 비밀번호-->
-                                <label for="inputName" class="label-text">비밀번호</label>
-                                <input type="password" id="inputName" name = user_pw >
-                            </div>
-
-                            <div class="btn-div">
-                                <div class="btn-div-register">
-                                    <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
-                                    type="button" onclick="register();">회원가입</button>
-                                </div>
-
-                                <div>
-                                    <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 my-btn-color" style={background-color:red;}
-                                    type="button" onclick="TODOTHIS();">취소</button>
-                                </div>
-                            </div>
-
-
-                            <script>
-                                function register(){
-                                    const user_name = document.getElementsByName("user_name")[0].value;
-                                    const user_id = document.getElementsByName("user_id")[0].value;
-                                    const user_pw = document.getElementsByName("user_pw")[0].value;
-                                    
-                                    console.log(user_name, user_id, user_pw);
-                                    const data = axios.post('/diaryapp/api/user/signup', {
-                                        'user_id': user_id, 
-                                                    'user_id': user_id, 
-                                        'user_id': user_id, 
-                                        'user_pw': user_pw,
-                                        'user_name': user_name
-                                    }).then(function (result) {
-                                        const data = result.data;
-                                        console.log(data);
-                                        if(data.isLogined){
-                                            {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
-                                            $('#register-model').modal('hide');
-                                            
-                                            document.getElementById("login_id").value = user_id;
-                                            document.getElementById("login_pwd").value = user_pw;
-                                        }
-                                        else{
-                                            alert("Failed to register user");
-                                        }
-                                    });
-                                }
-                            </script>
-                            
-                                
-                            
-                        </div>
+            <div class="modal">
+                <div class="modal_content">
+                    <div class="register-header">
+                        <span>환영합니다</span>
+                        <p>실시간 채용 정보, IT 뉴스 및 TIL 기록 등 <br/>Aivler Diary에서 시작하세요.</p>
                     </div>
                     
+                    <div class="register-body">
+                        <div class="register-input-div">
+                            <!-- 요기 회원가입 이름-->
+                            <label for="inputName" class="label-text">이름</label>
+                            <input type="text" id="inputName" name = user_name> 
+                        </div>
+                        
+                        <div class="register-name-area">
+                            <div class="register-input-div"}>
+                                <!-- 요기 회원가입 아이디-->
+                                <label for="inputName" class="label-text">아이디</label>
+                                <input type="text" id="inputName" name = user_id >
+                            </div>
+                            <div>
+                                {% comment %} <button class="register-name-btn">중복확인</button> {% endcomment %}
+                                <button id="register-name-btn" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" 
+                                    onclick="isUnique();">중복확인</button>
+                            </div>
+                        </div>                
+
+                        <div class="register-input-div register-password"}>
+                            <!-- 요기 회원가입 비밀번호-->
+                            <label for="inputName" class="label-text">비밀번호</label>
+                            <input type="password" id="inputName" name = user_pw >
+                        </div>
+
+                        <div class="btn-div">
+                            <div class="btn-div-register">
+                                <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
+                                type="button" onclick="register();">회원가입</button>
+                            </div>
+
+                            <div>
+                                <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 my-btn-color" style={background-color:red;}
+                                type="button" onclick="offModal();">취소</button>
+                            </div>
+                        </div>
+
+                        <!-- modal 창 끄기 -->
+                        <script>
+                            function offModal(){
+                                const modal = document.querySelector('.modal');
+                                modal.classList.toggle('show');                                
+                            }
+                        </script>
+
+                        <!-- 회원가입 이벤트 -->
+                        <script>
+                            function isUnique(){
+                                const user_id = document.getElementsByName("user_id")[0].value;
+                                
+                                if(user_id === ""){
+                                    alert("아이디를 입력해주세요");
+                                    return;
+                                }
+                                const data = axios.post('/diaryapp/api/user/signup/isUnique', {
+                                    'user_id': user_id
+                                }).then(function (result) {
+                                    const data = result.data;
+                                    console.log(data.result);
+
+                                    if(data.result == true){
+                                        console.log("중복확인 됨.");
+                                        alert("이미 중복된 아이디가 존재합니다.")
+                                    }
+                                    else{
+                                        console.log("중복 없음.");
+                                    }
+                                });
+                            }
+
+                            function register(){
+                                const user_name = document.getElementsByName("user_name")[0].value;
+                                const user_id = document.getElementsByName("user_id")[0].value;
+                                const user_pw = document.getElementsByName("user_pw")[0].value;
+                                
+                                console.log(user_name, user_id, user_pw);
+                                const data = axios.post('/diaryapp/api/user/signup', {
+                                    'user_id': user_id, 
+                                    'user_pw': user_pw,
+                                    'user_name': user_name
+                                }).then(function (result) {
+                                    const data = result.data;
+                                    console.log(data);
+                                    if(data.isLogined){
+                                        {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
+                                        $('#register-model').modal('hide');
+                                        
+                                        document.getElementById("login_id").value = user_id;
+                                        document.getElementById("login_pwd").value = user_pw;
+                                    }
+                                    else{
+                                        alert("Failed to register user");
+                                    }
+                                });
+                            }                            
+                        </script>
+                    </div>
                 </div>
+            </div>
 
+            <!-- Post 관련 키 -->
+            <script>
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            </script>
 
-                <script>
-                    
-                    const body = document.querySelector('body');
-                    const modal = document.querySelector('.modal');
-                    const btnOpenPopup = document.querySelector('.btn-open-popup');
+            <!-- 로그인 기능 -->
+            <script>
+                function login(){
+                    console.log("Login !!");
+                    const csrftoken = getCookie("csrftoken");
 
-                    btnOpenPopup.addEventListener('click', () => {
-                        modal.classList.toggle('show');
+                    const user_id = document.getElementById("login_id").value;
+                    const user_pw = document.getElementById("login_pwd").value;
 
-                        if (modal.classList.contains('show')) {
-                            body.style.overflow = 'hidden';
+                    $.ajax({
+                        url: "/diaryapp/login/",
+                        type: "post",
+                        data: {
+                            'user_id': user_id, 
+                            'user_pw': user_pw,
+                            "csrfmiddlewaretoken": csrftoken
+                        },
+                        success: function(res) {
+                            if(res.code == 200) {
+                                location = '/diaryapp/main'
+                            }
                         }
                     });
+                }
+            </script>
 
-                    modal.addEventListener('click', (event) => {
-                        if (event.target === modal) {
-                        modal.classList.toggle('show');
+            <!-- modal 켜기 및 영역 밖 클릭시 OFF 기능 -->
+            <script>
+                const body = document.querySelector('body');
+                const modal = document.querySelector('.modal');
+                const btnOpenPopup = document.querySelector('.btn-open-popup');
 
-                        if (!modal.classList.contains('show')) {
-                            body.style.overflow = 'auto';
-                        }
+                btnOpenPopup.addEventListener('click', () => {
+                    modal.classList.toggle('show');
+
+                    if (modal.classList.contains('show')) {
+                        body.style.overflow = 'hidden';
                     }
                 });
-                </script>
 
-                
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                    modal.classList.toggle('show');
 
-            
-
-            <!-- 회원가입 모달 22 -->
-            {% comment %} <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="register-model">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <!-- 회원가입 폼 모달-->
-                        <div>
-                            <div class="modal-content rounded-5 shadow">
-                                
-                                <div class="modal-header p-5 pb-4 border-bottom-23">
-                                    <h2 class="fw-bold mb-0 text-dark">에이블러 가입하기</h2>
-                                    <button type="button" class="btn-close" aria-label="modal"></button>
-                                </div>
-
-                                <div class="tmp"></div>
-                                
-                                <div class="modal-body p-5 pt-0">
-
-                                    
-
-
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div> {% endcomment %}
-
-        </main>
-
-        <footer class="mt-auto text-white-50">
-
-        </footer>
+                    if (!modal.classList.contains('show')) {
+                        body.style.overflow = 'auto';
+                        console.log('hello');
+                    }
+                }
+            });
+            </script>
+        </main>        
     </div>
 </body>
 
