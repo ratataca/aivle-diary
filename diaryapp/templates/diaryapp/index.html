@@ -28,9 +28,14 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 					<div class="h-100 p-5 feature_item border"
 						style="border-top-right-radius: 50px; border-bottom-left-radius: 50px;">
 						<!-- 강의 제목 넣는 태그-->
-						<h2 id="lecture_title" class="text-center">{ 강의를 넣어주세요! }</h2>
-						<p id="lecture_content">{강의 내용을 넣어주세요!}</p>
-
+						{% if lecture_b %}
+						{%for l in lecture_b%}
+						<h2 id="lecture_title" class="text-center">{{l.topic}}</h2>
+						<p id="lecture_content">{{l.detail}}</p>
+						{%endfor%}
+						{%else%}
+						<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+						{%endif%}
 						<a href="/diaryapp/lecture" class="btn btn-outline-success mt-3">더보기</a>
 
 					</div>
@@ -45,11 +50,16 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 					</div>
 
 					<div class="h-100 p-5 text-dark feature_item border" style="border-radius: 5px;">
-						<!-- 뉴스 제목 넣는 태그-->
-						<h2 id="news_title" class="text-center">{ 강의를 넣어주세요! }</h2>
-						<p id="news_content">{강의 내용을 넣어주세요!}</p>
-
-						<a href="/diaryapp/news" class="btn btn-outline-primary mt-3">더보기</a>
+						<!-- 강의 제목 넣는 태그-->
+						{% if lecture %}
+						{%for l in lecture%}
+						<h2 id="lecture_title" class="text-center">{{l.topic}}</h2>
+						<p id="lecture_content">{{l.detail}}</p>
+						{%endfor%}
+						{%else%}
+						<h2 id="lecture_title" class="text-center"> "강의가 없어요!"</h2>
+						{%endif%}
+						<a href="/diaryapp/lecture" class="btn btn-outline-primary mt-3">더보기</a>
 
 					</div>
 
@@ -64,11 +74,16 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 
 					<div class="h-100 p-5 feature_item border"
 						style="border-top-left-radius: 50px; border-bottom-right-radius: 50px;">
-						<!-- 채용 제목 넣는 태그-->
-						<h2 id="hire_title" class="text-center">{ 강의를 넣어주세요! }</h2>
-						<p id="hire_content">{강의 내용을 넣어주세요!}</p>
-
-						<a href="/diaryapp/hire" class="btn btn-outline-success mt-3">더보기</a>
+						<!-- 강의 제목 넣는 태그-->
+						{% if lecture_f %}
+						{%for l in lecture_f%}
+						<h2 id="lecture_title" class="text-center">{{l.topic}}</h2>
+						<p id="lecture_content">{{l.detail}}</p>
+						{%endfor%}
+						{%else%}
+						<h2 id="lecture_title" class="text-center"> "내일은 휴일"</h2>
+						{%endif%}
+						<a href="/diaryapp/lecture" class="btn btn-outline-success mt-3">더보기</a>
 
 					</div>
 
@@ -93,25 +108,27 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 
 		<div class="gallery_f_inner row imageGallery1 ">
 			<!-- 뉴스 start -->
+			{%for n in news%}
 			<div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
 				<div class="feature_item border">
 					<i class="flaticon-city"></i>
-					<h4>{ 뉴스1을 넣어주세요! }</h4>
-					<p>{ 뉴스1 내용을 넣어주세요! }</p>
+					<h4>{{n.title}}</h4>
+					<p>{{n.content}}</p>
+				</div>
+			</div>
+			{%endfor%}
+			 {% comment %} <div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
+				<div class="feature_item border">
+					<i class="flaticon-city"></i>
+					<h4>{뉴스2을 넣어주세요!}</h4>
+					<p>{뉴스2을 넣어주세요!}</p>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
 				<div class="feature_item border">
 					<i class="flaticon-city"></i>
-					<h4>{ 뉴스2을 넣어주세요! }</h4>
-					<p>{ 뉴스2 내용을 넣어주세요! }</p>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
-				<div class="feature_item border">
-					<i class="flaticon-city"></i>
-					<h4>{ 뉴스3을 넣어주세요! }</h4>
-					<p>{ 뉴스3 내용을 넣어주세요! }</p>
+					<h4>{뉴스3을 넣어주세요!}</h4>
+					<p>{뉴스3 내용을 넣어주세요!}</p>
 				</div>
 			</div>
 
@@ -121,7 +138,7 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 					<h4>{ 뉴스4을 넣어주세요! }</h4>
 					<p>{ 뉴스5 내용을 넣어주세요! }</p>
 				</div>
-			</div>
+			</div>  {% endcomment %}
 
 			<!-- 뉴스 end -->
 		</div>
@@ -143,24 +160,30 @@ style="padding-bottom: 100px;">
 			<div class="col-lg-4 col-md-6" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
 				<div class="feature_item">
 					<i class="flaticon-city"></i>
-					<h4>{ 채용1 제목을 넣어주세요! }</h4>
-					<p>{ 채용1 내용을 넣어주세요! }</p>
+					{%for r in recruit%}
+					<h4>{{r.company_name}}</h4>
+					<p>{{r.job_title}}</p>
+                    {%endfor%}
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item">
+				 <div class="feature_item">
 					<i class="flaticon-skyline"></i>
-					<h4>{ 채용2 제목을 넣어주세요! }</h4>
-					<p>{ 채용2 내용을 넣어주세요! }</p>
+					{%for r in recruit_2%}
+					<h4>{{r.company_name}}</h4>
+					<p>{{r.job_title}}</p>
+					{%endfor%}
 				</div>
 			</div>
-			<div class="col-lg-4" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
+		 <div class="col-lg-4" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
 				<div class="feature_item">
 					<i class="flaticon-sketch"></i>
-					<h4>{ 채용3 제목을 넣어주세요! }</h4>
-					<p>{ 채용3 내용을 넣어주세요! }</p>
+					{%for r in recruit_3%}
+					<h4>{{r.company_name}}</h4>
+					<p>{{r.job_title}}</p>
+					{%endfor%}
 				</div>
-			</div>
+			</div> 		
 
 		</div>
 	</div>
