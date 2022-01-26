@@ -54,7 +54,8 @@ class News(models.Model):
     class Meta:
         managed = False
         db_table = 'news'
-
+       
+        
 
 class Recruit(models.Model):
     index = models.AutoField(primary_key=True)
