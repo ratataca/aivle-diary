@@ -82,7 +82,14 @@ def news(request):
 
 
 def hire(request):
-    return render(request, 'diaryapp/hire.html')
+    recruit=Recruit.objects.order_by('-date')
+    p3=Paginator(recruit,1)
+    recruit=p3.page(1)
+    recruit_2=p3.page(2)
+    recruit_3=p3.page(3)
+
+    return render(request,
+    'diaryapp/hire.html',{'recruit_2':recruit_2,'recruit':recruit, 'recruit_3':recruit_3})
 
 
 def team(request):
