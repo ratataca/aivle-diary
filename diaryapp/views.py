@@ -82,7 +82,7 @@ def news(request):
 
 
 def hire(request):
-    recruit_list=Recruit.objects.filter(date=datetime.datetime.today())
+    recruit_list=Recruit.objects.filter(date=datetime.datetime.today())[:48]
     page=request.GET.get('page','1')
     p=Paginator(recruit_list,'4')
     recruit=p.page(page)
