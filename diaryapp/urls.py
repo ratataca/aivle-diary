@@ -18,13 +18,15 @@ urlpatterns = [
     path('lecture/', views.lecture, name='lecture'),
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
+    path('team/', views.team, name='team'),
+    path('temp/', views.temp, name='temp'),
     
     
     ###########
     # Back   #
     ###########
     # 2. 이벤트 
-
+    # 서버팀 오늘 작업
 
     # 2. 1. 로그인
     # path('api/user/login', views.login_user, name='login_user'),
@@ -32,6 +34,7 @@ urlpatterns = [
 
     # 2. 2. 회원가입
     path('api/user/signup', views.signup_user, name='signup_user'),
+    path('api/user/signup/isUnique', views.is_existed_user, name='user_isUnique'),
 
     # 2. 3. 로그아웃
     path('api/user/logout', views.logout, name='logout'),

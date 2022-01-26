@@ -32,16 +32,109 @@
                 font-size: 3.5rem;
             }
         }
-        
-        .register-input-div{
-            height: 70px;
-            width: 80%;
-            {% comment %} background-color: orange; {% endcomment %}
+
+        body{
+            font-family: "Helvetica Neue","Helvetica", "Arial", "sans-serif"
+        }
+
+        .login-title{
+            padding-bottom: 42px;
+            font-weight: 800;
+        }
+
+        .login-area{
+            width: 100%;
+            height: 100%;
+            {% comment %} background-color: rgb(232, 255, 247);; {% endcomment %}
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items : center;
+        }
+
+        .login-label-text{
+            color: #333;
+            font-weight:600;
+            font-size: 18px;
+            line-height: 20px; 
+        }
+
+        .login-input-div{
+            width: 100%;
+            color: #333;
             display: flex;
             flex-direction : column;
             justify-content : center;
             align-items : flex-start;
-            margin-bottom: 28px;
+            margin-bottom: 16px;
+            
+        }
+
+        .login-input-name{
+            background-color: white;
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding-left: 40px;
+            padding: 0 1em; 
+            
+            height: 50px;
+            width: 100%;
+            border-radius: 5px;
+            color: #333;
+            font-size: 20px;
+            border: solid 2px #adb5bd;
+        }
+        .login-input-name:focus{
+            outline: none
+        }
+
+        .login-footer{
+            width: 100%;
+            height: 30px;
+            display: flex;
+            flex-direction : row;
+            justify-content : space-between;
+            color: #333;
+        }
+
+        .login-footer>div{
+            cursor: pointer;
+        }
+
+        .register-name-area{
+            display: flex;
+            flex-direction: row;
+            align-items : center;
+            width: 80%;
+        }
+
+        #register-name-btn{
+            cursor: pointer;
+            height: 50px;
+            margin-left: 10px;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1.3333;
+        }
+
+        #register-name-btn:hover{
+            background: #2e6da4;
+            color: white;
+        }
+
+        #aregister-name-btn:focus{
+            background-color:#2e6d84;
+            color: white;
+        }
+
+        
+        .register-input-div{
+            width: 80%;
+            display: flex;
+            flex-direction : column;
+            justify-content : center;
+            align-items : flex-start;
+            margin-bottom: 18px;
         }
 
         .tmp{
@@ -50,22 +143,45 @@
             {% comment %} background-color:red; {% endcomment %}
         }
 
+        .register-header{
+            width: 100%;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 8px;
+        }
+
+        .register-header>span{
+            font-size: 42px;
+            font-weight: 800;
+        }
+        .register-header>p{
+            font-size: 16px;
+            color:#333;
+        }
+
         .register-body{
             width : 100%;
-            {% comment %} background-color:green; {% endcomment %}
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
+        .register-password{
+            margin-bottom: 48px;
+        }
+
         .label-text{
             color: #333;
             font-weight:600;
             font-size: 18px;
-            line-height: 20px;
-            
+            line-height: 20px; 
         }
+        
         #inputName{
             background-color: white;
             background-position: 10px 10px;
@@ -73,12 +189,13 @@
             padding-left: 40px;
             padding: 0 1em; 
             
-            height: 60px;
+            height: 50px;
             width: 100%;
             border-radius: 5px;
             color: #333;
-            font-size: 18px;
-            border: solid 2px #e9e9e9;
+            font-size: 20px;
+            border: solid 2px #adb5bd;
+            
         }
         #inputName:focus {
             outline: none
@@ -86,8 +203,56 @@
 
         .btn-div{
             width: 80%;
-            margin-top: 12px;
+            height: 126px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
         }
+
+        .btn-div-login{
+            width: 100%;
+            height: 50px;
+            margin-top: 48px;
+            margin-bottom: 14px;
+        }
+
+        .modal { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            height: 100%; 
+            display: none; 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        .modal_content{
+            width:500px; 
+            height:770px;
+            transform: translateX(-50%) translateY(-50%); 
+            top: 50%;
+            left: 50%; 
+            background:#fff; 
+            border-radius:10px;
+            position:relative;
+            text-align:center;
+            box-sizing:border-box;
+            padding:74px 0;
+            line-height:23px; 
+            cursor:pointer;
+            color:#333;
+        }
+
+        .my-btn-color{
+            background-color:#e7e7e7;
+            
+        }
+
 
     </style>
 
@@ -107,162 +272,217 @@
 
 <body class="d-flex h-100 text-center text-white bg-dark position-relative">
 
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-            <div>
-                <h3 class="mx-auto">Login page</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end">
-
-                </nav>
-            </div>
-        </header>
-
+    <div class="login-area">
         <main class="px-3e">
-            <h1 class="h3 mb-3 fw-normal">Please Login</h1>
             <!-- 로그인 폼 -->
+            <header class="login-title">
+                <img class="img-fluid" src="{% static 'img/logo/logo.png' %}" style="height:70px;">
+            </header>            
         
             <div class="mx-auto" style="width: 350px;">
-                <div class="form-floating mb-5">
+
+                <div class="login-input-div">
                     <!-- 요기 아이디 -->
-                    <input type="email" class="form-control rounded-4" id="login_id" placeholder="name@example.com">
-                    <label for="floatingInput" class="text-dark">Email address</label>
+                    <label for="inputName" class="login-label-text">아이디</label>
+                <input type="email" id="login_id" name = user_name class="login-input-name"> 
                 </div>
-                <div class="form-floating mb-5">
+
+                <div class="login-input-div">
                     <!-- 요기 비밀번호 -->
-                    <input type="password" class="form-control rounded-4" id="login_pwd" placeholder="Password">
-                    <label for="floatingPassword" class="text-dark">Password</label>
+                    <label for="inputName" class="login-label-text">비밀번호</label>
+                    <input type="password" id="login_pwd" name = user_name class="login-input-name"> 
+                </div>
+
+                <div class="btn-div-login">
+                    <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
+                        type="button" onclick="login();">로그인</button>
                 </div>
                 
-                <input class="w-50 btn btn-lg btn-primary" type="button" value="Login" onclick="login();" />
-                <script>
-                    function getCookie(name) {
-                        var cookieValue = null;
-                        if (document.cookie && document.cookie !== '') {
-                            var cookies = document.cookie.split(';');
-                            for (var i = 0; i < cookies.length; i++) {
-                                var cookie = cookies[i].trim();
-                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                    break;
-                                }
-                            }
-                        }
-                        return cookieValue;
-                    }
-                </script>
-                    
-                <script>
-                    function login(){
-                        console.log("Login !!");
-                        const csrftoken = getCookie("csrftoken");
-
-                        const user_id = document.getElementById("login_id").value;
-                        const user_pw = document.getElementById("login_pwd").value;
-
-                        $.ajax({
-                            url: "/diaryapp/login/",
-                            type: "post",
-                            data: {
-                                'user_id': user_id, 
-                                'user_pw': user_pw,
-                                "csrfmiddlewaretoken": csrftoken
-                            }
-                        });
-
-                    }
-                </script>
-
+                <div class="login-footer">
+                    <div class="btn-open-popup">회원가입</div> 
+                    <div>아이디 / 비밀번호 찾기</div> 
+                </div>
             </div>
-
-            <button type="button" class="btn btn-secondary  mt-5" data-toggle="modal"
-                data-target=".bd-example-modal-xl">회원가입</button>
-
-            <!-- 회원가입 모달-->
-            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="register-model">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <!-- 회원가입 폼 모달-->
-                        <div>
-                            <div class="modal-content rounded-5 shadow">
-                                
-                                <div class="modal-header p-5 pb-4 border-bottom-23">
-                                    <h2 class="fw-bold mb-0 text-dark">에이블러 가입하기</h2>
-                                    <button type="button" class="btn-close" aria-label="Close"></button>
-                                </div>
-
-                                <div class="tmp"></div>
-                                
-                                <div class="modal-body p-5 pt-0">
-
-                                    <div class="register-body">
-                                        <div class="register-input-div">
-                                            <!-- 요기 회원가입 이름-->
-                                            <label for="inputName" class="label-text">이름</label>
-                                            <input type="text" id="inputName" name = user_name> 
-                                        </div>
-                                        
-                                        <div class="register-input-div"}>
-                                            <!-- 요기 회원가입 아이디-->
-                                            <label for="inputName" class="label-text">아이디</label>
-                                            <input type="text" id="inputName" name = user_id >
-                                        </div>
-    
-                                        <div class="register-input-div"}>
-                                            <!-- 요기 회원가입 비밀번호-->
-                                            <label for="inputName" class="label-text">비밀번호</label>
-                                            <input type="text" id="inputName" name = user_pw >
-                                        </div>
-    
-                                        <div class="btn-div">
-                                            <button id="register-submit" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" onclick="register();">회원가입</button>
-                                            <script>
-                                                function register(){
-                                                    const user_name = document.getElementsByName("user_name")[0].value;
-                                                    const user_id = document.getElementsByName("user_id")[0].value;
-                                                    const user_pw = document.getElementsByName("user_pw")[0].value;
-                                                    
-                                                    console.log(user_name, user_id, user_pw);
-                                                    const data = axios.post('/diaryapp/api/user/signup', {
-                                                        'user_id': user_id, 
-                                                        'user_pw': user_pw,
-                                                        'user_name': user_name
-                                                    }).then(function (result) {
-                                                        const data = result.data;
-                                                        console.log(data);
-                                                        if(data.isLogined){
-                                                            {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
-                                                            $('#register-model').modal('hide');
-                                                            
-                                                            document.getElementById("login_id").value = user_id;
-                                                            document.getElementById("login_pwd").value = user_pw;
-                                                        }
-                                                        else{
-                                                            alert("Failed to register user");
-                                                        }
-                                                    });
-                                                }
-                                            </script>
-                                        </div>
-                                            
-                                        
-                                    </div>
-
-
-                                    
-                                </div>
-                            </div>
+            
+                <!-- 회원가입 모달-->
+            <div class="modal">
+                <div class="modal_content">
+                    <div class="register-header">
+                        <span>환영합니다</span>
+                        <p>실시간 채용 정보, IT 뉴스 및 TIL 기록 등 <br/>Aivler Diary에서 시작하세요.</p>
+                    </div>
+                    
+                    <div class="register-body">
+                        <div class="register-input-div">
+                            <!-- 요기 회원가입 이름-->
+                            <label for="inputName" class="label-text">이름</label>
+                            <input type="text" id="inputName" name = user_name> 
                         </div>
                         
+                        <div class="register-name-area">
+                            <div class="register-input-div"}>
+                                <!-- 요기 회원가입 아이디-->
+                                <label for="inputName" class="label-text">아이디</label>
+                                <input type="text" id="inputName" name = user_id >
+                            </div>
+                            <div>
+                                {% comment %} <button class="register-name-btn">중복확인</button> {% endcomment %}
+                                <button id="register-name-btn" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" 
+                                    onclick="isUnique();">중복확인</button>
+                            </div>
+                        </div>                
+
+                        <div class="register-input-div register-password"}>
+                            <!-- 요기 회원가입 비밀번호-->
+                            <label for="inputName" class="label-text">비밀번호</label>
+                            <input type="password" id="inputName" name = user_pw >
+                        </div>
+
+                        <div class="btn-div">
+                            <div class="btn-div-register">
+                                <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 btn-primary" 
+                                type="button" onclick="register();">회원가입</button>
+                            </div>
+
+                            <div>
+                                <button id="register-submit" class="w-100 h-100 mb-2 btn btn-lg rounded-4 my-btn-color" style={background-color:red;}
+                                type="button" onclick="offModal();">취소</button>
+                            </div>
+                        </div>
+
+                        <!-- modal 창 끄기 -->
+                        <script>
+                            function offModal(){
+                                const modal = document.querySelector('.modal');
+                                modal.classList.toggle('show');                                
+                            }
+                        </script>
+
+                        <!-- 회원가입 이벤트 -->
+                        <script>
+                            function isUnique(){
+                                const user_id = document.getElementsByName("user_id")[0].value;
+                                
+                                if(user_id === ""){
+                                    alert("아이디를 입력해주세요");
+                                    return;
+                                }
+                                const data = axios.post('/diaryapp/api/user/signup/isUnique', {
+                                    'user_id': user_id
+                                }).then(function (result) {
+                                    const data = result.data;
+                                    console.log(data.result);
+
+                                    if(data.result == true){
+                                        console.log("중복확인 됨.");
+                                        alert("이미 중복된 아이디가 존재합니다.")
+                                    }
+                                    else{
+                                        console.log("중복 없음.");
+                                    }
+                                });
+                            }
+
+                            function register(){
+                                const user_name = document.getElementsByName("user_name")[0].value;
+                                const user_id = document.getElementsByName("user_id")[0].value;
+                                const user_pw = document.getElementsByName("user_pw")[0].value;
+                                
+                                console.log(user_name, user_id, user_pw);
+                                const data = axios.post('/diaryapp/api/user/signup', {
+                                    'user_id': user_id, 
+                                    'user_pw': user_pw,
+                                    'user_name': user_name
+                                }).then(function (result) {
+                                    const data = result.data;
+                                    console.log(data);
+                                    if(data.isLogined){
+                                        {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
+                                        $('#register-model').modal('hide');
+                                        
+                                        document.getElementById("login_id").value = user_id;
+                                        document.getElementById("login_pwd").value = user_pw;
+                                    }
+                                    else{
+                                        alert("Failed to register user");
+                                    }
+                                });
+                            }                            
+                        </script>
                     </div>
                 </div>
             </div>
 
-        </main>
+            <!-- Post 관련 키 -->
+            <script>
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            </script>
 
-        <footer class="mt-auto text-white-50">
+            <!-- 로그인 기능 -->
+            <script>
+                function login(){
+                    console.log("Login !!");
+                    const csrftoken = getCookie("csrftoken");
 
-        </footer>
+                    const user_id = document.getElementById("login_id").value;
+                    const user_pw = document.getElementById("login_pwd").value;
+
+                    $.ajax({
+                        url: "/diaryapp/login/",
+                        type: "post",
+                        data: {
+                            'user_id': user_id, 
+                            'user_pw': user_pw,
+                            "csrfmiddlewaretoken": csrftoken
+                        },
+                        success: function(res) {
+                            if(res.code == 200) {
+                                location = '/diaryapp/main'
+                            }
+                        }
+                    });
+                }
+            </script>
+
+            <!-- modal 켜기 및 영역 밖 클릭시 OFF 기능 -->
+            <script>
+                const body = document.querySelector('body');
+                const modal = document.querySelector('.modal');
+                const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+                btnOpenPopup.addEventListener('click', () => {
+                    modal.classList.toggle('show');
+
+                    if (modal.classList.contains('show')) {
+                        body.style.overflow = 'hidden';
+                    }
+                });
+
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                    modal.classList.toggle('show');
+
+                    if (!modal.classList.contains('show')) {
+                        body.style.overflow = 'auto';
+                        console.log('hello');
+                    }
+                }
+            });
+            </script>
+        </main>        
     </div>
 </body>
 
