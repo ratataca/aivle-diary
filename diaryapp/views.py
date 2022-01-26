@@ -68,7 +68,7 @@ def dairy(request):
 def lecture(request):
     lecture_list = Lecture.objects.all()
     page=request.GET.get('page','1')
-    p=Paginator(lecture_list,'8')
+    p=Paginator(lecture_list,'7')
     lecture_data=p.page(page)
     return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
