@@ -66,13 +66,18 @@ def dairy(request):
 
 
 def lecture(request):
-    lecture_data = Lecture.objects.all()
+    lecture_list = Lecture.objects.all()
+    page=request.GET.get('page','1')
+    p=Paginator(lecture_list,'8')
+    lecture_data=p.page(page)
     return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
 def news(request):
     
-    news_data = News.objects.all()
-       
+    news_list = News.objects.all()
+    page=request.GET.get('page','1')
+    p=Paginator(news_list,'5')
+    news_data=p.page(page)
     return render(request, 'diaryapp/news.html', {'news_data' : news_data})
 
 
