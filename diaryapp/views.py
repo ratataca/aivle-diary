@@ -3,7 +3,7 @@ import json
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from sympy import re
+#from sympy import re
 from .models import User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
@@ -224,6 +224,15 @@ def upload(request):
     return render(
         request, 'diaryapp/upload.html', {'form': form})
 
+def download(request):
+    id = request.GET.get('id')
+    uploadFile = UploadFile.objects.get(id=id)
+    filepath = str(settings.BASE_DIR) + ('/media/%s' % uploadFile.file.name)
+    filename = os.path.basename(filepath)
+    with open(filepath, 'rb') as f:
+        response = HttpResponse(f, content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
 
 def test(request):
     pass
