@@ -75,4 +75,9 @@ class Recruit(models.Model):
 
 #파일 업로드 모델
 class UploadFile(models.Model):
+    user_name = models.CharField(max_length=10)
     file = models.FileField(upload_to='%Y/%m/%d')
+    user = models.ForeignKey('User', on_delete=models.CASCADE)    
+
+    class Meta:
+        db_table = 'user'
