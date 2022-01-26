@@ -39,6 +39,10 @@
 
 
 <style>
+	table th{
+		font-size:16pt;
+		text-align:center
+	}
 	#h_line:hover{
 		background-color : rgba(101,197,192,0.4);
 	} 	
@@ -46,9 +50,9 @@
 		cursor: pointer;
 	}
 	tr {
-		text-align:center;
-		
+		text-align:center;	
 	}
+
 </style>
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -77,8 +81,7 @@
 								
 								<tbody>
 									{% for i in news_data %}
-									<a href="{{i.link}}" target='_blank'>
-										<tr id="h_line"   style='cursor:pointer;'>
+										<tr id="h_line" onclick='window.open("{{i.link}}")'  style='cursor:pointer;'>
 											<td>{{i.index}}</td>
 											<td>{{i.date}}</td>
 											<td>{{i.title}}</td>
@@ -86,10 +89,6 @@
 											<td>{{i.company}}</td>
 																									
 										</tr>
-									</a>	
-										<script>
-											var newWindow = window.open({{i.link}})
-										</script>
 									{% endfor%}
 								</tbody> 
 														
@@ -99,7 +98,7 @@
 				</div>
 			</div>
 
-			{% comment %} onclick='location.href="{{i.link}}"' {% endcomment %}
+			
 			<!-- ============================================================== -->
 			<!-- End PAge Content -->
 			<!-- 페이징시작 -->
