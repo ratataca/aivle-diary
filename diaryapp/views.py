@@ -61,7 +61,8 @@ def main(request):
     'lecture_f':lecture_front,'lecture_b':lecture_back,'news':news_main})
     
 
-def dairy(request):
+def diary(request):
+    #제목, 내용, 페이지네비(이전, 다음), 그외 등 추가 필요
     return render(request, 'diaryapp/diary.html')
 
 
@@ -205,8 +206,7 @@ def read_all_lecture(request):
 #     data = {}
 #     return JsonResponse(data)
 
-# 3. 파일 업로드 -- 프론트엔드에서 가져갈 때 주석 해제하고 사용
-
+# 3. 파일 업로드
 
 app_name = 'diaryapp'
 
@@ -216,9 +216,11 @@ def upload(request):
         if form.is_valid():
             uploadFile = form.save()
             # uploadFile = form.save(commit=False)
+            ''' 업로드한 파일의 이름 및 용량 출력 코드
             name = uploadFile.file.name
             size = uploadFile.file.size
             return HttpResponse('%s<br>%s' % (name, size))
+            '''
     else:
         form = UploadFileForm()
     return render(
