@@ -40,7 +40,8 @@
 								
 								<tbody>
 									{% for i in news_data %}
-										<tr id="h_line" onclick='location.href="{{i.link}}"' style='cursor:pointer;'>
+									<a href="{{i.link}}" target='_blank'>
+										<tr id="h_line"   style='cursor:pointer;'>
 											<td>{{i.index}}</td>
 											<td>{{i.date}}</td>
 											<td>{{i.title}}</td>
@@ -48,6 +49,10 @@
 											<td>{{i.company}}</td>
 																									
 										</tr>
+									</a>	
+										<script>
+											var newWindow = window.open({{i.link}})
+										</script>
 									{% endfor%}
 								</tbody> 
 														
@@ -57,7 +62,7 @@
 				</div>
 			</div>
 
-			
+			{% comment %} onclick='location.href="{{i.link}}"' {% endcomment %}
 			<!-- ============================================================== -->
 			<!-- End PAge Content -->
 			<!-- ============================================================== -->
