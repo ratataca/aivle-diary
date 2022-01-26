@@ -1,13 +1,24 @@
+<section class="top-area" style="margin: 0">
+	<div style="color: white; height: 600px">
+		
+		
+			
+	</div>
+<section>
+
 {% extends 'diaryapp/layout.html' %}
 {% block content %}
 
 <section class="feature_area blog_right_sidebar" 
-style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color: white;">
+	style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color: white;">
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         axios.defaults.xsrfCookieName = 'csrftoken';
         axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
     </script>
+
+
+	
 
 	<div class="container">
 		<div class="gallery_f_inner row imageGallery1 ">
@@ -117,29 +128,6 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 				</div>
 			</div>
 			{%endfor%}
-			 {% comment %} <div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
-				<div class="feature_item border">
-					<i class="flaticon-city"></i>
-					<h4>{뉴스2을 넣어주세요!}</h4>
-					<p>{뉴스2을 넣어주세요!}</p>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
-				<div class="feature_item border">
-					<i class="flaticon-city"></i>
-					<h4>{뉴스3을 넣어주세요!}</h4>
-					<p>{뉴스3 내용을 넣어주세요!}</p>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
-				<div class="feature_item border">
-					<i class="flaticon-city"></i>
-					<h4>{ 뉴스4을 넣어주세요! }</h4>
-					<p>{ 뉴스5 내용을 넣어주세요! }</p>
-				</div>
-			</div>  {% endcomment %}
-
 			<!-- 뉴스 end -->
 		</div>
 	</div>
@@ -166,7 +154,7 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				 <div class="feature_item">
+				<div class="feature_item">
 					<i class="flaticon-skyline"></i>
 					{%for r in recruit_2%}
 					<h4>{{r.company_name}}</h4>
@@ -174,7 +162,7 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 					{%endfor%}
 				</div>
 			</div>
-		 <div class="col-lg-4" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
+		<div class="col-lg-4" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
 				<div class="feature_item">
 					<i class="flaticon-sketch"></i>
 					{%for r in recruit_3%}

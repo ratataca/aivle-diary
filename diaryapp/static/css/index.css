@@ -1,0 +1,12 @@
+.top-area{
+    background: url("/static/img/index/study-2.jpg") 50% 0 no-repeat fixed;
+    color: white;
+    height: 600px;
+    
+    padding: 0;
+    
+}
+
+.photo{
+    position: absolute;
+}
