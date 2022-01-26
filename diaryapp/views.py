@@ -56,8 +56,10 @@ def lecture(request):
     return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
 def news(request):
+    
     news_data = News.objects.all()
-    return render(request, 'diaryapp/news.html', {'date' : news_data})
+       
+    return render(request, 'diaryapp/news.html', {'news_data' : news_data})
 
 
 def hire(request):
