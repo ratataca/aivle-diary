@@ -1,5 +1,6 @@
 import datetime
 import json
+from ssl import AlertDescription
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -22,6 +23,7 @@ def login(request):
         user_id = request.POST.get("user_id")
         user_pw = request.POST.get("user_pw")
 
+        # user = User.objects.get(user_id=user_id, user_pw=user_pw)
         try:
             # 데이터 조회를 성공했을 때
             user = User.objects.get(user_id=user_id, user_pw=user_pw)
@@ -29,12 +31,11 @@ def login(request):
             # 세션 만들기
             request.session["user_id"] = user.user_id
             request.session["user_name"] = user.user_name
+
         except Exception as e:
             print(e)
-            # TODO : Error 처리
-            raise NotImplementedError()
-        
-
+            return JsonResponse({'code': 500})
+            
         return JsonResponse({'code': 200})
     else:
         return render(request, 'diaryapp/login.html')
@@ -43,17 +44,17 @@ def login(request):
 def main(request):
     # 메인 페이지 초기 데이터 보내기.
     news=News.objects.order_by('-date')
-    p1=Paginator(news,4)
-    news_main=p1.page(1)
+    p1 = Paginator(news,4)
+    news_main = p1.page(1)
     lecture_today=Lecture.objects.filter(date=datetime.datetime.today())
     lecture_back=Lecture.objects.filter(date=datetime.datetime.today()-datetime.timedelta(1))
     lecture_front=Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
 
     recruit=Recruit.objects.order_by('-date')
-    p3=Paginator(recruit,1)
-    recruit=p3.page(1)
-    recruit_2=p3.page(2)
-    recruit_3=p3.page(3)
+    p3 = Paginator(recruit,1)
+    recruit = p3.page(1)
+    recruit_2 = p3.page(2)
+    recruit_3 = p3.page(3)
 
     return render(request,
     'diaryapp/index.html',{'recruit_2':recruit_2,'recruit':recruit,
@@ -68,17 +69,18 @@ def diary(request):
 
 def lecture(request):
     lecture_list = Lecture.objects.all()
-    page=request.GET.get('page','1')
-    p=Paginator(lecture_list,'7')
-    lecture_data=p.page(page)
+
+    page = request.GET.get('page','1')
+    p = Paginator(lecture_list,'7')
+    lecture_data = p.page(page)
     return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
 def news(request):
     
     news_list = News.objects.all()
     page=request.GET.get('page','1')
-    p=Paginator(news_list,'5')
-    news_data=p.page(page)
+    p = Paginator(news_list,'5')
+    news_data = p.page(page)
     return render(request, 'diaryapp/news.html', {'news_data' : news_data})
 
 
@@ -118,8 +120,6 @@ def signup_user(request):
         user_name = req["user_name"]#request.POST.get('user_name')
         
         print(user_id, user_pw, user_name)
-        # print("=================" * 3)
-        # print(">> ", user_id, user_pw, user_name)
 
         # TODO 기존 사용자 동일한 id 있는지?
         # TODO 이메일 정규식 추가
@@ -144,7 +144,7 @@ def signup_user(request):
     else:
         return render(request, 'diaryapp/login.html')
 
-
+@csrf_exempt
 def is_existed_user(request):
     if request.method == 'POST':
         req = json.loads(request.body.decode('utf-8'))
@@ -159,17 +159,23 @@ def is_existed_user(request):
         
         if len(rep) > 0:
             data = {"result": True}
-            print("해당 아이디가 동일하게 있슴!!!")
             return JsonResponse(data=data)
         else:
             data = {"result": False}
             return JsonResponse(data=data)
 
+def check_session(request):
+    if "user_id" not in request.session:
+        return JsonResponse({'code': 500})
+    return JsonResponse({'code': 200})
+
 # 2. 3. 로그아웃
 def logout(request):
-    print("logout")
-    del request.session["user_id"]
-    del request.session["user_name"]
+    try:
+        del request.session["user_id"]
+        del request.session["user_name"]
+    except KeyError:
+        return redirect("diaryapp:login")    
 
     return redirect("diaryapp:login")
 
@@ -198,11 +204,6 @@ def read_all_lecture(request):
 
 # 2. 7. TIL관련
 
-
-# # 2. recruit 관련
-# def read_all_recruit(request):
-#     data = {}
-#     return JsonResponse(data)
 
 # 3. 파일 업로드
 

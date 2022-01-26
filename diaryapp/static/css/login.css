@@ -1,3 +1,4 @@
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -93,6 +94,11 @@ body{
     border-radius: 8px;
     font-size: 18px;
     line-height: 1.3333;
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border: 0;
+    outline: 0;
 }
 
 #register-name-btn:hover{
@@ -118,7 +124,6 @@ body{
 .tmp{
     height: 40px;
     width: 10px;
-    {% comment %} background-color:red; {% endcomment %}
 }
 
 .register-header{

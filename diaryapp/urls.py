@@ -28,8 +28,8 @@ urlpatterns = [
     # 2. 이벤트 
     # 서버팀 오늘 작업
 
-    # 2. 1. 로그인
-    # path('api/user/login', views.login_user, name='login_user'),
+    # 2. 1. 세션 확인
+    path('api/user/session', views.check_session, name='session'),
     
 
     # 2. 2. 회원가입

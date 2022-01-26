@@ -92,7 +92,8 @@
                                 <input type="text" id="inputName" name = user_id >
                             </div>
                             <div>
-                                {% comment %} <button class="register-name-btn">중복확인</button> {% endcomment %}
+                                {% comment %} <button id="register-name-btn" type="button" 
+                                onclick="isUnique();">중복확인</button> {% endcomment %}
                                 <button id="register-name-btn" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="button" 
                                     onclick="isUnique();">중복확인</button>
                             </div>
@@ -130,7 +131,7 @@
                                 const user_id = document.getElementsByName("user_id")[0].value;
                                 
                                 if(user_id === ""){
-                                    alert("아이디를 입력해주세요");
+                                    alert("이메일을 입력해주세요");
                                     return;
                                 }
                                 const data = axios.post('/diaryapp/api/user/signup/isUnique', {
@@ -140,15 +141,15 @@
                                     console.log(data.result);
 
                                     if(data.result == true){
-                                        console.log("중복확인 됨.");
                                         alert("이미 중복된 아이디가 존재합니다.")
                                     }
                                     else{
-                                        console.log("중복 없음.");
+                                        alert("사용 가능한 아이디입니다.")
                                     }
                                 });
                             }
-
+                        </script>
+                        <script>
                             function register(){
                                 const user_name = document.getElementsByName("user_name")[0].value;
                                 const user_id = document.getElementsByName("user_id")[0].value;
@@ -163,7 +164,6 @@
                                     const data = result.data;
                                     console.log(data);
                                     if(data.isLogined){
-                                        {% comment %} alert("Success to register user " + data.user_name); {% endcomment %}
                                         $('#register-model').modal('hide');
                                         
                                         document.getElementById("login_id").value = user_id;
@@ -206,6 +206,16 @@
                     const user_id = document.getElementById("login_id").value;
                     const user_pw = document.getElementById("login_pwd").value;
 
+                    if(user_id === ""){
+                        alert("이메일을 입력해주세요");
+                        return;
+                    }
+
+                    if(user_pw === ""){
+                        alert("비밀번호를 입력해주세요");
+                        return;
+                    }
+
                     $.ajax({
                         url: "/diaryapp/login/",
                         type: "post",
@@ -215,10 +225,15 @@
                             "csrfmiddlewaretoken": csrftoken
                         },
                         success: function(res) {
+                            console.log(res);
                             if(res.code == 200) {
                                 location = '/diaryapp/main'
                             }
+                            else if(res.code == 500) {
+                                alert("이메일 또는 비밀번호가 일치 하지 않습니다.")
+                            }
                         }
+                        
                     });
                 }
             </script>
