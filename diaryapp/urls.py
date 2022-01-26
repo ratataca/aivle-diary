@@ -14,7 +14,7 @@ urlpatterns = [
     # 1. HTML 파일 경로 지정
     path('login/', views.login, name='login'),
     path('main/', views.main, name='main'),
-    path('diary/', views.dairy, name='diary'),
+    path('diary/', views.diary, name='diary'),
     path('lecture/', views.lecture, name='lecture'),
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
