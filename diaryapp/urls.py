@@ -26,7 +26,7 @@ urlpatterns = [
     # Back   #
     ###########
     # 2. 이벤트 
-
+    # 서버팀 오늘 작업
 
     # 2. 1. 로그인
     # path('api/user/login', views.login_user, name='login_user'),
