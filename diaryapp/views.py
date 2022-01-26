@@ -3,7 +3,7 @@ import json
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from sympy import re
+#from sympy import re
 from .models import User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
