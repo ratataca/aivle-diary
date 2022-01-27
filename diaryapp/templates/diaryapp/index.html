@@ -23,11 +23,8 @@
             <h2 class="mt-4 mb-4"><a href="/diaryapp/lecture">강의</a></h2>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="card-box">
-                <div class="card-thumbnail">
-                    <img src="images/office-image-one.jpg" class="img-fluid" alt="">
-                </div>
-                <h3><a href="#" class="mt-2 text-color">어제 강의</a></h3>
+            <div class="card-box  disable-box">
+                <h3><a href="" class="mt-2 text-color">어제 강의</a></h3>
                 <p class="text-secondary">
 					{% if lecture_b %}
 							{%for l in lecture_b%}
@@ -43,11 +40,8 @@
         </div>
 
 		<div class="col-md-6 col-lg-4">
-            <div class="card-box point-box">
-                <div class="card-thumbnail">
-                    <img src="images/office-image-one.jpg" class="img-fluid" alt="">
-                </div>
-                <h3><a href="#" class="mt-2 text-color">오늘 강의</a></h3>
+            <div class="card-box">
+                <h3><a href="" class="mt-2 text-color">오늘 강의</a></h3>
                 <p class="text-secondary">
 					{% if lecture_b %}
 							{%for l in lecture%}
@@ -63,11 +57,8 @@
         </div>
 
 		<div class="col-md-6 col-lg-4">
-            <div class="card-box">
-                <div class="card-thumbnail">
-                    <img src="images/office-image-one.jpg" class="img-fluid" alt="">
-                </div>
-                <h3><a href="#" class="mt-2 text-color">내일 강의</a></h3>
+            <div class="card-box  disable-box">            
+                <h3><a href="" class="mt-2 text-color">내일 강의</a></h3>
                 <p class="text-secondary">
 					{% if lecture_f %}
 							{%for l in lecture_b%}
@@ -122,7 +113,7 @@
 
 <!--라효 테스트-->
 <section class="feature_area blog_right_sidebar" 
-	style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color: white; color:#333">
+	style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color: white; color:#333; ">
 
 	<div class="container">
 		<div class="row">
@@ -131,60 +122,61 @@
 				<h2 class="mt-4 mb-4"><a href="/diaryapp/hire">취뽀 일정</a></h2>
 			</div>
 
+			<!--채용 컨텐츠-->
 			<div class="col-md-6 col-lg-4">
 				<div class="card-box">
-					<div class="card-thumbnail">
-						<img src="images/office-image-one.jpg" class="img-fluid" alt="">
-					</div>
-					
 					{%for r in recruit%}
-						<h3><a href="#" class="mt-2 text-color">{{r.company_name}}</a></h3>
-						<p class="text-secondary">
-							
-							<h3 id="lecture_title" class="text-center">{{r.job_title}}</h3>
-							<p id="lecture_content">{{r.job_fields}}</p>	
-						</p>						
+					<div class="recruit-company" style={color:#333;}>
+						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
+
+						<div class="recruit-title">
+							<p class="">{{r.job_title}}</p>
+						</div>
+
+						<div  class="recruit-content">
+							<p>{{r.required_career}}</p>	
+							<p>{{r.deadlines}}</p>	
+						</div>
+					</div>
 					{%endfor%}
 				</div>
 			</div>
 
 			<div class="col-md-6 col-lg-4">
-				<div class="card-box point-box">
-					<div class="card-thumbnail">
-						<img src="images/office-image-one.jpg" class="img-fluid" alt="">
+				<div class="card-box">
+					{%for r in recruit_2%}
+					<div class="recruit-company" style={color:#333;}>
+						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
+
+						<div class="recruit-title">
+							<p class="">{{r.job_title}}</p>
+						</div>
+
+						<div  class="recruit-content">
+							<p>{{r.required_career}}</p>	
+							<p>{{r.deadlines}}</p>	
+						</div>
 					</div>
-					<h3><a href="#" class="mt-2 text-color">오늘 강의</a></h3>
-					<p class="text-secondary">
-						{% if lecture_b %}
-								{%for l in lecture%}
-									<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
-									<p id="lecture_content">{{l.detail}}</p>
-								{%endfor%}
-							{%else%}
-								<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
-							{%endif%}
-					</p>
-					<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
+					{%endfor%}
 				</div>
 			</div>
 
 			<div class="col-md-6 col-lg-4">
 				<div class="card-box">
-					<div class="card-thumbnail">
-						<img src="images/office-image-one.jpg" class="img-fluid" alt="">
+					{%for r in recruit_3%}
+					<div class="recruit-company" style={color:#333;}>
+						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
+
+						<div class="recruit-title">
+							<p class="">{{r.job_title}}</p>
+						</div>
+
+						<div  class="recruit-content">
+							<p>{{r.required_career}}</p>	
+							<p>{{r.deadlines}}</p>	
+						</div>
 					</div>
-					<h3><a href="#" class="mt-2 text-color">내일 강의</a></h3>
-					<p class="text-secondary">
-						{% if lecture_f %}
-								{%for l in lecture_b%}
-									<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
-									<p id="lecture_content">{{l.detail}}</p>
-								{%endfor%}
-							{%else%}
-								<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
-							{%endif%}
-					</p>
-					<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
+					{%endfor%}
 				</div>
 			</div>
 
@@ -192,47 +184,4 @@
 	</div>
 </section>
 <!--라효 테스트-->
-
-
-<section class="feature_area white_feature p_100" style="padding-bottom: 100px;">
-	<div class="container">
-		<div class="card " style="border-color: white;">
-			<div class="card-title">
-				<h1>오늘의 <a href="/diaryapp/hire">채용공고</a></h1>
-			</div>
-			<div class="card-subtitle">
-				<h4>에이블러 모두 취업뽀개기</h4>
-			</div>
-		</div>
-		<div class="feature_inner row">
-			<div class="col-lg-4 col-md-6" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item">
-					<i class="flaticon-city"></i>
-					{%for r in recruit%}
-						<h4>{{r.company_name}}</h4>
-						<p>{{r.job_title}}</p>
-                    {%endfor%}
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item">
-					<i class="flaticon-skyline"></i>
-					{%for r in recruit_2%}
-						<h4>{{r.company_name}}</h4>
-						<p>{{r.job_title}}</p>
-					{%endfor%}
-				</div>
-			</div>
-		<div class="col-lg-4" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item">
-					<i class="flaticon-sketch"></i>
-					{%for r in recruit_3%}
-						<h4>{{r.company_name}}</h4>
-						<p>{{r.job_title}}</p>
-					{%endfor%}
-				</div>
-			</div> 		
-		</div>
-	</div>
-</section>
 {% endblock %}
