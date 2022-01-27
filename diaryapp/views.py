@@ -6,10 +6,8 @@ from ssl import AlertDescription
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, response
 #from sympy import re
-from .models import User
 from django.utils import timezone
-from .models import News, Recruit, User,Lecture
-from .models import News, User, UploadFile, Diary
+from .models import News, Recruit, User, Lecture, Diary 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from config import settings
@@ -103,11 +101,6 @@ def hire(request):
 
 def team(request):
     return render(request, 'diaryapp/team.html')
-
-
-def temp(request):
-    return render(request, 'diaryapp/temp.html')
-
 
 ###########
 # Back   #

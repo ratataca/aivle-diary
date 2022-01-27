@@ -92,7 +92,7 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('title', models.CharField(max_length=30)),
                 ('content', models.TextField()),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='diaryapp.User')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='diaryapp.user')),
             ],
         ),
         migrations.CreateModel(
@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('file', models.FileField(blank=True, null=True, upload_to='%Y/%m/%d')),
-                ('diary', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='diaryapp.Diary')),
+                ('diary', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='diaryapp.diary')),
             ],
         ),
     ]

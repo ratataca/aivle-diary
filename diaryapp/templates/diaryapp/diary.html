@@ -37,10 +37,10 @@
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
-                                <a href="">Food,</a>
-                                <a class="active" href="">Technology,</a>
-                                <a href="">Politics,</a>
-                                <a href="">Lifestyle</a>
+                                <a>Food,</a>
+                                <a class="active">Technology,</a>
+                                <a>Politics,</a>
+                                <a>Lifestyle</a>
                             </div>
                             <ul class="blog_meta list">
                                 <li><a href="">Mark wiens<i class="lnr lnr-user"></i></a></li>
@@ -76,8 +76,13 @@
                             self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
                         </p>
                     </div>
-                    
                 </div>
+
+                <div class="float-right mt-3">
+                    <button id="fixBtn" class="btn btn-outline-primary rounded ">수정</button>
+                    <button id="delBtn" class="btn btn-outline-primary ml-3 rounded">삭제</button>
+                </div>
+
                 <div class="navigation-area">
                     <div class="row mt-5">
                         <div class="col-lg-6 col-md-6 col-12
@@ -111,19 +116,10 @@
             </div>
             <div class="col-lg-4 mt-5">
                 <div class="blog_right_sidebar " style="border-radius: 20px;">
-                    <aside class="single_sidebar_widget search_widget">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Posts">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                            </span>
-                        </div><!-- /input-group -->
-                        <div class="br"></div>
-                    </aside>
                     <aside class="single_sidebar_widget author_widget">
                         <img class="author_img rounded-circle" src="{% static 'img/blog/aivler.png' %}" alt="">
-                        <h4>Charlie Barber</h4>
-                        <p>Aivler</p>
+                        <h4>user id</h4>
+                        <p>Senior bwlog wriwter</p>
                         <div class="social_icon">
                             <a href=""><i class="fa fa-facebook"></i></a>
                             <a href=""><i class="fa fa-twitter"></i></a>
@@ -135,8 +131,8 @@
                             andits detractors.</p>
                         <div class="br"></div>
                     </aside>
-                    <aside class="single_sidebar_widget popular_post_widget">
-                        <h3 class="widget_title">수강중인 강좌</h3>
+                    <aside class="single_sidebar_widget popular_post_widget ">
+                        <h3 class="widget_title btn-color" >수강중인 강좌</h3>
                         <div class="media post_item">
                             <img src="{% static 'img/blog/popular-post/post1.jpg' %}" alt="post">
                             <div class="media-body">
@@ -220,9 +216,11 @@
         $('#myModal').hide();
     }
 </script>
-
-
 <!--================Blog Area =================-->
+
+
+
+
 
 <!--================= modal ===========================-->
 
@@ -230,11 +228,10 @@
     <div class="container-fluid nav justify-content-end">
         <a class="navbar-brand ">
             <button type="button" class="btn border" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                data-bs-whatever="@getbootstrap" id="modal_btn"><img src="{% static 'img/diary.png' %}"></button>
+                data-bs-whatever="@getbootstrap" id="modal_btn"><img src="{% static 'img/blog/diary.png' %}"></button>
         </a>
     </div>
 </nav>
-
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
