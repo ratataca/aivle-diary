@@ -8,8 +8,7 @@ from django.http import HttpResponse, JsonResponse, response
 #from sympy import re
 from .models import User
 from django.utils import timezone
-from .models import News, Recruit, User,Lecture
-from .models import News, User, UploadFile, Diary
+from .models import User, Lecture, News, Professor, Recruit, Til
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from config import settings
@@ -39,7 +38,6 @@ def login(request):
         except Exception as e:
             print(e)
             return JsonResponse({'code': 500})
-            
         return JsonResponse({'code': 200})
     else:
         return render(request, 'diaryapp/login.html')
@@ -47,14 +45,14 @@ def login(request):
 
 def main(request):
     # 메인 페이지 초기 데이터 보내기.
-    news=News.objects.order_by('?')
+    news = News.objects.order_by('?')
     p1 = Paginator(news,4)
     news_main = p1.page(1)
-    lecture_today=Lecture.objects.filter(date=datetime.datetime.today())
-    lecture_back=Lecture.objects.filter(date=datetime.datetime.today()-datetime.timedelta(1))
-    lecture_front=Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
+    lecture_today = Lecture.objects.filter(date=datetime.datetime.today())
+    lecture_back = Lecture.objects.filter(date=datetime.datetime.today()-datetime.timedelta(1))
+    lecture_front = Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
 
-    recruit=Recruit.objects.order_by('-date')
+    recruit = Recruit.objects.order_by('-date')
     p3 = Paginator(recruit,3)
     recruit = p3.page(1)
     return render(request,
@@ -63,9 +61,6 @@ def main(request):
     
 
 def diary(request):
-    
-
-
     #diary sidebar 부분
     lec1 = Lecture.objects.filter(professor_id=0)  
     lec2 = Lecture.objects.filter(professor_id=1)
@@ -78,7 +73,7 @@ def diary(request):
 
 def lecture(request):
     lecture_list = Lecture.objects.all()
-
+    # TODO - 외래키 참조
     page = request.GET.get('page','1')
     p = Paginator(lecture_list,'7')
     lecture_data = p.page(page)
@@ -199,7 +194,7 @@ def read_all_news(request):
 def read_all_recruit(request):
     data = Recruit.objects.all()
     data=list(data.values())
-    return JsonResponse(data,safe=False)
+    return JsonResponse(data, safe=False)
 
 
 # 2. 6. 강의
@@ -207,7 +202,7 @@ def read_all_recruit(request):
 def read_all_lecture(request):
     data = Lecture.objects.all()
     data=list(data.values())
-    return JsonResponse(data,safe=False)
+    return JsonResponse(data, safe=False)
 
 
 # 2. 7. TIL관련
@@ -221,28 +216,22 @@ def upload(request):
         try:
             user_id = request.session["user_id"]
         except Exception as e:
-            # 없음
-            # return Jresponse()
-            raise NotImplementedError()
-            return JsonResponse()
+            # session key 없을 떄
+            return JsonResponse({'code': 500})
             
         # DB 들어가야할 정보
         title = request.POST["title"]
         content = request.POST["content"]
         now_date_time = datetime.datetime
-
-        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
-
-
-        print("========="*10)
-        print(title)
-        print(content)
-        
         file_list = []
 
+        # File
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+        
         for image_name, image in request.FILES.items():
             image_buffer = image.read()
             
+            # user 경로가 없을 때
             image_path_per_user = os.path.join(settings.BASE_DIR, settings.IMAGE_DIR, user_id.replace("@", "_"))
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
@@ -253,9 +242,19 @@ def upload(request):
             with open(image_full_path, "wb") as file:
                 file.write(image_buffer)
 
+
+        print("=========" * 10)
+        print(title)
+        print(content)
         print(file_list)
-        print("========="*10)
+        print("=========" * 10)
+
         # DB 해당 컬럼 저장
+        til = Til(date=current_time, title=title, content=content, img=str(file_list), user=User.objects.get(user_id=user_id))
+        til.save()
+
+        return JsonResponse({'code': 200})
+
 
 
 def download(request):

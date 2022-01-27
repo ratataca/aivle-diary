@@ -236,6 +236,7 @@
         $('#modal-img').attr("src",b)
         $('#myModal').show();  
     }
+    
     function closepop() {
         $('#myModal').hide();
     }
@@ -314,7 +315,6 @@
             formData.append(imageInput.files[i].name, imageInput.files[i]);
         }
         
-
         $.ajax({
             url: "http://127.0.0.1:8000/diaryapp/diary/api/upload",
             {% comment %} enctype: 'multipart/form-data',  {% endcomment %}
@@ -323,9 +323,17 @@
             contentType: false,
             data: formData,
             success: function(res){
-                const message = res.data.values[0];
-                console.log("message: ", message)
-                $("#resultUploadPath").text(message.uploadFilePath)
+                if(res.code == 200) {
+                    $('#exampleModal').modal("hide");
+                    alert("성공적으로 저장되었습니다.");
+                }else if (res.code == 500) {
+                    alert("로그인이 필요합니다.")
+                }
+                else{
+                    alert("TIL 등록이 실패하였습니다.")
+                }
+
+                
             },
             err: function(err){
                 console.log("err:", err)
