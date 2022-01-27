@@ -3,7 +3,8 @@ import json
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from sympy import re
+
+#from sympy import re
 from .models import User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
@@ -62,7 +63,13 @@ def main(request):
     
 
 def dairy(request):
-    return render(request, 'diaryapp/diary.html')
+    lec1 = Lecture.objects.filter(professor_id=0)  #diary sidebar 부분
+    lec2 = Lecture.objects.filter(professor_id=1)
+    lec3 = Lecture.objects.filter(professor_id=2)
+    lec4 = Lecture.objects.filter(professor_id=5)
+    return render(request, 'diaryapp/diary.html', 
+        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4})
+  
 
 
 def lecture(request):
@@ -73,10 +80,13 @@ def lecture(request):
     return render(request, 'diaryapp/lecture.html', {'date' : lecture_data})
 
 def news(request):
-    
     news_list = News.objects.all()
-    page=request.GET.get('page','1')
-    p=Paginator(news_list,'5')
+    page = request.GET.get('page','1')
+    p = Paginator(news_list,'5')
+    print("==="*10)
+    print(p)
+    #print(sorted(reverse=True))
+
     news_data=p.page(page)
     return render(request, 'diaryapp/news.html', {'news_data' : news_data})
 

@@ -52,7 +52,6 @@
 	tr {
 		text-align:center;	
 	}
-
 </style>
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -68,7 +67,7 @@
 								make <code>&lt;thead&gt;</code>s appear light.</h6>
 						</div>
 						<div class="table-responsive">
-							<table class="table">
+							<table>
 								<thead class="thead-light">
 									<tr>
 										<th scope="col">index</th>
@@ -77,8 +76,7 @@
 										<th scope="col">content</th>
 										<th scope="col">company</th>
 									</tr>
-								</thead>
-								
+								</thead>								
 								<tbody>
 									{% for i in news_data %}
 										<tr id="h_line" onclick='window.open("{{i.link}}")'  style='cursor:pointer;'>
@@ -87,7 +85,7 @@
 											<td>{{i.title}}</td>
 											<td>{{i.content}}</td>
 											<td>{{i.company}}</td>
-																									
+																						
 										</tr>
 									{% endfor%}
 								</tbody> 

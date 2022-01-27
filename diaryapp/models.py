@@ -54,6 +54,7 @@ class News(models.Model):
     class Meta:
         managed = False
         db_table = 'news'
+        ordering = ['-date']
        
         
 

@@ -51,10 +51,6 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 
 					<div class="h-100 p-5 text-dark feature_item border" style="border-radius: 5px;">
 						<!-- 강의 제목 넣는 태그-->
-<<<<<<< HEAD
-						<!-- test-->
-=======
->>>>>>> c2a7f195496f835c219e5a6c48c3432bb0bcefe2
 						{% if lecture %}
 						{%for l in lecture%}
 						<h2 id="lecture_title" class="text-center">{{l.topic}}</h2>
@@ -113,7 +109,7 @@ style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color
 		<div class="gallery_f_inner row imageGallery1 ">
 			<!-- 뉴스 start -->
 			{%for n in news%}
-			<div class="col-lg-3 col-md-6" onclick="location.href='/diaryapp/news'" style="cursor: pointer;">
+			<div class="col-lg-3 col-md-6" onclick='window.open("{{n.link}}")' style="cursor: pointer;">
 				<div class="feature_item border">
 					<i class="flaticon-city"></i>
 					<h4>{{n.title}}</h4>
