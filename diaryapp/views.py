@@ -100,9 +100,6 @@ def team(request):
     return render(request, 'diaryapp/team.html')
 
 
-def temp(request):
-    return render(request, 'diaryapp/temp.html')
-
 
 ###########
 # Back   #
@@ -112,7 +109,6 @@ def temp(request):
 
 # 2. 1. 로그인
 #   위 Front쪽 추가 됨
-
 
 # 2. 2. 회원가입
 def signup_user(request):
@@ -167,11 +163,6 @@ def is_existed_user(request):
             data = {"result": False}
             return JsonResponse(data=data)
 
-def check_session(request):
-    if "user_id" not in request.session:
-        return JsonResponse({'code': 500})
-    return JsonResponse({'code': 200})
-
 # 2. 3. 로그아웃
 def logout(request):
     try:
@@ -205,14 +196,11 @@ def read_all_lecture(request):
     return JsonResponse(data, safe=False)
 
 
-# 2. 7. TIL관련
-
-
-# 3. 파일 업로드
+# 3. 1. TIL관련
+# 3. 1. 1. 파일 업로드
 @csrf_exempt
 def upload(request):
     if request.method == 'POST':
-        
         try:
             user_id = request.session["user_id"]
         except Exception as e:
@@ -242,13 +230,6 @@ def upload(request):
             with open(image_full_path, "wb") as file:
                 file.write(image_buffer)
 
-
-        print("=========" * 10)
-        print(title)
-        print(content)
-        print(file_list)
-        print("=========" * 10)
-
         # DB 해당 컬럼 저장
         til = Til(date=current_time, title=title, content=content, img=str(file_list), user=User.objects.get(user_id=user_id))
         til.save()
@@ -256,17 +237,8 @@ def upload(request):
         return JsonResponse({'code': 200})
 
 
-
-def download(request):
-    id = request.GET.get('id')
-    uploadFile = UploadFile.objects.get(id=id)
-
-    filepath = str(settings.BASE_DIR) + ('/media/%s' % uploadFile.file.name)
-    filename = os.path.basename(filepath)
-    with open(filepath, 'rb') as f:
-        response = HttpResponse(f, content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=%s' % filename
-        return response
-
-def test(request):
-    pass
+# 세션 유무 파악
+def check_session(request):
+    if "user_id" not in request.session:
+        return JsonResponse({'code': 500})
+    return JsonResponse({'code': 200})
