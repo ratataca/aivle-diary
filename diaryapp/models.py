@@ -77,3 +77,15 @@ class Recruit(models.Model):
     class Meta:
         managed = False
         db_table = 'recruit'
+
+class Til(models.Model):
+    index = models.AutoField(primary_key=True)
+    date = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=30, null=True)
+    content = models.CharField(max_length=700,  null=True)
+    img = models.CharField(max_length=700, blank=True, null=True)
+    user = models.ForeignKey('User', models.DO_NOTHING )
+
+    class Meta:
+        managed = False
+        db_table = 'til'
