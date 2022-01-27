@@ -7,12 +7,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 #from sympy import re
 from django.utils import timezone
-<<<<<<< HEAD
-from .models import News, Recruit, User,Lecture
-from .models import News, User, UploadFile, Diary
-=======
 from .models import News, Recruit, User, Lecture, Diary 
->>>>>>> Front_main
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from config import settings
