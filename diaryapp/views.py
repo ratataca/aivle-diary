@@ -24,8 +24,7 @@ def login(request):
         
         user_id = request.POST.get("user_id")
         user_pw = request.POST.get("user_pw")
-
-        # user = User.objects.get(user_id=user_id, user_pw=user_pw)
+        
         try:
             # 데이터 조회를 성공했을 때
             user = User.objects.get(user_id=user_id, user_pw=user_pw)
@@ -61,13 +60,17 @@ def main(request):
     
 
 def diary(request):
-    lec1 = Lecture.objects.filter(professor_id=0)  #diary sidebar 부분
+    
+
+
+    #diary sidebar 부분
+    lec1 = Lecture.objects.filter(professor_id=0)  
     lec2 = Lecture.objects.filter(professor_id=1)
     lec3 = Lecture.objects.filter(professor_id=2)
     lec4 = Lecture.objects.filter(professor_id=5)
     return render(request, 'diaryapp/diary.html', 
         {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4})
-  
+
 
 
 def lecture(request):
