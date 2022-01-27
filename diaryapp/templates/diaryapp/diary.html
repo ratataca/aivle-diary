@@ -82,8 +82,8 @@
                     <!-- 수정 삭제 버튼 -->
                     <div class="col-lg-12">
                         <div class="float-right mt-3">
-                            <button id="fixBtn" class="btn ">수정</button>
-                            <button id="delBtn" class="btn">삭제</button>
+                            <button id="fixBtn" class="btn" onclick="deleteTil()">수정</button>
+                            <button id="delBtn" class="btn" onclick="deleteTil()">삭제</button>
                         </div>
                     </div>
 
@@ -117,18 +117,6 @@
                         <p class="excert">
                             {{i.content}}
                             {%endfor%}
-                        </p>
-                        <p>
-                            Boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction of the camp price. However, who has the willpower to actually sit through a
-                            self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                        </p>
-                        <p>
-                            Boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction of the camp price. However, who has the willpower to actually sit through a
-                            self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
                         </p>
                     </div>
 
@@ -216,8 +204,6 @@
                             <img id="modal-img" src="">
                         </div>                    
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -242,9 +228,6 @@
     }
 </script>
 <!--================Blog Area =================-->
-
-
-
 
 
 <!--================= modal ===========================-->

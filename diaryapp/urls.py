@@ -45,7 +45,14 @@ urlpatterns = [
     # 2. 7. 강의
     path('api/lecture/readAll', views.read_all_lecture, name='lecture_read_all'),
 
-    # 2. 8. TIL 업로드
+    # 2. 8. TIL
+    # 2. 8. 1. 게시글 업로드
     path('diary/api/upload', views.upload, name='upload'),
+    
+    # 2. 8. 2. 게시글 수정
+    path('diary/api/update', views.update, name='update'),
+    
+    # 2. 8. 2. 게시글 수정
+    path('diary/api/delete', views.delete, name='delete'),
     
 ]

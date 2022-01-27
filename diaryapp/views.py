@@ -200,7 +200,7 @@ def read_all_lecture(request):
 
 
 # 3. 1. TIL관련
-# 3. 1. 1. 파일 업로드
+# 3. 1. 1. 게시글 업로드
 @csrf_exempt
 def upload(request):
     if request.method == 'POST':
@@ -238,6 +238,16 @@ def upload(request):
         til.save()
 
         return JsonResponse({'code': 200})
+
+
+# 3. 1. 2. 게시글 수정
+def upload(request):
+    pass
+
+
+# 3. 1. 3. 게시글 삭제
+def delete(request):
+    pass
 
 
 # 세션 유무 파악
