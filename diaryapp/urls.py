@@ -19,7 +19,6 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
     path('team/', views.team, name='team'),
-    path('temp/', views.temp, name='temp'),
     
     
     ###########
