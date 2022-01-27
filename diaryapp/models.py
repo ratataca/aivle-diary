@@ -35,6 +35,7 @@ class Lecture(models.Model):
         managed = False
         db_table = 'lecture'
 
+
 class Professor(models.Model):
     id = models.AutoField(primary_key= True)
     name = models.CharField(max_length=15)
