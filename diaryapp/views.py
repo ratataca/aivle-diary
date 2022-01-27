@@ -1,10 +1,7 @@
 import datetime
 import json
-<<<<<<< HEAD
 import os
-=======
 from ssl import AlertDescription
->>>>>>> b12b65981d5bad8555235955484e12a50100de4d
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -216,7 +213,6 @@ app_name = 'diaryapp'
 
 def upload(request):
     if request.method == 'POST':
-<<<<<<< HEAD
         diary = Diary()
         diary.title = request.POST['title']
         diary.content = request.POST['content']
@@ -232,19 +228,6 @@ def upload(request):
             # 데이터베이스에 저장
             uploadfile.save()
         return redirect('/diaryapp/fileview/' + str(diary.id))
-=======
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            uploadFile = form.save()
-            # uploadFile = form.save(commit=False)
-            ''' 업로드한 파일의 이름 및 용량 출력 코드
-            name = uploadFile.file.name
-            size = uploadFile.file.size
-            return HttpResponse('%s<br>%s' % (name, size))
-            '''
-    else:
-        form = UploadFileForm()
->>>>>>> b12b65981d5bad8555235955484e12a50100de4d
     return render(
         request, 'diaryapp/upload.html')
 
