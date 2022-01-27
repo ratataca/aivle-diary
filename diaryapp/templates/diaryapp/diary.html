@@ -59,18 +59,17 @@
                                         <a href=""><span class="lnr text-white lnr-arrow-left"></span></a>
                                     </div>
                                     <div class="detials">
-                                        <p>Prev Post</p>
-                                        <a href="">
-                                            <h4>{ 이전 게시물의 제목 }</h4>
+                                        <p></p>
+                                        
                                         </a>
                                     </div>
                                 </div>
                                 <div
                                     class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                                     <div class="detials">
-                                        <p>Next Post</p>
-                                        <a href="">
-                                            <h4>{다음 게시물의 제목 }</h4>
+                                        <p></p>
+                                        
+                                          
                                         </a>
                                     </div>
                                     <div class="arrow">
@@ -81,6 +80,56 @@
                             </div>
                         </div>
                     </div>
+                    <div id="paging" div style="margin: 0 auto;">
+                        <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+                            {% if til_list.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&page={{til_list.previous_page_number }}"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-left" viewBox="0 0 16 16">
+                                        <path
+                                            d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+        
+                            {% if til_list.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&page={{ til_list.next_page_number }}"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-right" viewBox="0 0 16 16">
+                                        <path
+                                            d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- 페이징처리 끝 -->
+            
+
 
                     <!-- 수정 삭제 버튼 -->
                     <div class="col-lg-12">
@@ -108,16 +157,17 @@
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
-                                <a>Food,</a>
-                                <a class="active">Technology,</a>
-                                <a>Politics,</a>
-                                <a>Lifestyle</a>
+                                <a></a>
+                                <a class="active"></a>
+                                <a></a>
+                                <a></a>
                             </div>
+                            {%for i in til_list%}
                             <ul class="blog_meta list">
-                                <li><a href="">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                <li><a href="">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                <li><a href="">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                <li><a href="">작성자 : {{i.user_id}}<i class="lnr lnr-user"></i></a></li>
+                                <li><a href="">{{i.date}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                <li><a href=""><i class="lnr lnr-eye"></i></a></li>
+                                <li><a href=""><i class="lnr lnr-bubble"></i></a></li>
                             </ul>
                             <ul class="social-links">
                                 <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -130,7 +180,6 @@
 
                     <!-- TIL 타이틀 및 게시글  -->
                     <div class="col-lg-9 col-md-9 blog_details">
-                        {%for i in til_list%}
                         <h2>{{i.title}}</h2>
                         <p class="excert">
                             {{i.content}}

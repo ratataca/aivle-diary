@@ -62,8 +62,10 @@ def main(request):
 
 def diary(request):
     
-    til_list=Til.objects.all()
-
+    til=Til.objects.order_by('-index')
+    page = request.GET.get('page','1')
+    p = Paginator(til,'1')
+    til_list = p.page(page)
     #diary sidebar 부분
     lec1 = Lecture.objects.filter(professor_id=0)  
     lec2 = Lecture.objects.filter(professor_id=1)
