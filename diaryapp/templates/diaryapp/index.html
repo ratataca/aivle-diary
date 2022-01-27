@@ -123,60 +123,23 @@
 			</div>
 
 			<!--채용 컨텐츠-->
+			{%for r in recruit%}
 			<div class="col-md-6 col-lg-4">
 				<div class="card-box">
-					{%for r in recruit%}
 					<div class="recruit-company" style={color:#333;}>
 						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
 
 						<div class="recruit-title">
 							<p class="">{{r.job_title}}</p>
 						</div>
-
 						<div  class="recruit-content">
 							<p>{{r.required_career}}</p>	
 							<p>{{r.deadlines}}</p>	
 						</div>
 					</div>
-					{%endfor%}
 				</div>
-			</div>
+				</div>{%endfor%}
 
-			<div class="col-md-6 col-lg-4">
-				<div class="card-box">
-					{%for r in recruit_2%}
-					<div class="recruit-company" style={color:#333;}>
-						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
-
-						<div class="recruit-title">
-							<p class="">{{r.job_title}}</p>
-						</div>
-
-						<div  class="recruit-content">
-							<p>{{r.required_career}}</p>	
-							<p>{{r.deadlines}}</p>	
-						</div>
-					</div>
-					{%endfor%}
-				</div>
-			</div>
-
-			<div class="col-md-6 col-lg-4">
-				<div class="card-box">
-					{%for r in recruit_3%}
-					<div class="recruit-company" style={color:#333;}>
-						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
-
-						<div class="recruit-title">
-							<p class="">{{r.job_title}}</p>
-						</div>
-
-						<div  class="recruit-content">
-							<p>{{r.required_career}}</p>	
-							<p>{{r.deadlines}}</p>	
-						</div>
-					</div>
-					{%endfor%}
 				</div>
 			</div>
 
