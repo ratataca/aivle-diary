@@ -7,35 +7,45 @@
 		<div class="page-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-9">
 						<div class="card">
 							<div class="card-body">
 								<h2 class="card-subtitle">강의</h2>
 							</div>
 							<div class="table-responsive">
+								
 								<table class="table">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Date</th>
-											<th scope="col">Topic</th>
-											<th scope="col">Detail</th>
-											<th scope="col">Professor_name</th>
+											<th scope="col" class="tindex">#</th>
+											<th scope="col" class="tdate">Date</th>
+											<th scope="col" class="ttopic">Topic</th>
+											<th scope="col" class="tdetail">Detail</th>
+											<th scope="col" class="tprofessor">Professor_name</th>
 										</tr>
 									</thead>
+
 									<style>
-										#h_line:hover{									
+										table, th, td {
+										  border: 1px solid #bcbcbc; text-align: center
+										}	
+						
+									</style>	
+
+									<style>
+										.h_line:hover{									
 											background-color : rgba(101,197,192,0.4);
 										}  									
 									</style>
 									{% for i in date %}
+
 									<tbody>
-										<tr id="h_line">	
-											<td>{{i.index}}</td>	
-											<td>{{i.date}}</td>
-											<td>{{i.topic}}</td>
-											<td>{{i.detail}}</td>
-											<td>{{i.professor_name}}</td>
+										<tr id="h_line{{i.index}}" class="h_line">	
+											<td class="tindex">{{i.index}}</td>	
+											<td class="tdate">{{i.date}}</td>
+											<td class="ttopic">{{i.topic}}</td>
+											<td class="tdetail">{{i.detail}}</td>
+											<td class="tprofessor" id="{{i.professor_id}}" val="{{i.index}}" onclick="pop(this);">{{i.professor_name}}</td>
 									<tbody>
 									{% endfor%}							
 								</table>
@@ -45,6 +55,52 @@
 				</div>
 				<!-- ============================================================== -->
 				<!-- End PAge Content -->
+				<!-- 페이징시작 -->
+		<div id="paging">
+			<ul class="pagination justify-content-center" style="margin-top: 2rem;">
+				{% if date.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="?&page={{ date.previous_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+						<path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+					  </svg></a>
+				</li>
+				{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+						<path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+					  </svg></a>
+				</li>
+				{% endif %}
+
+				<!-- 페이지 리스트 -->
+				{% for page_number in date.paginator.page_range %}
+				{% if page_number == date.number %}
+				<li class="page-item active" aria-current="page">
+					<a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a>
+				</li>
+				{% else %}
+				<li class="page-item">
+					<a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+
+				{% if date.has_next %}
+				<li class="page-item">
+					<a class="page-link" href="?&page={{ date.next_page_number }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+						<path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+					  </svg></a>
+				</li>
+				{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+						<path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+					  </svg></a>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+		<!-- 페이징 끝 -->
 				<!-- ============================================================== -->
 				<!-- ============================================================== -->
 				<!-- Right sidebar -->
@@ -57,4 +113,43 @@
 
 		</div>
 	</div>
+	<script type="text/javascript" language="javascript">
+		function pop(a){
+			console.log(a);
+			if(a) {var aa = $(a).attr("id");var cc =$(a).attr("val")}
+			console.log(cc);
+			var aa = aa.replace(/Professor object \(/,'');
+			var aa = aa.replace(/\)/,'');
+			var b = "http://127.0.0.1:8000/static/img/professor/id_"+aa+".png";
+			var c = "http://127.0.0.1:8000/static/img/index/index"+cc+".png";
+			$('#modal-img').attr("src",b);
+			$('#modal-img1').attr("src",c);
+			$('#myModal').show(); 	
+		}
+		function closepop() {
+			$('#myModal').hide();
+		}
+
+	</script>
+	
+	<style>
+		.table {}
+		.table .thead-light th {background-color: #4472c4;font-size: 1.4em;color: white;font-weight: bold;}
+		.table .tindex{width:2%;}
+		.table td.tindex {text-align: right;padding-right: 10px; text-align: center}
+		.table .tdate {width:12%;}
+		.table .ttopic {width:auto;word-break:keep-all;}
+		.table .tdetail {width:30%;}
+		.table .tprofessor {/*width:3%;*/}
+		#myModal {display:none;position:fixed;top:0px;left:0px;width:calc(100vw);height:100%;background:#0000008c;z-index:9999;}
+		#myModal .modal-body {text-align:center;margin:0 auto;padding-top:100px;}
+		#myModal .modal-body #modal-img1 {margin-left:20px;}
+	</style>
+	<div id="myModal" onclick="closepop()">
+	<div class="modal-body">
+		
+		<img id="modal-img" src=""><img id="modal-img1" src="">
+	</div>
+</div>
 {% endblock %}
+

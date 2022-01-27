@@ -14,13 +14,13 @@ urlpatterns = [
     # 1. HTML 파일 경로 지정
     path('login/', views.login, name='login'),
     path('main/', views.main, name='main'),
-    path('diary/', views.dairy, name='diary'),
+    path('diary/', views.diary, name='diary'),
     path('lecture/', views.lecture, name='lecture'),
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
     path('team/', views.team, name='team'),
     path('temp/', views.temp, name='temp'),
-    
+   
     
     ###########
     # Back   #
@@ -28,8 +28,8 @@ urlpatterns = [
     # 2. 이벤트 
     # 서버팀 오늘 작업
 
-    # 2. 1. 로그인
-    # path('api/user/login', views.login_user, name='login_user'),
+    # 2. 1. 세션 확인
+    path('api/user/session', views.check_session, name='session'),
     
 
     # 2. 2. 회원가입
@@ -51,6 +51,12 @@ urlpatterns = [
     path('api/lecture/readAll', views.read_all_lecture, name='lecture_read_all'),
 
     # 2. 8. TIL관련
+
+    # 2. 9 다운로드 경로
+    path('download/', views.download, name='download'),
+
+    # 2. @ 업로드 테스트 경로
+    path('upload/', views.upload, name='upload'),
 
     
 ]

@@ -1,0 +1,3 @@
+{% for UploadFile in Diary.UploadFile_set.all%}
+    <img src="{{UploadFile.file.url}}" width="50"><br>
+{% endfor %}
