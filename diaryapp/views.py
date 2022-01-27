@@ -242,5 +242,19 @@ def download(request):
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
         return response
 
+
+def edit(request, id):
+    post = User.objects.get(id=id)
+    return render(request, 'diaryapp/edit.html', {'post':post})
+
+def update(request, id):
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+    name = request.POST.get('user_name')
+    date = request.POST.get('date')
+    User.objects.filter(id=id).update(title=Diary.title, date = Diary.date,
+                                content=Diary.content, user_name = User.user_name)
+    return redirect(f'diaryapp/Diary/{id}/')
+
 def test(request):
     pass
