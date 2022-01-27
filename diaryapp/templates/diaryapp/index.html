@@ -61,7 +61,7 @@
                 <h3><a href="" class="mt-2 text-color">내일 강의</a></h3>
                 <p class="text-secondary">
 					{% if lecture_f %}
-							{%for l in lecture_b%}
+							{%for l in lecture_f%}
 								<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
 								<p id="lecture_content">{{l.detail}}</p>
 							{%endfor%}

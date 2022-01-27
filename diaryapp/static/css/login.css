@@ -91,12 +91,13 @@ body{
     cursor: pointer;
     height: 50px;
     margin-left: 10px;
+    margin-top: 10px;
     border-radius: 8px;
     font-size: 18px;
     line-height: 1.3333;
     color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color:#337ab7;
+    border-color: #2e6da4;
     border: 0;
     outline: 0;
 }
