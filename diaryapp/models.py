@@ -60,8 +60,7 @@ class News(models.Model):
         managed = False
         db_table = 'news'
         ordering = ['-date']
-       
-        
+
 
 class Recruit(models.Model):
     index = models.AutoField(primary_key=True)
