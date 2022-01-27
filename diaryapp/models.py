@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class User(models.Model):
     user_id = models.CharField(primary_key=True, max_length=50)
@@ -13,7 +14,7 @@ class User(models.Model):
 
 class Diary(models.Model):
     index = models.AutoField(primary_key=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True) #자동으로 오늘 날짜로 설정
     title = models.CharField(max_length=30)
     content = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
@@ -57,8 +58,7 @@ class News(models.Model):
     class Meta:
         managed = False
         db_table = 'news'
-       
-        
+
 
 class Recruit(models.Model):
     index = models.AutoField(primary_key=True)
@@ -75,3 +75,15 @@ class Recruit(models.Model):
     class Meta:
         managed = False
         db_table = 'recruit'
+<<<<<<< HEAD
+=======
+
+#파일 업로드 모델
+class UploadFile(models.Model):
+    user_name = models.CharField(max_length=10)
+    file = models.FileField(upload_to='%Y/%m/%d')
+    user = models.ForeignKey('User', related_name='upload', on_delete=models.CASCADE)    
+
+    class Meta:
+        db_table = 'user'
+>>>>>>> b12b65981d5bad8555235955484e12a50100de4d
