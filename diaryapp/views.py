@@ -53,14 +53,10 @@ def main(request):
     lecture_front=Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
 
     recruit=Recruit.objects.order_by('-date')
-    p3 = Paginator(recruit,1)
+    p3 = Paginator(recruit,3)
     recruit = p3.page(1)
-    recruit_2 = p3.page(2)
-    recruit_3 = p3.page(3)
-
     return render(request,
-    'diaryapp/index.html',{'recruit_2':recruit_2,'recruit':recruit,
-    'recruit_3':recruit_3,'lecture':lecture_today,
+    'diaryapp/index.html',{'recruit':recruit,'lecture':lecture_today,
     'lecture_f':lecture_front,'lecture_b':lecture_back,'news':news_main})
     
 
