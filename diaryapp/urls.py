@@ -52,5 +52,11 @@ urlpatterns = [
 
     # 2. 8. TIL관련
 
+    # 2. 9 다운로드 경로
+    path('download/', views.download, name='download'),
+
+    # 2. @ 업로드 테스트 경로
+    path('upload/', views.upload, name='upload'),
+
     
 ]

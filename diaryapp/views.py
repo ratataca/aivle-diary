@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 from ssl import AlertDescription
 
 from django.shortcuts import render, redirect
@@ -8,10 +9,11 @@ from django.http import HttpResponse, JsonResponse
 from .models import User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
-from .models import News, User
+from .models import News, User, UploadFile, Diary
 from django.views.decorators.csrf import csrf_exempt
-from .forms import UploadFileForm
 from django.core.paginator import Paginator
+from config import settings
+
 ###########
 # Front   #
 ###########
@@ -43,7 +45,7 @@ def login(request):
 
 def main(request):
     # 메인 페이지 초기 데이터 보내기.
-    news=News.objects.order_by('-date')
+    news=News.objects.order_by('?')
     p1 = Paginator(news,4)
     news_main = p1.page(1)
     lecture_today=Lecture.objects.filter(date=datetime.datetime.today())
@@ -51,14 +53,10 @@ def main(request):
     lecture_front=Lecture.objects.filter(date=datetime.datetime.today()+datetime.timedelta(1))
 
     recruit=Recruit.objects.order_by('-date')
-    p3 = Paginator(recruit,1)
+    p3 = Paginator(recruit,3)
     recruit = p3.page(1)
-    recruit_2 = p3.page(2)
-    recruit_3 = p3.page(3)
-
     return render(request,
-    'diaryapp/index.html',{'recruit_2':recruit_2,'recruit':recruit,
-    'recruit_3':recruit_3,'lecture':lecture_today,
+    'diaryapp/index.html',{'recruit':recruit,'lecture':lecture_today,
     'lecture_f':lecture_front,'lecture_b':lecture_back,'news':news_main})
     
 
@@ -215,23 +213,28 @@ app_name = 'diaryapp'
 
 def upload(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            uploadFile = form.save()
-            # uploadFile = form.save(commit=False)
-            ''' 업로드한 파일의 이름 및 용량 출력 코드
-            name = uploadFile.file.name
-            size = uploadFile.file.size
-            return HttpResponse('%s<br>%s' % (name, size))
-            '''
-    else:
-        form = UploadFileForm()
+        diary = Diary()
+        diary.title = request.POST['title']
+        diary.content = request.POST['content']
+        diary.date = timezone.datetime.now()
+        diary.user = request.user
+        diary.save()
+        for img in request.FILES.getlist('imgs'):
+            uploadfile = UploadFile()
+            # 외래키로 현재 생성한 Post의 기본키를 참조
+            uploadfile.diary = diary
+            # imgs로부터 가져온 파일 하나를 저장
+            uploadfile.file = img
+            # 데이터베이스에 저장
+            uploadfile.save()
+        return redirect('/diaryapp/fileview/' + str(diary.id))
     return render(
-        request, 'diaryapp/upload.html', {'form': form})
+        request, 'diaryapp/upload.html')
 
 def download(request):
     id = request.GET.get('id')
     uploadFile = UploadFile.objects.get(id=id)
+
     filepath = str(settings.BASE_DIR) + ('/media/%s' % uploadFile.file.name)
     filename = os.path.basename(filepath)
     with open(filepath, 'rb') as f:
