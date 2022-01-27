@@ -6,24 +6,27 @@ class User(models.Model):
     user_pw = models.CharField(max_length=20)
     user_name = models.CharField(max_length=10)
     date = models.DateTimeField()
-
+    
     class Meta:
         managed = False
         db_table = 'user'
+
 
 class Diary(models.Model):
     index = models.AutoField(primary_key=True)
     date = models.DateTimeField(auto_now_add=True) #자동으로 오늘 날짜로 설정
     title = models.CharField(max_length=30)
-    content = models.CharField(max_length=700)
-    img = models.CharField(max_length=700,null=True,blank=True)
-    user_id = models.CharField(max_length=50)
+    content = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
-    class Meta:
-        managed = False
-        db_table = 'diary'
+    def __str__(self):
+        return self.title
 
+class UploadFile(models.Model):
+    diary = models.ForeignKey('Diary', on_delete=models.CASCADE, null=True)
+    file = models.FileField(upload_to='%Y/%m/%d', blank=True, null=True)
 
+        
 class Lecture(models.Model):
     index = models.AutoField(primary_key=True)
     date = models.DateField()
@@ -72,12 +75,3 @@ class Recruit(models.Model):
     class Meta:
         managed = False
         db_table = 'recruit'
-
-#파일 업로드 모델
-class UploadFile(models.Model):
-    user_name = models.CharField(max_length=10)
-    file = models.FileField(upload_to='%Y/%m/%d')
-    user = models.ForeignKey('User', related_name='upload', on_delete=models.CASCADE)    
-
-    class Meta:
-        db_table = 'user'
