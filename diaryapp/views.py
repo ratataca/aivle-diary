@@ -6,8 +6,10 @@ from ssl import AlertDescription
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, response
 #from sympy import re
+from .models import User
 from django.utils import timezone
-from .models import News, Recruit, User, Lecture, Diary 
+from .models import News, Recruit, User,Lecture
+from .models import News, User, UploadFile, Diary
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from config import settings
@@ -102,6 +104,11 @@ def hire(request):
 def team(request):
     return render(request, 'diaryapp/team.html')
 
+
+def temp(request):
+    return render(request, 'diaryapp/temp.html')
+
+
 ###########
 # Back   #
 ###########
@@ -187,7 +194,7 @@ def read_all_news(request):
     data=list(data.values())
     return JsonResponse(data,safe=False)
 
-# 2. 5. 채용정보 
+# 2. 5. 채용정보 read_all_recruit
 # 2. 5. 1. 채용 모든 데이터 조회
 def read_all_recruit(request):
     data = Recruit.objects.all()

@@ -13,9 +13,26 @@
         opacity:0.8;
     }
     
-    #myModal {display:none;position:fixed;top:0px;left:0px;width:calc(100vw);height:100%;background:#0000008c;z-index:9999;}
+    #myModal {
+        display:none;
+        position:fixed;
+        top:0px;
+        left:0px;
+        width:100vw;
+        height:100%;
+        background:#0000008c;
+        z-index:9999;
+    }
 
-    #myModal .modal-body {text-align:center;margin:0 auto;padding-top:100px;}
+    #myModal .modal-body {
+        text-align:center;
+        margin:0 auto;
+        padding-top:100px;
+    }
+
+    .img-area{
+        margin-top: 30px;
+    }
 </style>
 
 <script>
@@ -29,11 +46,47 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="single-post row">
+                    <!-- 네비게이션 바-->
                     <div class="col-lg-12">
-                        <div class="feature-img">
-                            <img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}">
+                        <div class="navigation-area">
+                            <div class="row mt-5">
+                                <div class="col-lg-6 col-md-6 col-12
+                                nav-left flex-row d-flex justify-content-start align-items-center">
+                                    <div class="arrow">
+                                        <a href=""><span class="lnr text-white lnr-arrow-left"></span></a>
+                                    </div>
+                                    <div class="detials">
+                                        <p>Prev Post</p>
+                                        <a href="">
+                                            <h4>{ 이전 게시물의 제목 }</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                    <div class="detials">
+                                        <p>Next Post</p>
+                                        <a href="">
+                                            <h4>{다음 게시물의 제목 }</h4>
+                                        </a>
+                                    </div>
+                                    <div class="arrow">
+                                        <a href=""><span class="lnr text-white lnr-arrow-right"></span></a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 수정 삭제 버튼 -->
+                    <div class="col-lg-12">
+                        <div class="float-right mt-3">
+                            <button id="fixBtn" class="btn ">수정</button>
+                            <button id="delBtn" class="btn">삭제</button>
+                        </div>
+                    </div>
+
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
@@ -56,6 +109,8 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- TIL 타이틀 및 게시글  -->
                     <div class="col-lg-9 col-md-9 blog_details">
                         <h2>Astronomy Binoculars A Great Alternative</h2>
                         <p class="excert">
@@ -76,44 +131,19 @@
                             self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
                         </p>
                     </div>
-                </div>
 
-                <div class="float-right mt-3">
-                    <button id="fixBtn" class="btn btn-outline-primary rounded ">수정</button>
-                    <button id="delBtn" class="btn btn-outline-primary ml-3 rounded">삭제</button>
-                </div>
-
-                <div class="navigation-area">
-                    <div class="row mt-5">
-                        <div class="col-lg-6 col-md-6 col-12
-                        nav-left flex-row d-flex justify-content-start align-items-center">
-                            <div class="arrow">
-                                <a href=""><span class="lnr text-white lnr-arrow-left"></span></a>
+                    <!-- 이미지 영역 -->
+                    <div class="img-area">
+                        <div class="col-lg-12">
+                            <div class="feature-img">
+                                <a href="{% static 'img/blog/feature-img.jpg' %}" download><img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}"></a>
                             </div>
-                            <div class="detials">
-                                <p>Prev Post</p>
-                                <a href="">
-                                    <h4>{ 이전 게시물의 제목 }</h4>
-                                </a>
-                            </div>
-                        </div>
-                        <div
-                            class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                            <div class="detials">
-                                <p>Next Post</p>
-                                <a href="">
-                                    <h4>{다음 게시물의 제목 }</h4>
-                                </a>
-                            </div>
-                            <div class="arrow">
-                                <a href=""><span class="lnr text-white lnr-arrow-right"></span></a>
-                            </div>
-                            
                         </div>
                     </div>
+                    
                 </div>
-
             </div>
+            
             <div class="col-lg-4 mt-5">
                 <div class="blog_right_sidebar " style="border-radius: 20px;">
                     <aside class="single_sidebar_widget author_widget">
@@ -132,7 +162,7 @@
                         <div class="br"></div>
                     </aside>
                     <aside class="single_sidebar_widget popular_post_widget ">
-                        <h3 class="widget_title btn-color" >수강중인 강좌</h3>
+                        <h3 class="widget_title btn-color" style={background-color:#337ab7 !important;}>수강중인 강좌</h3>
                         <div class="media post_item">
                             <img src="{% static 'img/blog/popular-post/post1.jpg' %}" alt="post">
                             <div class="media-body">
@@ -140,7 +170,7 @@
                                     <h3>IT트랜드 맛보기</h3>
                                 </div>
                                 {% for i in lec1 %}
-                                <p class="lec">-{{i.detail}}</p>
+                                    <p class="lec">-{{i.detail}}</p>
                                 {% endfor%}
                             </div>
                         </div>
