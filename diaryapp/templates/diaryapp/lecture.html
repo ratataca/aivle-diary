@@ -1,5 +1,6 @@
 {% extends 'diaryapp/layout.html' %}
 {% block content %}	
+<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
 	<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -50,10 +51,65 @@
 									{% endfor%}							
 								</table>
 							</div>
+=======
+<style>
+	#h_line:hover{									
+		background-color : rgba(101,197,192,0.4);
+	}
+
+	table th {
+		font-size: 16pt;
+		text-align: center
+	}
+
+	.sortable tr {
+		cursor: pointer;
+	}
+
+	tr {
+		text-align: center;
+	} 									
+</style>
+
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+	data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full" class="mt-5">
+	<div class="page-wrapper">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-9 mt-5">
+					<div class="card">
+						<div class="card-body">
+							<h2 class="card-title">강의</h2>
+							<h6 class="card-subtitle"><code>슈퍼 개발자가로 변하기 위한 과정입니다.</code></h6>
+						</div>
+						<div class="table-responsive">
+							<table class="table">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col" class="col-0">index</th>
+										<th scope="col" class="col-2">date</th>
+										<th scope="col" class="col-3">title</th>
+										<th scope="col" class="col-5">content</th>
+										<th scope="col">professor</th>
+									</tr>
+								</thead>
+								<tbody>
+								{% for i in date %}
+									<tr id="h_line">	
+										<td>{{i.index}}</td>	
+										<td>{{i.date}}</td>
+										<td>{{i.topic}}</td>
+										<td>{{i.detail}}</td>
+										<td>{{i.professor_name}}</td>
+									</tr>
+								{% endfor%}	
+								</tbody>
+							</table>
+>>>>>>> Front_main
 						</div>
 					</div>
 				</div>
-				<!-- ============================================================== -->
+			</div>
 				<!-- End PAge Content -->
 				<!-- 페이징시작 -->
 		<div id="paging">
@@ -101,16 +157,7 @@
 			</ul>
 		</div>
 		<!-- 페이징 끝 -->
-				<!-- ============================================================== -->
-				<!-- ============================================================== -->
-				<!-- Right sidebar -->
-				<!-- ============================================================== -->
-				<!-- .right-sidebar -->
-				<!-- ============================================================== -->
-				<!-- End Right sidebar -->
-				<!-- ============================================================== -->
 			</div>
-
 		</div>
 	</div>
 	<script type="text/javascript" language="javascript">
