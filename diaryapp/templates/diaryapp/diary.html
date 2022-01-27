@@ -40,6 +40,9 @@
     axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 </script>
 
+<script>
+    var isCreateModal = true;
+</script>
 
 <section class="blog_area single-post-area p_120" >
     <div class="container">
@@ -82,10 +85,25 @@
                     <!-- 수정 삭제 버튼 -->
                     <div class="col-lg-12">
                         <div class="float-right mt-3">
-                            <button id="fixBtn" class="btn" onclick="deleteTil()">수정</button>
+                            <button id="fixBtn" class="btn" onclick="updateTil();">수정</button>
                             <button id="delBtn" class="btn" onclick="deleteTil()">삭제</button>
                         </div>
                     </div>
+
+                    <script>
+                        function updateTil(){
+                            $("#message-title").val("message-title");
+                            $("#message-text").text("message-text");
+                            
+                            $('#exampleModal').modal("show");
+
+                            isCreateModal = false;
+                        }
+
+                        function deleteTil(){
+                            alert("해당 게시글을 삭제할까요?");
+                        }
+                    </script>
 
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
@@ -276,6 +294,8 @@
 
 <script>
     function uploadDiary(){
+        const url = isCreateModal ? "http://127.0.0.1:8000/diaryapp/diary/api/upload" : "http://127.0.0.1:8000/diaryapp/diary/api/update";
+        isCreateModal = true;
         
         const csrftoken = getCookie("csrftoken");
 
@@ -291,6 +311,7 @@
         
         const formData = new FormData();
         
+        formData.append("id", 3);
         formData.append("title", title);
         formData.append("content", content);
         
@@ -299,8 +320,7 @@
         }
         
         $.ajax({
-            url: "http://127.0.0.1:8000/diaryapp/diary/api/upload",
-            {% comment %} enctype: 'multipart/form-data',  {% endcomment %}
+            url: url,
             type:"post",
             processData: false,
             contentType: false,

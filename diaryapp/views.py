@@ -241,8 +241,52 @@ def upload(request):
 
 
 # 3. 1. 2. 게시글 수정
-def upload(request):
-    pass
+def update(request):
+    if request.method == 'POST':
+        try:
+            user_id = request.session["user_id"]
+        except Exception as e:
+            # session key 없을 떄
+            return JsonResponse({'code': 500})
+        
+        # DB Update를 위해 필요한 고유 키(id)
+        id = request.POST["id"]
+
+        # DB 들어가야할 정보
+        title = request.POST["title"]
+        content = request.POST["content"]
+        
+        now_date_time = datetime.datetime
+        file_list = []
+
+        # File
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+        
+        for image_name, image in request.FILES.items():
+            image_buffer = image.read()
+            
+            # user 경로가 없을 때
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.IMAGE_DIR, user_id.replace("@", "_"))
+            if not os.path.isdir(image_path_per_user):
+                os.mkdir(image_path_per_user)  
+
+            image_full_path = os.path.join(image_path_per_user, f"{current_time}@@@{image_name}")
+            file_list.append(f"{current_time}@@@{image_name}")
+
+            with open(image_full_path, "wb") as file:
+                file.write(image_buffer)
+
+        # DB 해당 컬럼 저장
+        til = Til.objects.get(id=id)
+        til.date = current_time
+        til.title = title
+        til.content = content
+        til.img = str(file_list)
+        # til = Til(date=current_time, title=title, content=content, img=str(file_list), user=User.objects.get(user_id=user_id))
+        til.save()
+
+        return JsonResponse({'code': 200})
+
 
 
 # 3. 1. 3. 게시글 삭제

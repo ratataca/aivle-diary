@@ -52,7 +52,7 @@ urlpatterns = [
     # 2. 8. 2. 게시글 수정
     path('diary/api/update', views.update, name='update'),
     
-    # 2. 8. 2. 게시글 수정
+    # 2. 8. 3. 게시글 수정
     path('diary/api/delete', views.delete, name='delete'),
     
 ]
