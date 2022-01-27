@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -7,10 +8,11 @@ from django.http import HttpResponse, JsonResponse
 from .models import User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
-from .models import News, User
+from .models import News, User, UploadFile, Diary
 from django.views.decorators.csrf import csrf_exempt
-from .forms import UploadFileForm
 from django.core.paginator import Paginator
+from config import settings
+
 ###########
 # Front   #
 ###########
@@ -212,21 +214,28 @@ app_name = 'diaryapp'
 
 def upload(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            uploadFile = form.save()
-            # uploadFile = form.save(commit=False)
-            name = uploadFile.file.name
-            size = uploadFile.file.size
-            return HttpResponse('%s<br>%s' % (name, size))
-    else:
-        form = UploadFileForm()
+        diary = Diary()
+        diary.title = request.POST['title']
+        diary.content = request.POST['content']
+        diary.date = timezone.datetime.now()
+        diary.user = request.user
+        diary.save()
+        for img in request.FILES.getlist('imgs'):
+            uploadfile = UploadFile()
+            # 외래키로 현재 생성한 Post의 기본키를 참조
+            uploadfile.diary = diary
+            # imgs로부터 가져온 파일 하나를 저장
+            uploadfile.file = img
+            # 데이터베이스에 저장
+            uploadfile.save()
+        return redirect('/diaryapp/fileview/' + str(diary.id))
     return render(
-        request, 'diaryapp/upload.html', {'form': form})
+        request, 'diaryapp/upload.html')
 
 def download(request):
     id = request.GET.get('id')
     uploadFile = UploadFile.objects.get(id=id)
+
     filepath = str(settings.BASE_DIR) + ('/media/%s' % uploadFile.file.name)
     filename = os.path.basename(filepath)
     with open(filepath, 'rb') as f:
