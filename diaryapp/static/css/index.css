@@ -23,13 +23,13 @@ h2>a{
     float: left;
     border-radius: 10px;
     cursor: pointer;
-    color:#919191;
-    
+    color:#333;
 }
 
 
-.point-box{
-    color:#333;
+.disable-box{
+    color:#919191;
+    
     border: 1px solid #ddd;
     padding: 20px;
     /* box-shadow: 0px 0px 10px 0px #c5c5c5; */
@@ -65,5 +65,47 @@ h2>a{
 
 
 .news-header{
-    
+    margin-top: 16px;
+}
+
+/**************************************************************/
+/* 채용 관련 CSS */
+.recruit-company{
+    padding: 30px 20px;
+}
+
+.recruit-text{
+    color: #333 !important;
+    font-size: 16px;
+}
+
+.recruit-title{
+    margin: 16px 6px;
+}
+
+.recruit-title>p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.recruit-content{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.recruit-content>p{
+    margin: 0;
+}
+.recruit-content>p:first-child{
+    padding: 3px;
+}
+.recruit-content>p:last-child{
+    line-height: 28px;
+    border: 1px solid #337ab7;
+    padding: 1px 6px;
+    color: #337ab7;
+    border-radius: 3px;
 }

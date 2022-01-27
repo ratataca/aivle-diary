@@ -62,7 +62,7 @@ def main(request):
     'lecture_f':lecture_front,'lecture_b':lecture_back,'news':news_main})
     
 
-def dairy(request):
+def diary(request):
     lec1 = Lecture.objects.filter(professor_id=0)  #diary sidebar 부분
     lec2 = Lecture.objects.filter(professor_id=1)
     lec3 = Lecture.objects.filter(professor_id=2)
