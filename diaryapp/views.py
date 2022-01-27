@@ -6,7 +6,7 @@ from ssl import AlertDescription
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, response
 #from sympy import re
-from .models import User
+from .models import Til, User
 from django.utils import timezone
 from .models import News, Recruit, User,Lecture
 from .models import News, User, UploadFile, Diary
@@ -64,7 +64,7 @@ def main(request):
 
 def diary(request):
     
-
+    til_list=Til.objects.all()
 
     #diary sidebar 부분
     lec1 = Lecture.objects.filter(professor_id=0)  
@@ -72,7 +72,7 @@ def diary(request):
     lec3 = Lecture.objects.filter(professor_id=2)
     lec4 = Lecture.objects.filter(professor_id=5)
     return render(request, 'diaryapp/diary.html', 
-        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4})
+        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4,'til_list':til_list})
 
 
 
