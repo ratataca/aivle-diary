@@ -45,7 +45,7 @@ def login(request):
 
 def main(request):
     # 메인 페이지 초기 데이터 보내기.
-    news=News.objects.order_by('-date')
+    news=News.objects.order_by('?')
     p1 = Paginator(news,4)
     news_main = p1.page(1)
     lecture_today=Lecture.objects.filter(date=datetime.datetime.today())
