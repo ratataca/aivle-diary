@@ -18,6 +18,11 @@
     #myModal .modal-body {text-align:center;margin:0 auto;padding-top:100px;}
 </style>
 
+<script>
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+</script>
+
 
 <section class="blog_area single-post-area p_120" >
     <div class="container">
@@ -179,7 +184,7 @@
                         <div class="br"></div>
                     </aside>
                     <aside class="single_sidebar_widget ads_widget">
-                        <a href="#"><img class="img-fluid" src="{% static 'img/lec/self.jpg' %}" alt=""></a>
+                        <a href=""><img class="img-fluid" src="{% static 'img/lec/self.jpg' %}" alt=""></a>
                         <audio controls>
                             <source src="{% static 'img/lec/self-motivation.mp3' %}">                                               
                         <div class="br"></div>
@@ -223,7 +228,7 @@
 
 <nav class="navbar fixed-bottom">
     <div class="container-fluid nav justify-content-end">
-        <a class="navbar-brand " href="#">
+        <a class="navbar-brand ">
             <button type="button" class="btn border" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 data-bs-whatever="@getbootstrap" id="modal_btn"><img src="{% static 'img/diary.png' %}"></button>
         </a>
@@ -238,28 +243,93 @@
                 <h5 class="modal-title" id="exampleModalLabel">오늘의 일기</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">제목:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">내용:</label>
-                        <textarea class="form-control" style="height: 300px" id="message-text"></textarea>
-                    </div>
-                    <div class="md-3">
-                        
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">저장</button>
-            </div>
+            <!--모달 form 전송-->
+            <form id="uploadForm" enctype="multipart/form-data">    
+                <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="message-title" class="col-form-label">제목:</label>
+                            <input type="text" class="form-control" id="message-title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">내용:</label>
+                            <textarea class="form-control" style="height: 300px" id="message-text"></textarea>
+                        </div>
+                        <div class="md-3">
+                            <input type="file" id="imageInput" multiple/>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="uploadDiary();">저장</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 </div>
 <!--================= End modal ===========================-->
+
+<script>
+    function uploadDiary(){
+        
+        const csrftoken = getCookie("csrftoken");
+
+        const title = document.getElementById("message-title").value;
+        const content = document.getElementById("message-text").value;
+        
+        console.log(title + "  " + content);
+        
+        // 파일을 여러개 선택할 수 있으므로 files 라는 객체
+        const imageInput = $("#imageInput")[0];
+        console.log(imageInput);
+        console.log("imageInput: ", imageInput.files)
+        
+        const formData = new FormData();
+        
+        formData.append("title", title);
+        formData.append("content", content);
+        
+        for(var i = 0 ; i < imageInput.files.length ; i++){
+            formData.append(imageInput.files[i].name, imageInput.files[i]);
+        }
+        
+
+        $.ajax({
+            url: "http://127.0.0.1:8000/diaryapp/diary/api/upload",
+            {% comment %} enctype: 'multipart/form-data',  {% endcomment %}
+            type:"post",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(res){
+                const message = res.data.values[0];
+                console.log("message: ", message)
+                $("#resultUploadPath").text(message.uploadFilePath)
+            },
+            err: function(err){
+                console.log("err:", err)
+            }
+        }) 
+    }
+</script>
+
+<!-- Post 관련 키 -->
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
 {% endblock %}
+

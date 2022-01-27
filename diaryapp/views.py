@@ -4,7 +4,7 @@ import os
 from ssl import AlertDescription
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, response
 #from sympy import re
 from .models import User
 from django.utils import timezone
@@ -13,7 +13,10 @@ from .models import News, User, UploadFile, Diary
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from config import settings
+from django.conf import settings
 
+
+app_name = 'diaryapp'
 ###########
 # Front   #
 ###########
@@ -211,28 +214,49 @@ def read_all_lecture(request):
 
 
 # 3. 파일 업로드
-
-app_name = 'diaryapp'
-
+@csrf_exempt
 def upload(request):
     if request.method == 'POST':
-        diary = Diary()
-        diary.title = request.POST['title']
-        diary.content = request.POST['content']
-        diary.date = timezone.datetime.now()
-        diary.user = request.user
-        diary.save()
-        for img in request.FILES.getlist('imgs'):
-            uploadfile = UploadFile()
-            # 외래키로 현재 생성한 Post의 기본키를 참조
-            uploadfile.diary = diary
-            # imgs로부터 가져온 파일 하나를 저장
-            uploadfile.file = img
-            # 데이터베이스에 저장
-            uploadfile.save()
-        return redirect('/diaryapp/fileview/' + str(diary.id))
-    return render(
-        request, 'diaryapp/upload.html')
+        
+        try:
+            user_id = request.session["user_id"]
+        except Exception as e:
+            # 없음
+            # return Jresponse()
+            raise NotImplementedError()
+            return JsonResponse()
+            
+        # DB 들어가야할 정보
+        title = request.POST["title"]
+        content = request.POST["content"]
+        now_date_time = datetime.datetime
+
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+
+
+        print("========="*10)
+        print(title)
+        print(content)
+        
+        file_list = []
+
+        for image_name, image in request.FILES.items():
+            image_buffer = image.read()
+            
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.IMAGE_DIR, user_id.replace("@", "_"))
+            if not os.path.isdir(image_path_per_user):
+                os.mkdir(image_path_per_user)  
+
+            image_full_path = os.path.join(image_path_per_user, f"{current_time}@@@{image_name}")
+            file_list.append(f"{current_time}@@@{image_name}")
+
+            with open(image_full_path, "wb") as file:
+                file.write(image_buffer)
+
+        print(file_list)
+        print("========="*10)
+        # DB 해당 컬럼 저장
+
 
 def download(request):
     id = request.GET.get('id')

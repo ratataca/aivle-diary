@@ -152,3 +152,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     'BASE_DIR / static',
 ]
+
+
+# Custom Variable for Global
+IMAGE_DIR = "images"
