@@ -20,6 +20,17 @@
 	tr {
 		text-align: center;
 	}
+	.table {}
+		.table .thead-light th {background-color: #4472c4;font-size: 1.4em;color: white;font-weight: bold;}
+		.table .tindex{width:2%;}
+		.table td.tindex {text-align: right;padding-right: 10px; text-align: center}
+		.table .tdate {width:12%;}
+		.table .ttopic {width:auto;word-break:keep-all;}
+		.table .tdetail {width:30%;}
+		.table .tprofessor {/*width:3%;*/}
+		#myModal {display:none;position:fixed;top:0px;left:0px;width:calc(100vw);height:100%;background:#0000008c;z-index:9999;}
+		#myModal .modal-body {text-align:center;margin:0 auto;padding-top:100px;}
+		#myModal .modal-body #modal-img1 {margin-left:20px;}
 </style>
 
 <section class="py-0" id="collection">
@@ -50,30 +61,7 @@
 	<!-- end of .container-->
 
 </section>
-<<<<<<< HEAD
-	<!-- end of .container-->
-
-
-
-
-<style>
-	table th{
-		font-size:16pt;
-		text-align:center
-	}
-	#h_line:hover{
-		background-color : rgba(101,197,192,0.4);
-	} 	
-	.sortable tr {
-		cursor: pointer;
-	}
-	tr {
-		text-align:center;	
-	}
-</style>
-=======
 <!-- end of .container-->
->>>>>>> Front_main
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
 	data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full" class="mt-5">
@@ -87,31 +75,15 @@
 							<h6 class="card-subtitle"><code>매일 핫뉴스를 전해드립니다.</code></h6>
 						</div>
 						<div class="table-responsive">
-							<table>
+							<table class="table">
 								<thead class="thead-light">
 									<tr>
 										<th scope="col" class="col-0">index</th>
 										<th scope="col" class="col-0">date</th>
 										<th scope="col" class="col-3">title</th>
-										<th scope="col" class="col-5">content</th>
+										<th scope="col" class="col-6">content</th>
 										<th scope="col">company</th>
 									</tr>
-<<<<<<< HEAD
-								</thead>								
-								<tbody>
-									{% for i in news_data %}
-										<tr id="h_line" onclick='window.open("{{i.link}}")'  style='cursor:pointer;'>
-											<td>{{i.index}}</td>
-											<td>{{i.date}}</td>
-											<td>{{i.title}}</td>
-											<td>{{i.content}}</td>
-											<td>{{i.company}}</td>
-																						
-										</tr>
-									{% endfor%}
-								</tbody> 
-														
-=======
 								</thead>
 
 								<tbody>
@@ -125,7 +97,6 @@
 									</tr>
 								{% endfor%}
 								</tbody>
->>>>>>> Front_main
 							</table>
 						</div>
 					</div>
