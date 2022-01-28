@@ -236,7 +236,7 @@ def upload(request):
             image_buffer = image.read()
             
             # user 경로가 없을 때
-            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id.replace("@", "_"))
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id)
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
 
@@ -278,9 +278,9 @@ def update(request):
         
         for image_name, image in request.FILES.items():
             image_buffer = image.read()
-            
+            print(">>> ", user_id)
             # user 경로가 없을 때
-            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id.replace("@", "_"))
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id)
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
 

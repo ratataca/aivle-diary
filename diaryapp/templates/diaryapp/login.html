@@ -134,6 +134,15 @@
                                     alert("이메일을 입력해주세요");
                                     return;
                                 }
+                                
+                                // 이메일 정규식 확인
+                                var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+                                
+                                if (user_id.match(regExp) == null) {
+                                    alert("이메일 형식에 맞게 입력하세요");
+                                    return;
+                                }
+
                                 const data = axios.post('/diaryapp/api/user/signup/isUnique', {
                                     'user_id': user_id
                                 }).then(function (result) {
@@ -160,10 +169,7 @@
                                     const user_name = document.getElementsByName("register_name")[0].value;
                                     const user_id = document.getElementsByName("register_id")[0].value;
                                     const user_pw = document.getElementsByName("register_pw")[0].value;
-                                    
-                                    console.log(user_id, user_pw);
-                                    console.log(user_name)
-    
+                            
                                     const data = axios.post('/diaryapp/api/user/signup', {
                                         'user_id': user_id, 
                                         'user_pw': user_pw,
