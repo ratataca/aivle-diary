@@ -78,7 +78,6 @@
 							<table class="table">
 								<thead class="thead-light">
 									<tr>
-										<th scope="col" class="col-0">index</th>
 										<th scope="col" class="col-0">date</th>
 										<th scope="col" class="col-3">title</th>
 										<th scope="col" class="col-6">content</th>
@@ -89,7 +88,6 @@
 								<tbody>
 								{% for i in news_data %}
 									<tr id="h_line" onclick='window.open("{{i.link}}")' style='cursor:pointer;'>
-										<td>{{i.index}}</td>
 										<td>{{i.date}}</td>
 										<td>{{i.title}}</td>
 										<td>{{i.content}}</td>

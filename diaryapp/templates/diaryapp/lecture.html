@@ -49,7 +49,6 @@
 							<table class="table">
 								<thead class="thead-light">
 									<tr>
-										<th scope="col" class="col-0">index</th>
 										<th scope="col" class="col-2">date</th>
 										<th scope="col" class="col-3">title</th>
 										<th scope="col" class="col-5">content</th>
@@ -58,8 +57,7 @@
 								</thead>
 								<tbody>
 								{% for i in date %}
-									<tr id="h_line">	
-										<td>{{i.index}}</td>	
+									<tr id="h_line">
 										<td>{{i.date}}</td>
 										<td>{{i.topic}}</td>
 										<td>{{i.detail}}</td>
