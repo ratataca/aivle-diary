@@ -230,7 +230,7 @@ def upload(request):
         file_list = []
 
         # File
-        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "@")
         
         for image_name, image in request.FILES.items():
             image_buffer = image.read()
@@ -246,9 +246,9 @@ def upload(request):
             with open(image_full_path, "wb") as file:
                 file.write(image_buffer)
 
-        # DB 해당 컬럼 저장
-        til = Til(date=current_time, title=title, content=content, img="***".join(file_list), user=User.objects.get(user_id=user_id))
-        til.save()
+            # DB 해당 컬럼 저장
+            til = Til(date=current_time, title=title, content=content, img="***".join(file_list), user=User.objects.get(user_id=user_id))
+            til.save()
 
         return JsonResponse({'code': 200})
 
@@ -274,7 +274,7 @@ def update(request):
         file_list = []
 
         # File
-        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "@")
         
         for image_name, image in request.FILES.items():
             image_buffer = image.read()
