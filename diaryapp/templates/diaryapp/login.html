@@ -50,13 +50,13 @@
                 <div class="login-input-div">
                     <!-- 요기 이메일 -->
                     <label for="inputName" class="login-label-text">이메일</label>
-                <input type="email" id="login_id" name = user_name class="login-input-name"> 
+                <input type="email" id="login_id" name = user_id class="login-input-name"> 
                 </div>
 
                 <div class="login-input-div">
                     <!-- 요기 비밀번호 -->
                     <label for="inputName" class="login-label-text">비밀번호</label>
-                    <input type="password" id="login_pwd" name = user_name class="login-input-name"> 
+                    <input type="password" id="login_pwd" name = user_pw class="login-input-name"> 
                 </div>
 
                 <div class="btn-div-login">
@@ -82,14 +82,14 @@
                         <div class="register-input-div">
                             <!-- 요기 회원가입 이름-->
                             <label for="inputName" class="label-text">이름</label>
-                            <input type="text" id="inputName" name = user_name> 
+                            <input type="text" id="inputName" name = register_name> 
                         </div>
                         
                         <div class="register-name-area">
                             <div class="register-input-div"}>
                                 <!-- 요기 회원가입 이메일-->
                                 <label for="inputName" class="label-text">이메일</label>
-                                <input type="text" id="inputName" name = user_id >
+                                <input type="text" id="inputName" name = register_id >
                             </div>
                             <div>
                                 {% comment %} <button id="register-name-btn" type="button" 
@@ -102,7 +102,7 @@
                         <div class="register-input-div register-password"}>
                             <!-- 요기 회원가입 비밀번호-->
                             <label for="inputName" class="label-text">비밀번호</label>
-                            <input type="password" id="inputName" name = user_pw >
+                            <input type="password" id="inputName" name = register_pw >
                         </div>
 
                         <div class="btn-div">
@@ -128,7 +128,7 @@
                         <!-- 회원가입 이벤트 -->
                         <script>
                             function isUnique(){
-                                const user_id = document.getElementsByName("user_id")[0].value;
+                                const user_id = document.getElementsByName("register_id")[0].value;
                                 
                                 if(user_id === ""){
                                     alert("이메일을 입력해주세요");
@@ -142,37 +142,48 @@
 
                                     if(data.result == true){
                                         alert("이미 중복된 이메일이 존재합니다.")
+                                        return false;
                                     }
                                     else{
                                         alert("사용 가능한 이메일입니다.")
+                                        return true;
                                     }
                                 });
                             }
                         </script>
                         <script>
                             function register(){
-                                const user_name = document.getElementsByName("user_name")[0].value;
-                                const user_id = document.getElementsByName("user_id")[0].value;
-                                const user_pw = document.getElementsByName("user_pw")[0].value;
-                                
-                                console.log(user_name, user_id, user_pw);
-                                const data = axios.post('/diaryapp/api/user/signup', {
-                                    'user_id': user_id, 
-                                    'user_pw': user_pw,
-                                    'user_name': user_name
-                                }).then(function (result) {
-                                    const data = result.data;
-                                    console.log(data);
-                                    if(data.isLogined){
-                                        $('#register-model').modal('hide');
-                                        
-                                        document.getElementById("login_id").value = user_id;
-                                        document.getElementById("login_pwd").value = user_pw;
-                                    }
-                                    else{
-                                        alert("Failed to register user");
-                                    }
-                                });
+
+                                console.log("회원가입 이벤트 ");
+
+                                if(isUnique()==true){
+                                    const user_name = document.getElementsByName("register_name")[0].value;
+                                    const user_id = document.getElementsByName("register_id")[0].value;
+                                    const user_pw = document.getElementsByName("register_pw")[0].value;
+                                    
+                                    console.log(user_id, user_pw);
+                                    console.log(user_name)
+    
+                                    const data = axios.post('/diaryapp/api/user/signup', {
+                                        'user_id': user_id, 
+                                        'user_pw': user_pw,
+                                        'user_name': user_name
+                                    }).then(function (result) {
+                                        const data = result.data;
+                                        console.log(data);
+                                        if(data.isLogined){
+                                            offModal()
+                                            document.getElementById("login_id").value = user_id;
+                                            document.getElementById("login_pwd").value = user_pw;
+                                        }
+                                        else{
+                                            alert("회원가입에 실패하였습니다.");
+                                        }
+                                    });
+                                }
+                                else{
+                                    return;
+                                }
                             }                            
                         </script>
                     </div>
