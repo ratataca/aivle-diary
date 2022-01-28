@@ -153,7 +153,6 @@ STATICFILES_DIRS = [
     'BASE_DIR / static',
 ]
 
-
 # Custom Variable for Global
 APP_NAME = "diaryapp"
 IMAGE_DIR = "img/til_img"
