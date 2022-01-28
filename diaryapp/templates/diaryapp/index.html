@@ -98,27 +98,26 @@
 				<h2 class="mt-4 mb-4"><a href="/diaryapp/lecture">강의</a></h2>
 			</div>
 			<div class="col-md-6 col-lg-4">
-				<div class="card-box  disable-box">
+				<div class="card-box disable-box  w-100 h-100">
 					<h3><a href="" class="mt-2 text-color">어제 강의</a></h3>
 					<p class="text-secondary">
-						{% if lecture_b %}
-						{%for l in lecture_b%}
+					{% if lecture_b %}
+					{%for l in lecture_b%}
 					<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
 					<p id="lecture_content">{{l.detail}}</p>
 					<a id="{{l.professor_id}}" val="{{l.index}}" onclick="pop(this);"
 						class="btn btn-outline-success mt-3">더보기</a>
 					{%endfor%}
 					{%else%}
-					<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+					<h3 id="lecture_title" class="text-center"> "휴일입니다 "</h3>
 					<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
 					{%endif%}
 					</p>
-
 				</div>
 			</div>
 
 			<div class="col-md-6 col-lg-4">
-				<div class="card-box">
+				<div class="card-box  w-100 h-100">
 					<h3><a href="" class="mt-2 text-color">오늘 강의</a></h3>
 					<p class="text-secondary">
 						{% if lecture_b %}
@@ -137,7 +136,7 @@
 			</div>
 
 			<div class="col-md-6 col-lg-4">
-				<div class="card-box  disable-box">
+				<div class="card-box  disable-box w-100 h-100">
 					<h3><a href="" class="mt-2 text-color">내일 강의</a></h3>
 					<p class="text-secondary">
 						{% if lecture_f %}
@@ -149,7 +148,7 @@
 					{%endfor%}
 					{%else%}
 					<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
-					<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
+					<a href="" class="btn btn-sm btn-color ">더보기 ></a>
 					{%endif%}
 					</p>
 
@@ -207,7 +206,7 @@
 			<!--채용 컨텐츠-->
 			{%for r in recruit%}
 			<div class="col-md-6 col-lg-4">
-				<div class="card-box">
+				<div class="card-box w-100 h-100">
 					<div class="recruit-company" style="color:#333;" id="{{r.index}}" onclick="pop1(this);">
 						<h4><a class="mt-2 recruit-text">{{r.company_name}}</a></h4>
 
