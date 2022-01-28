@@ -1,13 +1,9 @@
 from django.urls import path
 from . import views
 
-
 app_name = 'diaryapp'
 
 urlpatterns = [
-    ## only debugs
-    path('main/test', views.test, name='test'),
-
     ###########
     # Front   #
     ###########
@@ -19,8 +15,7 @@ urlpatterns = [
     path('news/', views.news, name='news'),
     path('hire/', views.hire, name='recruit'),
     path('team/', views.team, name='team'),
-    path('temp/', views.temp, name='temp'),
-   
+
     
     ###########
     # Back   #
@@ -50,13 +45,14 @@ urlpatterns = [
     # 2. 7. 강의
     path('api/lecture/readAll', views.read_all_lecture, name='lecture_read_all'),
 
-    # 2. 8. TIL관련
-
-    # 2. 9 다운로드 경로
-    path('download/', views.download, name='download'),
-
-    # 2. @ 업로드 테스트 경로
-    path('upload/', views.upload, name='upload'),
-
+    # 2. 8. TIL
+    # 2. 8. 1. 게시글 업로드
+    path('diary/api/upload', views.upload, name='upload'),
+    
+    # 2. 8. 2. 게시글 수정
+    path('diary/api/update', views.update, name='update'),
+    
+    # 2. 8. 3. 게시글 수정
+    path('diary/api/delete', views.delete, name='delete'),
     
 ]

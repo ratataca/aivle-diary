@@ -5,133 +5,234 @@
 <style>
     .lec{
         text-align:left;
-     }
+    }
     .blog_right_sidebar{
         padding:20px;
-     }
+    }
     .img-fluid{
         opacity:0.8;
     }
     
-    #myModal {display:none;position:fixed;top:0px;left:0px;width:calc(100vw);height:100%;background:#0000008c;z-index:9999;}
+    #myModal {
+        display:none;
+        position:fixed;
+        top:0px;
+        left:0px;
+        width:100vw;
+        height:100%;
+        background:#0000008c;
+        z-index:9999;
+    }
 
-    #myModal .modal-body {text-align:center;margin:0 auto;padding-top:100px;}
+    #myModal .modal-body {
+        text-align:center;
+        margin:0 auto;
+        padding-top:100px;
+    }
+
+    .img-area{
+        margin-top: 30px;
+    }
 </style>
 
+<script>
+    axios.defaults.xsrfCookieName = 'csrftoken';
+    axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+</script>
+
+<script>
+    var isCreateModal = true;
+</script>
 
 <section class="blog_area single-post-area p_120" >
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="single-post row">
+                    <!-- 네비게이션 바-->
                     <div class="col-lg-12">
-                        <div class="feature-img">
-                            <img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}">
+                        <div class="navigation-area">
+                            <div class="row mt-5">
+                                <div class="col-lg-6 col-md-6 col-12
+                                nav-left flex-row d-flex justify-content-start align-items-center">
+                                    <div class="arrow">
+                                        <a href=""><span class="lnr text-white lnr-arrow-left"></span></a>
+                                    </div>
+                                    <div class="detials">
+                                        <p></p>
+                                        
+                                        </a>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                    <div class="detials">
+                                        <p></p>
+                                        
+                                          
+                                        </a>
+                                    </div>
+                                    <div class="arrow">
+                                        <a href=""><span class="lnr text-white lnr-arrow-right"></span></a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div id="paging" div style="margin: 0 auto;">
+                        <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+                            {% if til_list.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&page={{til_list.previous_page_number }}"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-left" viewBox="0 0 16 16">
+                                        <path
+                                            d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+        
+                            {% if til_list.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&page={{ til_list.next_page_number }}"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="RGB(20,181,175)"
+                                        class="bi bi-caret-right" viewBox="0 0 16 16">
+                                        <path
+                                            d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- 페이징처리 끝 -->
+            
+
+
+                    <!-- 수정 삭제 버튼 -->
+                    <div class="col-lg-12">
+                        <div class="float-right mt-3">
+                            <button id="fixBtn" class="btn" onclick="updateTil();">수정</button>
+                            <button id="delBtn" class="btn" onclick="deleteTil()">삭제</button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function updateTil(){
+                            $("#message-title").val(document.getElementById("til_list_title").innerText);
+                            $("#message-text").text(document.getElementById("til_list_content").innerText);
+                            
+                            $('#exampleModal').modal("show");
+
+                            isCreateModal = false;
+                        }
+
+                        function deleteTil(){
+                            {% comment %} alert("해당 게시글을 삭제할까요?"); {% endcomment %}
+                            deleteDiary();
+                        }
+                    </script>
+
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
-                                <a href="#">Food,</a>
-                                <a class="active" href="#">Technology,</a>
-                                <a href="#">Politics,</a>
-                                <a href="#">Lifestyle</a>
+                                <a></a>
+                                <a class="active"></a>
+                                <a></a>
+                                <a></a>
                             </div>
-                            <ul class="blog_meta list">
-                                <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                <li><a href="#">12 Dec, 2017<i class="lnr lnr-calendar-full"></i></a></li>
-                                <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                            {%for i in til_list%}
+                            <ul id="til_list" class="blog_meta list" key="til_list_{{i.index}}">
+                                <li><a href="">작성자 : {{i.user_id}}<i class="lnr lnr-user"></i></a></li>
+                                <li><a href="">{{i.date}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                <li><a href=""><i class="lnr lnr-eye"></i></a></li>
+                                <li><a href=""><i class="lnr lnr-bubble"></i></a></li>
                             </ul>
                             <ul class="social-links">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-github"></i></a></li>
-                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                                <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                                <li><a href=""><i class="fa fa-github"></i></a></li>
+                                <li><a href=""><i class="fa fa-behance"></i></a></li>
                             </ul>
                         </div>
                     </div>
+
+                    <!-- TIL 타이틀 및 게시글  -->
                     <div class="col-lg-9 col-md-9 blog_details">
-                        <h2>Astronomy Binoculars A Great Alternative</h2>
-                        <p class="excert">
-                            MCSE boot camps have its supporters and its detractors. Some people do not understand why
-                            you should have to spend money on boot camp when you can get the MCSE study materials
-                            yourself at a fraction.
+                        <h2 id="til_list_title">{{i.title}}</h2>
+                        <p class="excert" id="til_list_content">
+                            {{i.content}}
+                            
                         </p>
-                        <p>
-                            Boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction of the camp price. However, who has the willpower to actually sit through a
-                            self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                        </p>
-                        <p>
-                            Boot camps have its supporters and its detractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get the MCSE study materials yourself
-                            at a fraction of the camp price. However, who has the willpower to actually sit through a
-                            self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                        </p>
+                    </div>
+
+                    <!-- 이미지 영역 -->
+                    <div class="img-area">
+                        <div class="col-lg-12">
+                            <div class="feature-img">
+                                {% comment %} <a href="{% static 'img/blog/feature-img.jpg' %}" download><img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}"></a> {% endcomment %}
+
+                                <script>
+                                    console.log('img/til_img/' + '{{i.user_id}}' + "/" + '{{i.img.index0}}');
+                                    console.log('{{i.img}}');
+                                    {% comment %} console.log('{{i.img[loop.index0]}}'); {% endcomment %}
+                                </script>
+
+                                {% comment %} {% with test=i.img %}
+                                    {% for skill in test|split:"***" %}
+                                        {{ skill }}
+                                    {% endfor %}
+                                    {% endwith %} {% endcomment %}
+                                {% comment %} {% for list in list1 %}
+                                <p>{{ list }}</p>
+                                {% endfor %} {% endcomment %}
+                                <a href="{% static 'img/blog/feature-img.jpg' %}">
+                                    {% comment %} <img class="img-fluid" src="{% static '{{}}' %}"> {% endcomment %}
+                                </a>
+                            </div>
+                            {%endfor%}
+                        </div>
                     </div>
                     
                 </div>
-                <div class="navigation-area">
-                    <div class="row mt-5">
-                        <div class="col-lg-6 col-md-6 col-12
-                        nav-left flex-row d-flex justify-content-start align-items-center">
-                            <div class="arrow">
-                                <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
-                            </div>
-                            <div class="detials">
-                                <p>Prev Post</p>
-                                <a href="#">
-                                    <h4>{ 이전 게시물의 제목 }</h4>
-                                </a>
-                            </div>
-                        </div>
-                        <div
-                            class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                            <div class="detials">
-                                <p>Next Post</p>
-                                <a href="#">
-                                    <h4>{다음 게시물의 제목 }</h4>
-                                </a>
-                            </div>
-                            <div class="arrow">
-                                <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            
             <div class="col-lg-4 mt-5">
                 <div class="blog_right_sidebar " style="border-radius: 20px;">
-                    <aside class="single_sidebar_widget search_widget">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Posts">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                            </span>
-                        </div><!-- /input-group -->
-                        <div class="br"></div>
-                    </aside>
                     <aside class="single_sidebar_widget author_widget">
                         <img class="author_img rounded-circle" src="{% static 'img/blog/aivler.png' %}" alt="">
-                        <h4>Charlie Barber</h4>
-                        <p>Aivler</p>
+                        <h4>user id</h4>
                         <div class="social_icon">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-github"></i></a>
-                            <a href="#"><i class="fa fa-behance"></i></a>
+                            <a href=""><i class="fa fa-facebook"></i></a>
+                            <a href=""><i class="fa fa-twitter"></i></a>
+                            <a href=""><i class="fa fa-github"></i></a>
+                            <a href=""><i class="fa fa-behance"></i></a>
                         </div>
-                        <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you
-                            should have to spend money on boot camp when you can get. Boot camps have itssuppor ters
-                            andits detractors.</p>
-                        <div class="br"></div>
                     </aside>
-                    <aside class="single_sidebar_widget popular_post_widget">
-                        <h3 class="widget_title">수강중인 강좌</h3>
+                    <aside class="single_sidebar_widget popular_post_widget ">
+                        <h3 class="widget_title btn-color" style={background-color:#337ab7 !important;}>수강중인 강좌</h3>
                         <div class="media post_item">
                             <img src="{% static 'img/blog/popular-post/post1.jpg' %}" alt="post">
                             <div class="media-body">
@@ -139,7 +240,7 @@
                                     <h3>IT트랜드 맛보기</h3>
                                 </div>
                                 {% for i in lec1 %}
-                                <p class="lec">-{{i.detail}}</p>
+                                    <p class="lec">-{{i.detail}}</p>
                                 {% endfor%}
                             </div>
                         </div>
@@ -176,10 +277,9 @@
                                 {% endfor%}
                             </div>
                         </div>
-                        <div class="br"></div>
                     </aside>
                     <aside class="single_sidebar_widget ads_widget">
-                        <a href="#"><img class="img-fluid" src="{% static 'img/lec/self.jpg' %}" alt=""></a>
+                        <a href=""><img class="img-fluid" src="{% static 'img/lec/self.jpg' %}" alt=""></a>
                         <audio controls>
                             <source src="{% static 'img/lec/self-motivation.mp3' %}">                                               
                         <div class="br"></div>
@@ -191,8 +291,6 @@
                             <img id="modal-img" src="">
                         </div>                    
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -205,31 +303,30 @@
 
         console.log(a);
         var aa = $(a).attr("class");
-       
+
         var b = "http://127.0.0.1:8000/static/img/lec/lec_"+aa+".png"
 
         $('#modal-img').attr("src",b)
         $('#myModal').show();  
     }
+    
     function closepop() {
         $('#myModal').hide();
     }
 </script>
-
-
 <!--================Blog Area =================-->
+
 
 <!--================= modal ===========================-->
 
 <nav class="navbar fixed-bottom">
     <div class="container-fluid nav justify-content-end">
-        <a class="navbar-brand " href="#">
+        <a class="navbar-brand ">
             <button type="button" class="btn border" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                data-bs-whatever="@getbootstrap" id="modal_btn"><img src="{% static 'img/diary.png' %}"></button>
+                data-bs-whatever="@getbootstrap" id="modal_btn"><img src="{% static 'img/blog/diary.png' %}"></button>
         </a>
     </div>
 </nav>
-
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -238,25 +335,141 @@
                 <h5 class="modal-title" id="exampleModalLabel">오늘의 일기</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">제목:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">내용:</label>
-                        <textarea class="form-control" style="height: 300px" id="message-text"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">저장</button>
-            </div>
+            <!--모달 form 전송-->
+            <form id="uploadForm" enctype="multipart/form-data">    
+                <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="message-title" class="col-form-label">제목:</label>
+                            <input type="text" class="form-control" id="message-title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">내용:</label>
+                            <textarea class="form-control" style="height: 300px" id="message-text"></textarea>
+                        </div>
+                        <div class="md-3">
+                            <input type="file" id="imageInput" multiple/>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="uploadDiary();">저장</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 </div>
 <!--================= End modal ===========================-->
+
+<script>
+    function uploadDiary(){
+        const url = isCreateModal ? "http://127.0.0.1:8000/diaryapp/diary/api/upload" : "http://127.0.0.1:8000/diaryapp/diary/api/update";
+        var idx = "";
+        if(isCreateModal === false){
+            idx = document.getElementById("til_list").getAttribute("key").split("_")[2];
+        }
+
+        const csrftoken = getCookie("csrftoken");
+        
+        const title = document.getElementById("message-title").value;
+        const content = document.getElementById("message-text").value;
+        
+        
+        // 파일을 여러개 선택할 수 있으므로 files 라는 객체
+        const imageInput = $("#imageInput")[0];
+        
+        const formData = new FormData();
+        
+        if(isCreateModal === false){
+            formData.append("idx", Number(idx));    
+        }
+        
+        formData.append("title", title);
+        formData.append("content", content);
+        
+        
+
+        isCreateModal = true;
+        for(var i = 0 ; i < imageInput.files.length ; i++){
+            formData.append(imageInput.files[i].name, imageInput.files[i]);
+        }
+        
+        $.ajax({
+            url: url,
+            type:"post",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(res){
+                if(res.code == 200) {
+                    $('#exampleModal').modal("hide");
+                    alert("성공적으로 저장되었습니다.");
+
+                    location.reload();
+                }else if (res.code == 500) {
+                    alert("로그인이 필요합니다.")
+                }
+                else{
+                    alert("TIL 등록이 실패하였습니다.")
+                }
+
+                
+            },
+            err: function(err){
+                console.log("err:", err)
+            }
+        }) 
+    }
+
+    function deleteDiary(){
+        var idx = document.getElementById("til_list").getAttribute("key").split("_")[2];
+        const formData = new FormData();
+
+        formData.append("idx", Number(idx));    
+
+        $.ajax({
+            url: "http://127.0.0.1:8000/diaryapp/diary/api/delete",
+            type:"post",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(res){
+                if(res.code == 200) {
+                    $('#exampleModal').modal("hide");
+                    alert("성공적으로 삭제되었습니다.");
+
+                    location.reload();
+                }else if (res.code == 500) {
+                    alert("로그인이 필요합니다.")
+                }
+                else{
+                    alert("TIL 삭제가 실패하였습니다.")
+                }
+            },
+            err: function(err){
+                console.log("err:", err)
+            }
+        }) 
+    }
+</script>
+
+<!-- Post 관련 키 -->
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
 {% endblock %}
+
