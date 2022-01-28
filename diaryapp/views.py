@@ -63,7 +63,7 @@ def main(request):
 def diary(request):
 
     try:
-
+        
         # 세션 만들기
         user_id = request.session["user_id"]
 
@@ -83,8 +83,9 @@ def diary(request):
     lec2 = Lecture.objects.filter(professor_id=1)
     lec3 = Lecture.objects.filter(professor_id=2)
     lec4 = Lecture.objects.filter(professor_id=5)
+    user_name=request.session["user_name"]
     return render(request, 'diaryapp/diary.html', 
-        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4,'til_list':til_list})
+        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4,'til_list':til_list,'id1':user_id,'name1':user_name})
 
 
 
@@ -106,7 +107,7 @@ def news(request):
 def hire(request):
     recruit_list=Recruit.objects.filter(date=datetime.datetime.today())[:48]
     page=request.GET.get('page','1')
-    p=Paginator(recruit_list,'4')
+    p=Paginator(recruit_list, '3')
     recruit=p.page(page)
     return render(request,
     'diaryapp/hire.html',{'recruit':recruit})
@@ -230,13 +231,13 @@ def upload(request):
         file_list = []
 
         # File
-        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "@")
         
         for image_name, image in request.FILES.items():
             image_buffer = image.read()
             
             # user 경로가 없을 때
-            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id.replace("@", "_"))
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id)
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
 
@@ -246,9 +247,9 @@ def upload(request):
             with open(image_full_path, "wb") as file:
                 file.write(image_buffer)
 
-        # DB 해당 컬럼 저장
-        til = Til(date=current_time, title=title, content=content, img="***".join(file_list), user=User.objects.get(user_id=user_id))
-        til.save()
+            # DB 해당 컬럼 저장
+            til = Til(date=current_time, title=title, content=content, img="***".join(file_list), user=User.objects.get(user_id=user_id))
+            til.save()
 
         return JsonResponse({'code': 200})
 
@@ -274,13 +275,13 @@ def update(request):
         file_list = []
 
         # File
-        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "#")
+        current_time = now_date_time.utcnow().isoformat(sep='_', timespec='milliseconds').replace(":", "@")
         
         for image_name, image in request.FILES.items():
             image_buffer = image.read()
-            
+            print(">>> ", user_id)
             # user 경로가 없을 때
-            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id.replace("@", "_"))
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id)
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
 

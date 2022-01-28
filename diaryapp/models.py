@@ -61,6 +61,7 @@ class News(models.Model):
         db_table = 'news'
         ordering = ['-date']
 
+        
 
 class Recruit(models.Model):
     index = models.AutoField(primary_key=True)
@@ -77,7 +78,7 @@ class Recruit(models.Model):
     class Meta:
         managed = False
         db_table = 'recruit'
-
+        
 class Til(models.Model):
     index = models.AutoField(primary_key=True)
     date = models.DateTimeField(auto_now_add=True)

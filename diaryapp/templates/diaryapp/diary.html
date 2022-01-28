@@ -1,6 +1,7 @@
 {% extends 'diaryapp/layout.html' %}
 {% block content %}
 {% load static %}
+{% comment %} {% load custom_filter %} {% endcomment %}
 <!--================Blog Area =================-->
 <style>
     .lec{
@@ -163,6 +164,7 @@
                                 <a></a>
                                 <a></a>
                             </div>
+                            {%if til_list%}
                             {%for i in til_list%}
                             <ul id="til_list" class="blog_meta list" key="til_list_{{i.index}}">
                                 <li><a href="">작성자 : {{i.user_id}}<i class="lnr lnr-user"></i></a></li>
@@ -189,33 +191,46 @@
                     </div>
 
                     <!-- 이미지 영역 -->
-                    <div class="img-area">
+                    <div class="img-area" id="til_img_list">
                         <div class="col-lg-12">
-                            <div class="feature-img">
-                                {% comment %} <a href="{% static 'img/blog/feature-img.jpg' %}" download><img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}"></a> {% endcomment %}
+                            <div class="feature-img" id="til_img_list">
 
                                 <script>
-                                    console.log('img/til_img/' + '{{i.user_id}}' + "/" + '{{i.img.index0}}');
-                                    console.log('{{i.img}}');
-                                    {% comment %} console.log('{{i.img[loop.index0]}}'); {% endcomment %}
-                                </script>
+                                    const img = '{{i.img}}';
+                                    const imgs = img.split('***');
+                                    imgs.map((v) => {
+                                        
+                                        v =  '{{i.user_id}}/' + v
+                                        //v = 'ra_ra/' + v
+                                        console.log(">>>> 1.")
+                                        console.log(v);
+                                        
+                                        a_tag = document.createElement("a")
+                                        a_tag.href = v;
 
-                                {% comment %} {% with test=i.img %}
-                                    {% for skill in test|split:"***" %}
-                                        {{ skill }}
-                                    {% endfor %}
-                                    {% endwith %} {% endcomment %}
-                                {% comment %} {% for list in list1 %}
-                                <p>{{ list }}</p>
-                                {% endfor %} {% endcomment %}
-                                <a href="{% static 'img/blog/feature-img.jpg' %}">
-                                    {% comment %} <img class="img-fluid" src="{% static '{{}}' %}"> {% endcomment %}
-                                </a>
+                                        img_tag = document.createElement("img");
+                                        img_tag.classList.add("img-fluid");
+                                        v = escape(v);
+                                        
+                                        img_tag.src = "../../static/img/til_img/" + v;
+                                        
+                                        document.getElementById("til_img_list").appendChild(a_tag);
+                                        document.getElementById("til_img_list").appendChild(img_tag);
+                                    })
+                                    console.log(">>>> 2.")
+                                    console.log('img/til_img/' + '{{i.user_id}}' + "/" + '{{i.img.index0}}');
+
+                                    console.log(">>>> 3.")
+                                    console.log('{{i.img.filename}}');
+                                </script>
                             </div>
                             {%endfor%}
+                                {%else%}
+                                <h3>글이 없어요!
+                                </h3>
+                                {%endif%}
                         </div>
                     </div>
-                    
                 </div>
             </div>
             
@@ -223,7 +238,9 @@
                 <div class="blog_right_sidebar " style="border-radius: 20px;">
                     <aside class="single_sidebar_widget author_widget">
                         <img class="author_img rounded-circle" src="{% static 'img/blog/aivler.png' %}" alt="">
-                        <h4>user id</h4>
+                        {% comment %} 접속유저 정보 출력 {% endcomment %}
+                        <h4>{{name1}}</h4>
+                        <p>{{id1}}</p>
                         <div class="social_icon">
                             <a href=""><i class="fa fa-facebook"></i></a>
                             <a href=""><i class="fa fa-twitter"></i></a>
