@@ -23,7 +23,13 @@
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous"></script>
 
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>	
+	<style>
+		.footer{
+			height: 300px;
+			width: 100vw;
+		}
+	</style>
 </head>
 
 <body style="overflow-x: hidden" onload="bodyFunction()">
@@ -64,13 +70,13 @@
 
 				<div class="collapse navbar-collapse col-md-5" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item px-2"><a class="nav-link fw-medium" aria-current="page" href="/diaryapp/main"><h3>Home</h3></a></li>
-						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/diary"><h3>diary</h3></a></li>
-						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/lecture"><h3>lecture</h3></a></li>
-						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/news"><h3>news</h3></a></li>
-						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/hire"><h3>hire</h3></a></li>
-						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/team"><h3>team</h3></a></li>
-						<li class="nav-item px-2 mr-3"><a class="nav-link fw-medium" href="{%url 'diaryapp:logout'%}"><h3>Logout</h3></a></li>
+						<li class="nav-item px-2"><a class="nav-link fw-medium" aria-current="page" href="/diaryapp/main"><h4>Home</h4></a></li>
+						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/diary"><h4>diary</h4></a></li>
+						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/lecture"><h4>lecture</h4></a></li>
+						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/news"><h4>news</h4></a></li>
+						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/hire"><h4>hire</h4></a></li>
+						<li class="nav-item px-2"><a class="nav-link fw-medium" href="/diaryapp/team"><h4>team</h4></a></li>
+						<li class="nav-item px-2 mr-3"><a class="nav-link fw-medium" href="{%url 'diaryapp:logout'%}"><h4>Logout</h4></a></li>
 					</ul>
 				</div>
 				{% comment %} <script>
@@ -109,6 +115,9 @@
 	<script src="{% static 'vendors/isotope/isotope.pkgd.min.js' %}"></script>
 	<script src="{% static 'vendors/counter-up/jquery.counterup.min.js' %}"></script>
 	<script src="{% static 'js/theme.js' %}"></script>
+
+	<div class="footer">
+	</div>	
 </body>
 
 </html>
