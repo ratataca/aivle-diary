@@ -77,8 +77,7 @@ def diary(request):
 
 
 def lecture(request):
-    lecture_list = Lecture.objects.all()
-    # TODO - 외래키 참조
+    lecture_list = Lecture.objects.all().order_by('-date')
     page = request.GET.get('page','1')
     p = Paginator(lecture_list,'7')
     lecture_data = p.page(page)
