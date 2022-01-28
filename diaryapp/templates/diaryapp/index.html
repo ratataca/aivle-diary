@@ -30,12 +30,14 @@
 							{%for l in lecture_b%}
 								<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
 								<p id="lecture_content">{{l.detail}}</p>
+								<a id="{{l.professor_id}}" val="{{l.index}}" onclick="pop(this);" class="btn btn-outline-success mt-3">더보기</a>
 							{%endfor%}
 						{%else%}
 							<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+							<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
 						{%endif%}
 				</p>
-                <a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
+                
             </div>
         </div>
 
@@ -47,12 +49,13 @@
 							{%for l in lecture%}
 								<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
 								<p id="lecture_content">{{l.detail}}</p>
+								<a id="{{l.professor_id}}" val="{{l.index}}" onclick="pop(this);" class="btn btn-outline-success mt-3">더보기</a>
 							{%endfor%}
 						{%else%}
 							<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+							<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
 						{%endif%}
-				</p>
-                <a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
+				</p>                
             </div>
         </div>
 
@@ -64,12 +67,14 @@
 							{%for l in lecture_f%}
 								<h3 id="lecture_title" class="text-center">{{l.topic}}</h3>
 								<p id="lecture_content">{{l.detail}}</p>
+								<a id="{{l.professor_id}}" val="{{l.index}}" onclick="pop(this);" class="btn btn-outline-success mt-3">더보기</a>
 							{%endfor%}
 						{%else%}
 							<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+							<a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
 						{%endif%}
 				</p>
-                <a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
+               
             </div>
         </div>
 
@@ -77,6 +82,50 @@
 </div>
 <!--강의 end-->
 </section>
+
+<script type="text/javascript" language="javascript">
+	function pop(a){		
+		if(a) {var aa = $(a).attr("id");var cc =$(a).attr("val")}
+		console.log(cc);
+		var aa = aa.replace(/Professor object \(/,'');
+		var aa = aa.replace(/\)/,'');
+		var b = "http://127.0.0.1:8000/static/img/professor/id_"+aa+".png";
+		var c = "http://127.0.0.1:8000/static/img/index/index"+cc+".png";
+		$('#modal-html').hide();
+		$('#modal-img').attr("src",b);
+		$('#modal-img1').attr("src",c);
+		$('#modal-img').show();
+		$('#modal-img1').show();
+		$('#myModal').show(); 	
+	}
+	function pop1(a){		
+		if(a) var aa = $(a).attr("id");
+		var h = $("#m"+aa).html();
+		$('#modal-html').html(h);
+		$('#modal-html').show();		
+		$('#modal-img').hide();
+		$('#modal-img1').hide();
+		$('#myModal').show(); 	
+	}
+	function closepop() {
+		$('#myModal').hide();
+	}
+</script>
+
+<style>
+	#myModal {display:none;position:fixed;top:0px;left:0px;width:calc(100vw);height:100%;background:#0000008c;z-index:9999;}
+	#myModal .modal-body {text-align:center;margin:0 auto;padding-top:100px;}
+	#myModal .modal-body #modal-img1 {margin-left:20px;}
+	#myModal .modal-body #modal-html {background:white;width:35%;border-radius:20px;margin:0 auto;padding:40px 20px 20px 20px;color: black;}
+	.recruitcontent.more {text-align:center;}
+	.more-btn {line-height: 28px;width:max-content;border:1px solid #337ab7;padding:1px 6px;color:#337ab7;border-radius:3px;margin:0 auto;}
+</style>
+<div id="myModal" onclick="closepop()">
+<div class="modal-body">
+	<div id="modal-html"></div>
+	<img id="modal-img" src=""><img id="modal-img1" src="">
+</div>
+</div>
 
 <section class="feature_area blog_right_sidebar" 
 	style="padding-bottom: 100px; border-color: white; color:#333">
@@ -126,15 +175,31 @@
 			{%for r in recruit%}
 			<div class="col-md-6 col-lg-4">
 				<div class="card-box">
-					<div class="recruit-company" style={color:#333;}>
-						<h4><a href="" class="mt-2 recruit-text">{{r.company_name}}</a></h4>
+					<div class="recruit-company" style="color:#333;" id="{{r.index}}" onclick="pop1(this);">
+						<h4><a class="mt-2 recruit-text">{{r.company_name}}</a></h4>
 
 						<div class="recruit-title">
 							<p class="">{{r.job_title}}</p>
 						</div>
 						<div  class="recruit-content">
 							<p>{{r.required_career}}</p>	
-							<p>{{r.deadlines}}</p>	
+							<p>{{r.deadlines}}</p>							
+						</div>
+						<div id="m{{r.index}}" class="recruit-more" style="display:none;">
+							<h2 class="text-color">{{r.company_name}}</h2>
+							<div class="recruit-title more">
+								<p class="">{{r.job_title}}</p>
+							</div>
+							<div class="recruit-detail more">
+								<p class="">{{r.job_fields}}</p>
+								<p class="">{{r.required_education}}</p>
+								<p class="">{{r.work_place}}</p>
+							</div>
+							<div  class="recruitcontent more">
+								<p>{{r.required_career}}</p>	
+								<p class="more-btn">{{r.deadlines}}</p>
+															
+							</div>
 						</div>
 					</div>
 				</div>
