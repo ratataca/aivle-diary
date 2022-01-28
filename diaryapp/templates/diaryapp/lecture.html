@@ -61,7 +61,7 @@
 										<td>{{i.date}}</td>
 										<td>{{i.topic}}</td>
 										<td>{{i.detail}}</td>
-										<td>{{i.professor_name}}</td>
+										<td class="tprofessor" id="{{i.professor_id}}" val="{{i.index}}" onclick="pop(this);">{{i.professor_name}}</td>
 									</tr>
 								{% endfor%}	
 								</tbody>
@@ -139,6 +139,7 @@
 
 	</script>
 
+	
 	<div id="myModal" onclick="closepop()">
 	<div class="modal-body">
 		
