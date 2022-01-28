@@ -37,100 +37,89 @@
 	}
 </style>
 
-<section class="feature_area white_feature p_100" style="padding-bottom: 100px;">
+<!--라효 테스트-->
+<section class="feature_area blog_right_sidebar"
+	style="padding-bottom: 100px; background-color: rgb(255, 255, 255); border-color: white; color:#333; ">
+
 	<div class="container">
-		<div class="card " style="border-color: white;">
-			<div class="card-title">
-				<h1>오늘의 <a href="/diaryapp/hire">채용공고</a></h1>
+		<div class="row">
+
+			<div class="col-12">
+				<h2 class="mt-4 mb-4"><a href="/diaryapp/hire">취뽀 일정</a></h2>
 			</div>
-			<div class="card-subtitle">
-				<h4>에이블러 모두 취업뽀개기</h4>
-			</div>
-		</div>
-		<div class="feature_inner row">
+
+			<!--채용 컨텐츠-->
 			{%for r in recruit%}
-			<div class="col-lg-3 col-md-2" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item border">
-					<i class="flaticon-city"></i>
-					<h4>{{r.company_name}}</h4>
-					<p>{{r.job_title}}</p>
+			<div class="col-md-6 col-lg-4">
+				<div class="card-box">
+					<div class="recruit-company" style="color:#333;" id="{{r.index}}" onclick="pop1(this);">
+						<h4><a class="mt-2 recruit-text">{{r.company_name}}</a></h4>
+
+						<div class="recruit-title">
+							<p class="">{{r.job_title}}</p>
+						</div>
+						<div class="recruit-content">
+							<p>{{r.required_career}}</p>
+							<p>{{r.deadlines}}</p>
+						</div>
+
+					</div>
 				</div>
 			</div>
 			{%endfor%}
-			{% comment %}
-			<div class="col-lg-4 col-md-6" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item">
-					<i class="flaticon-skyline"></i>
-					{%for r in recruit_2%}
-					<h4>{{r.company_name}}</h4>
-					<p>{{r.job_title}}</p>
-					{%endfor%}
-				</div>
-			</div>
-			<div class="col-lg-4" onclick="location.href='/diaryapp/hire'" style="cursor: pointer;">
-				<div class="feature_item">
-					<i class="flaticon-sketch"></i>
-					{%for r in recruit_3%}
-					<h4>{{r.company_name}}</h4>
-					<p>{{r.job_title}}</p>
-					{%endfor%}
-				</div>
-			</div>
-			{% endcomment %}
-			<!-- 페이징-->
-			<div id="paging" div style="margin: 0 auto;">
-				<ul class="pagination justify-content-center" style="margin-top: 2rem;">
-					{% if recruit.has_previous %}
-					<li class="page-item">
-						<a class="page-link" href="?&page={{recruit.previous_page_number }}"><svg
-								xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
-								class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-								<path
-									d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-							</svg>
-						</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled">
-						<a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
-								xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
-								class="bi bi-caret-left" viewBox="0 0 16 16">
-								<path
-									d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
-							</svg>
-						</a>
-					</li>
-					{% endif %}
-
-					{% if recruit.has_next %}
-					<li class="page-item">
-						<a class="page-link" href="?&page={{ recruit.next_page_number }}"><svg
-								xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
-								class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-								<path
-									d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-							</svg>
-						</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled">
-						<a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
-								xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
-								class="bi bi-caret-right" viewBox="0 0 16 16">
-								<path
-									d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
-							</svg>
-						</a>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
-			<!-- 페이징 끝 -->
-
 		</div>
-	</div>
+		<!-- 페이징-->
+		<div id="paging" style="margin: 0 auto;">
+			<ul class="pagination justify-content-center" style="margin-top: 2rem;">
+				{% if recruit.has_previous %}
+				<li class="page-item">
+					<a class="page-link" href="?&page={{recruit.previous_page_number }}"><svg
+							xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
+							class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+							<path
+								d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+						</svg>
+					</a>
+				</li>
+				{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
+							xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
+							class="bi bi-caret-left" viewBox="0 0 16 16">
+							<path
+								d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
+						</svg>
+					</a>
+				</li>
+				{% endif %}
 
+				{% if recruit.has_next %}
+				<li class="page-item">
+					<a class="page-link" href="?&page={{ recruit.next_page_number }}"><svg
+							xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
+							class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+							<path
+								d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+						</svg>
+					</a>
+				</li>
+				{% else %}
+				<li class="page-item disabled">
+					<a class="page-link" tabindex="-1" aria-disabled="true" href="#"><svg
+							xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="RGB(20,181,175)"
+							class="bi bi-caret-right" viewBox="0 0 16 16">
+							<path
+								d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
+						</svg>
+					</a>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+		<!-- 페이징 끝 -->
+	</div>
 </section>
+<!--라효 테스트-->
 
 <section class="py-0" id="collection">
 	<div class="container">
@@ -172,9 +161,7 @@
 	</div>
 </section>
 
-
-
-<div class="page-wrapper mt-3  center-block " >
+<div class="page-wrapper mt-3  center-block ">
 	<div class="container-fluid ">
 		<div class="row justify-content-center">
 			<div class="col-15">
@@ -184,7 +171,7 @@
 						<h6 class="card-subtitle">
 					</div>
 					<div class="table-responsive">
-						<table class="public_recruit_calendar" >
+						<table class="public_recruit_calendar">
 							<colgroup>
 								<col style="width:136px;">
 								<col style="width:136px;">
