@@ -61,11 +61,23 @@ def main(request):
     
 
 def diary(request):
-    
-    til=Til.objects.order_by('-index')
+
+    try:
+
+        # 세션 만들기
+        user_id = request.session["user_id"]
+
+    except Exception as e:
+        user_id = ""
+
+    # diary 게시글 조회하는 부분        
+    til = Til.objects.filter(user_id=user_id).order_by('-index')
+
     page = request.GET.get('page','1')
     p = Paginator(til,'1')
     til_list = p.page(page)
+    print("til_list : ", til_list)
+
     #diary sidebar 부분
     lec1 = Lecture.objects.filter(professor_id=0)  
     lec2 = Lecture.objects.filter(professor_id=1)
@@ -224,7 +236,7 @@ def upload(request):
             image_buffer = image.read()
             
             # user 경로가 없을 때
-            image_path_per_user = os.path.join(settings.BASE_DIR, settings.IMAGE_DIR, user_id.replace("@", "_"))
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id.replace("@", "_"))
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
 
@@ -235,13 +247,14 @@ def upload(request):
                 file.write(image_buffer)
 
         # DB 해당 컬럼 저장
-        til = Til(date=current_time, title=title, content=content, img=str(file_list), user=User.objects.get(user_id=user_id))
+        til = Til(date=current_time, title=title, content=content, img="***".join(file_list), user=User.objects.get(user_id=user_id))
         til.save()
 
         return JsonResponse({'code': 200})
 
 
 # 3. 1. 2. 게시글 수정
+@csrf_exempt
 def update(request):
     if request.method == 'POST':
         try:
@@ -251,7 +264,7 @@ def update(request):
             return JsonResponse({'code': 500})
         
         # DB Update를 위해 필요한 고유 키(id)
-        id = request.POST["id"]
+        idx = request.POST["idx"]
 
         # DB 들어가야할 정보
         title = request.POST["title"]
@@ -267,7 +280,7 @@ def update(request):
             image_buffer = image.read()
             
             # user 경로가 없을 때
-            image_path_per_user = os.path.join(settings.BASE_DIR, settings.IMAGE_DIR, user_id.replace("@", "_"))
+            image_path_per_user = os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR, user_id.replace("@", "_"))
             if not os.path.isdir(image_path_per_user):
                 os.mkdir(image_path_per_user)  
 
@@ -278,11 +291,10 @@ def update(request):
                 file.write(image_buffer)
 
         # DB 해당 컬럼 저장
-        til = Til.objects.get(id=id)
-        til.date = current_time
+        til = Til.objects.get(index=idx)
         til.title = title
         til.content = content
-        til.img = str(file_list)
+        til.img = "***".join(file_list)
         # til = Til(date=current_time, title=title, content=content, img=str(file_list), user=User.objects.get(user_id=user_id))
         til.save()
 
@@ -291,8 +303,20 @@ def update(request):
 
 
 # 3. 1. 3. 게시글 삭제
+@csrf_exempt
 def delete(request):
-    pass
+    if request.method == 'POST':
+        
+        # DB Update를 위해 필요한 고유 키(id)
+        idx = request.POST["idx"]
+
+        # DB 해당 컬럼 저장
+        
+        til = Til.objects.filter(index=idx).delete()
+        # til = Til(date=current_time, title=title, content=content, img=str(file_list), user=User.objects.get(user_id=user_id))
+        # til.save()
+
+        return JsonResponse({'code': 200})
 
 
 # 세션 유무 파악

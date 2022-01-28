@@ -155,4 +155,5 @@ STATICFILES_DIRS = [
 
 
 # Custom Variable for Global
-IMAGE_DIR = "images"
+APP_NAME = "diaryapp"
+IMAGE_DIR = "img/til_img"

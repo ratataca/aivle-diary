@@ -9,8 +9,7 @@ def mkdir(path):
 
 def create_env_dir():
     from django.conf import settings
-
-    mkdir(path=os.path.join(settings.BASE_DIR, settings.IMAGE_DIR))
+    mkdir(path=os.path.join(settings.BASE_DIR, settings.APP_NAME, settings.STATIC_URL[1:], settings.IMAGE_DIR))
     
 
 def main():
