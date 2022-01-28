@@ -49,7 +49,9 @@
 								<p id="lecture_content">{{l.detail}}</p>
 							{%endfor%}
 						{%else%}
-							<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+							<div class="lecture_holiday">
+								<h2 id="lecture_title" class="text-center"> "휴일입니다"</h2>
+							</div>
 						{%endif%}
 				</p>
                 <a href="" class="btn btn-sm btn-color float-right">더보기 ></a>
@@ -97,8 +99,8 @@
 						
 						<div class="feature_item border">
 							<p>{{n.company}}</p>
-							<h4 class="news-header">{{n.title}}</h4>
-							<p>{{n.content}}</p>
+							<h4 class="news-header ellipsis2">{{n.title}}</h4>
+							<p class="ellipsis">{{n.content}}</p>
 						</div>
 					</div>
 					{%endfor%}

@@ -141,8 +141,8 @@
 
                     <script>
                         function updateTil(){
-                            $("#message-title").val("message-title");
-                            $("#message-text").text("message-text");
+                            $("#message-title").val(document.getElementById("til_list_title").innerText);
+                            $("#message-text").text(document.getElementById("til_list_content").innerText);
                             
                             $('#exampleModal').modal("show");
 
@@ -150,7 +150,8 @@
                         }
 
                         function deleteTil(){
-                            alert("해당 게시글을 삭제할까요?");
+                            {% comment %} alert("해당 게시글을 삭제할까요?"); {% endcomment %}
+                            deleteDiary();
                         }
                     </script>
 
@@ -163,7 +164,7 @@
                                 <a></a>
                             </div>
                             {%for i in til_list%}
-                            <ul class="blog_meta list">
+                            <ul id="til_list" class="blog_meta list" key="til_list_{{i.index}}">
                                 <li><a href="">작성자 : {{i.user_id}}<i class="lnr lnr-user"></i></a></li>
                                 <li><a href="">{{i.date}}<i class="lnr lnr-calendar-full"></i></a></li>
                                 <li><a href=""><i class="lnr lnr-eye"></i></a></li>
@@ -180,10 +181,10 @@
 
                     <!-- TIL 타이틀 및 게시글  -->
                     <div class="col-lg-9 col-md-9 blog_details">
-                        <h2>{{i.title}}</h2>
-                        <p class="excert">
+                        <h2 id="til_list_title">{{i.title}}</h2>
+                        <p class="excert" id="til_list_content">
                             {{i.content}}
-                            {%endfor%}
+                            
                         </p>
                     </div>
 
@@ -191,8 +192,27 @@
                     <div class="img-area">
                         <div class="col-lg-12">
                             <div class="feature-img">
-                                <a href="{% static 'img/blog/feature-img.jpg' %}" download><img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}"></a>
+                                {% comment %} <a href="{% static 'img/blog/feature-img.jpg' %}" download><img class="img-fluid" src="{% static 'img/blog/feature-img.jpg' %}"></a> {% endcomment %}
+
+                                <script>
+                                    console.log('img/til_img/' + '{{i.user_id}}' + "/" + '{{i.img.index0}}');
+                                    console.log('{{i.img}}');
+                                    {% comment %} console.log('{{i.img[loop.index0]}}'); {% endcomment %}
+                                </script>
+
+                                {% comment %} {% with test=i.img %}
+                                    {% for skill in test|split:"***" %}
+                                        {{ skill }}
+                                    {% endfor %}
+                                    {% endwith %} {% endcomment %}
+                                {% comment %} {% for list in list1 %}
+                                <p>{{ list }}</p>
+                                {% endfor %} {% endcomment %}
+                                <a href="{% static 'img/blog/feature-img.jpg' %}">
+                                    {% comment %} <img class="img-fluid" src="{% static '{{}}' %}"> {% endcomment %}
+                                </a>
                             </div>
+                            {%endfor%}
                         </div>
                     </div>
                     
@@ -344,26 +364,32 @@
 <script>
     function uploadDiary(){
         const url = isCreateModal ? "http://127.0.0.1:8000/diaryapp/diary/api/upload" : "http://127.0.0.1:8000/diaryapp/diary/api/update";
-        isCreateModal = true;
-        
-        const csrftoken = getCookie("csrftoken");
+        var idx = "";
+        if(isCreateModal === false){
+            idx = document.getElementById("til_list").getAttribute("key").split("_")[2];
+        }
 
+        const csrftoken = getCookie("csrftoken");
+        
         const title = document.getElementById("message-title").value;
         const content = document.getElementById("message-text").value;
         
-        console.log(title + "  " + content);
         
         // 파일을 여러개 선택할 수 있으므로 files 라는 객체
         const imageInput = $("#imageInput")[0];
-        console.log(imageInput);
-        console.log("imageInput: ", imageInput.files)
         
         const formData = new FormData();
         
-        formData.append("id", 3);
+        if(isCreateModal === false){
+            formData.append("idx", Number(idx));    
+        }
+        
         formData.append("title", title);
         formData.append("content", content);
         
+        
+
+        isCreateModal = true;
         for(var i = 0 ; i < imageInput.files.length ; i++){
             formData.append(imageInput.files[i].name, imageInput.files[i]);
         }
@@ -378,6 +404,8 @@
                 if(res.code == 200) {
                     $('#exampleModal').modal("hide");
                     alert("성공적으로 저장되었습니다.");
+
+                    location.reload();
                 }else if (res.code == 500) {
                     alert("로그인이 필요합니다.")
                 }
@@ -386,6 +414,37 @@
                 }
 
                 
+            },
+            err: function(err){
+                console.log("err:", err)
+            }
+        }) 
+    }
+
+    function deleteDiary(){
+        var idx = document.getElementById("til_list").getAttribute("key").split("_")[2];
+        const formData = new FormData();
+
+        formData.append("idx", Number(idx));    
+
+        $.ajax({
+            url: "http://127.0.0.1:8000/diaryapp/diary/api/delete",
+            type:"post",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function(res){
+                if(res.code == 200) {
+                    $('#exampleModal').modal("hide");
+                    alert("성공적으로 삭제되었습니다.");
+
+                    location.reload();
+                }else if (res.code == 500) {
+                    alert("로그인이 필요합니다.")
+                }
+                else{
+                    alert("TIL 삭제가 실패하였습니다.")
+                }
             },
             err: function(err){
                 console.log("err:", err)
