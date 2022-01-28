@@ -128,6 +128,7 @@ def team(request):
 #   위 Front쪽 추가 됨
 
 # 2. 2. 회원가입
+@csrf_exempt
 def signup_user(request):
     if request.method == 'POST':
         req = json.loads(request.body.decode('utf-8'))
@@ -135,7 +136,7 @@ def signup_user(request):
         user_pw = req["user_pw"]#request.POST.get('user_pw')
         user_name = req["user_name"]#request.POST.get('user_name')
         
-        print(user_id, user_pw, user_name)
+
 
         # TODO 기존 사용자 동일한 id 있는지?
         # TODO 이메일 정규식 추가

@@ -165,31 +165,26 @@
 
                                 console.log("회원가입 이벤트 ");
 
-                                if(isUnique()==true){
-                                    const user_name = document.getElementsByName("register_name")[0].value;
-                                    const user_id = document.getElementsByName("register_id")[0].value;
-                                    const user_pw = document.getElementsByName("register_pw")[0].value;
-                            
-                                    const data = axios.post('/diaryapp/api/user/signup', {
-                                        'user_id': user_id, 
-                                        'user_pw': user_pw,
-                                        'user_name': user_name
-                                    }).then(function (result) {
-                                        const data = result.data;
-                                        console.log(data);
-                                        if(data.isLogined){
-                                            offModal()
-                                            document.getElementById("login_id").value = user_id;
-                                            document.getElementById("login_pwd").value = user_pw;
-                                        }
-                                        else{
-                                            alert("회원가입에 실패하였습니다.");
-                                        }
-                                    });
-                                }
-                                else{
-                                    return;
-                                }
+                                const user_name = document.getElementsByName("register_name")[0].value;
+                                const user_id = document.getElementsByName("register_id")[0].value;
+                                const user_pw = document.getElementsByName("register_pw")[0].value;
+                        
+                                const data = axios.post('/diaryapp/api/user/signup', {
+                                    'user_id': user_id, 
+                                    'user_pw': user_pw,
+                                    'user_name': user_name
+                                }).then(function (result) {
+                                    const data = result.data;
+                                    console.log(data);
+                                    if(data.isLogined){
+                                        offModal()
+                                        document.getElementById("login_id").value = user_id;
+                                        document.getElementById("login_pwd").value = user_pw;
+                                    }
+                                    else{
+                                        alert("회원가입에 실패하였습니다.");
+                                    }
+                                });
                             }                            
                         </script>
                     </div>
