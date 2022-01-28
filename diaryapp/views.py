@@ -63,7 +63,7 @@ def main(request):
 def diary(request):
 
     try:
-
+        
         # 세션 만들기
         user_id = request.session["user_id"]
 
@@ -83,8 +83,9 @@ def diary(request):
     lec2 = Lecture.objects.filter(professor_id=1)
     lec3 = Lecture.objects.filter(professor_id=2)
     lec4 = Lecture.objects.filter(professor_id=5)
+    user_name=request.session["user_name"]
     return render(request, 'diaryapp/diary.html', 
-        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4,'til_list':til_list})
+        {'lec1':lec1, 'lec2':lec2,'lec3':lec3,'lec4':lec4,'til_list':til_list,'id1':user_id,'name1':user_name})
 
 
 
